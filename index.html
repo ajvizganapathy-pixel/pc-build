@@ -1,159 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Dream Build</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
+
 <style>
-  :root {
-    --bg: #020617;
-    --card: #0a1628;
-    --border: #1e3a5f;
-    --blue: #3b82f6;
-    --text: #e2e8f0;
-    --muted: #64748b;
-    --green: #22c55e;
-    --green-dim: #166534;
-    --red: #ef4444;
-    --red-dim: #7f1d1d;
-  }
+:root{
+  --blue:#3b82f6;
+  --card:#0a1628cc;
+  --border:#1e3a5f;
+  --text:#e2e8f0;
+  --muted:#94a3b8;
+}
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+*{margin:0;padding:0;box-sizing:border-box;}
 
-  body {
-    font-family: 'Rajdhani', sans-serif;
-    background:
-      linear-gradient(rgba(2,6,23,0.9), rgba(2,6,23,0.95)),
-      url("https://images.unsplash.com/photo-1587202372775-e229f172b9d7?q=80&w=1600&auto=format&fit=crop");
-    background-size: cover;
-    background-attachment: fixed;
-    color: var(--text);
-    min-height: 100vh;
-  }
+body{
+  font-family:'Rajdhani',sans-serif;
+  color:var(--text);
+  background:black;
+}
 
-  /* subtle animated glow */
-  body::after {
-    content:'';
-    position:fixed;
-    inset:0;
-    background: radial-gradient(circle at 20% 30%, rgba(59,130,246,0.15), transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(34,197,94,0.1), transparent 40%);
-    animation: pulseGlow 6s infinite alternate;
-    pointer-events:none;
-  }
+/* 🔥 ASUS BACKGROUND */
+.bg{
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(to bottom, rgba(2,6,23,0.4), rgba(2,6,23,0.9)),
+    url("https://dlcdnwebimgs.asus.com/gain/6A8AEB3C-ROG-Helios-case.jpg"); /* ASUS style image */
+  background-size:cover;
+  background-position:center;
+  z-index:-2;
+}
 
-  @keyframes pulseGlow {
-    from { opacity:0.4; }
-    to   { opacity:0.8; }
-  }
+/* LIGHT GLOW */
+.bg::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at center, rgba(59,130,246,0.25), transparent 60%);
+}
 
-  .container {
-    max-width: 860px;
-    margin: auto;
-    padding: 20px 16px 60px;
-  }
+/* CONTAINER */
+.container{
+  max-width:850px;
+  margin:auto;
+  padding:20px;
+}
 
-  .hero {
-    text-align: center;
-    padding: 60px 20px 30px;
-  }
+/* HERO */
+.hero{
+  text-align:center;
+  padding:80px 10px 40px;
+}
 
-  .hero h1 {
-    font-family: 'Orbitron', sans-serif;
-    font-size: clamp(22px, 5vw, 36px);
-    color: var(--blue);
-    text-shadow: 0 0 25px rgba(59,130,246,0.6);
-  }
+.hero h1{
+  font-family:'Orbitron';
+  color:var(--blue);
+  font-size:32px;
+  text-shadow:0 0 20px rgba(59,130,246,0.8);
+}
 
-  .hero p {
-    color: var(--muted);
-    margin-top: 8px;
-    letter-spacing: 3px;
-  }
+.hero p{
+  color:var(--muted);
+  letter-spacing:3px;
+  margin-top:8px;
+}
 
-  .card {
-    background: rgba(10,22,40,0.85);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 24px;
-    margin-top: 24px;
-    transition: 0.3s;
-  }
+/* CARD */
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:20px;
+  margin-top:20px;
+  backdrop-filter:blur(10px);
+}
 
-  .card:hover {
-    box-shadow: 0 0 30px rgba(59,130,246,0.2);
-    transform: translateY(-2px);
-  }
+/* SECTION TITLE */
+.card h2{
+  font-family:'Orbitron';
+  font-size:14px;
+  color:#60a5fa;
+  margin-bottom:15px;
+  border-left:3px solid var(--blue);
+  padding-left:10px;
+}
 
-  .card h2 {
-    font-family: 'Orbitron';
-    color: #60a5fa;
-    font-size: 15px;
-    margin-bottom: 18px;
-    border-left: 3px solid var(--blue);
-    padding-left: 12px;
-  }
+/* ITEMS */
+.item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 0;
+  border-bottom:1px solid #132a4a;
+}
 
-  .item {
-    display: grid;
-    grid-template-columns: 1fr auto auto;
-    gap: 10px;
-    padding: 13px 0;
-    border-bottom: 1px solid #0f2040;
-  }
+.item:last-child{border:none;}
 
-  .item-name { font-weight: 600; }
+.name{font-weight:600;}
+.price{color:#93c5fd;}
 
-  .item-price {
-    font-family: 'Orbitron';
-    color: #93c5fd;
-  }
+/* BUTTON */
+.btn{
+  font-size:12px;
+  padding:4px 10px;
+  border-radius:6px;
+  text-decoration:none;
+  border:1px solid #22c55e;
+  color:#22c55e;
+}
 
-  .btn-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    padding: 5px 10px;
-    border-radius: 6px;
-    font-size: 12px;
-    text-decoration: none;
-    transition: 0.2s;
-  }
+/* TOTAL */
+.total{
+  text-align:center;
+  margin-top:15px;
+  padding:12px;
+  background:linear-gradient(90deg,#1d4ed8,#3b82f6);
+  border-radius:10px;
+  font-family:'Orbitron';
+}
 
-  .btn-link:hover { transform: scale(1.05); }
+/* PERFORMANCE */
+.perf li{
+  margin:8px 0;
+}
 
-  .btn-green {
-    background: var(--green-dim);
-    color: var(--green);
-    border: 1px solid var(--green);
-  }
+/* FOOTER */
+.footer{
+  text-align:center;
+  margin-top:40px;
+  color:#64748b;
+}
 
-  .btn-red {
-    background: var(--red-dim);
-    color: var(--red);
-    border: 1px solid var(--red);
-  }
-
-  .dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-  }
-
-  .dot-green { background: var(--green); }
-  .dot-red { background: var(--red); }
-
-  .total {
-    text-align: center;
-    background: linear-gradient(90deg,#1d4ed8,#3b82f6);
-    padding: 14px;
-    border-radius: 10px;
-    margin-top: 18px;
-    font-family: 'Orbitron';
-  }
-
-  .footer {
-    text-align:center;
-    margin-top:30px;
-    color:var(--muted);
-  }
-
-  @media(max-width:520px){
-    .item { grid-template-columns:1fr; }
-  }
+/* MOBILE */
+@media(max-width:520px){
+  .item{flex-direction:column; align-items:flex-start;}
+}
 </style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+
+<div class="container">
+
+<!-- HERO -->
+<div class="hero">
+  <h1>🚀 My Dream Build</h1>
+  <p>ROG HELIOS • EXTREME PERFORMANCE</p>
+</div>
+
+<!-- CORE -->
+<div class="card">
+  <h2>⚡ Core Components</h2>
+
+  <div class="item">
+    <span class="name">G.Skill Trident Z5 64GB</span>
+    <span class="price">₹88,400</span>
+    <a class="btn" href="https://www.amazon.in/s?k=Trident+Z5+DDR5" target="_blank">Buy</a>
+  </div>
+
+  <div class="item">
+    <span class="name">Ryzen 9 9950X3D</span>
+    <span class="price">₹79,000</span>
+    <a class="btn" href="https://www.amazon.in/s?k=Ryzen+9+9950X3D" target="_blank">Buy</a>
+  </div>
+
+  <div class="item">
+    <span class="name">X870E AORUS Elite</span>
+    <span class="price">₹33,999</span>
+    <a class="btn" href="https://www.amazon.in/s?k=X870E+AORUS" target="_blank">Buy</a>
+  </div>
+
+  <div class="item">
+    <span class="name">Samsung 9100 Pro 8TB</span>
+    <span class="price">₹1,59,899</span>
+    <span style="color:red;">Unavailable</span>
+  </div>
+
+  <div class="item">
+    <span class="name">RTX 5070 Ti</span>
+    <span class="price">₹1,34,409</span>
+    <a class="btn" href="https://www.amazon.in/s?k=RTX+5070+Ti" target="_blank">Buy</a>
+  </div>
+
+  <div class="total">Core Total: ₹4,95,707</div>
+</div>
+
+<!-- SYSTEM -->
+<div class="card">
+  <h2>🧊 Full System</h2>
+  <ul>
+    <li>ROG Helios Cabinet (420mm Modified)</li>
+    <li>ROG Thor 1200W Platinum PSU</li>
+    <li>NZXT Kraken Elite 420 AIO</li>
+    <li>64GB DDR5 RAM</li>
+    <li>Gen5 SSD + RTX GPU</li>
+  </ul>
+
+  <div class="total">Total Build: ₹6,91,094</div>
+</div>
+
+<!-- PERFORMANCE -->
+<div class="card">
+  <h2>🎯 Performance</h2>
+  <ul class="perf">
+    <li>🔥 4K Ultra Gaming</li>
+    <li>🧠 AI Ready</li>
+    <li>🎬 Rendering Beast</li>
+    <li>⚡ Ultra Fast Storage</li>
+  </ul>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  Built by <b style="color:#3b82f6;">Anjan Ganapathy</b> 🚀
+</div>
+
+</div>
+
+</body>
+</html>
