@@ -3,257 +3,191 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>My Dream Build</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
+<meta property="og:title" content="🚀 My Dream PC Build">
+<meta property="og:description" content="High-End Workstation • No Compromise">
+<meta property="og:image" content="https://dlcdnwebimgs.asus.com/gain/6A8AEB3C-ROG-Strix-Helios-case.png">
+<meta property="og:url" content="https://ajvizganapathy-pixel.github.io/pc-build/">
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-:root{
-  --blue:#3b82f6;
-  --card:#0a1628cc;
-  --border:#1e3a5f;
-  --text:#e2e8f0;
-  --muted:#94a3b8;
-}
-
-*{margin:0;padding:0;box-sizing:border-box;}
-
 body{
+  margin:0;
   font-family:'Rajdhani',sans-serif;
-  color:var(--text);
-  background:black;
-}
-
-/* ASUS BACKGROUND */
-.bg{
-  position:fixed;
-  inset:0;
+  color:#e2e8f0;
   background:
-    linear-gradient(to bottom, rgba(2,6,23,0.4), rgba(2,6,23,0.9)),
-    url("https://dlcdnwebimgs.asus.com/gain/6A8AEB3C-ROG-Strix-Helios-case.png");
+  linear-gradient(rgba(2,6,23,0.9), rgba(2,6,23,0.95)),
+  url("https://dlcdnwebimgs.asus.com/gain/6A8AEB3C-ROG-Strix-Helios-case.png");
   background-size:cover;
   background-position:center;
-  z-index:-1;
 }
 
-/* CONTAINER */
 .container{
-  max-width:850px;
+  max-width:900px;
   margin:auto;
   padding:20px;
 }
 
-/* HERO */
-.hero{
-  text-align:center;
-  padding:80px 10px 40px;
-}
-
-.hero h1{
+h1{
   font-family:'Orbitron';
-  color:var(--blue);
-  font-size:32px;
-  text-shadow:0 0 20px rgba(59,130,246,0.8);
+  text-align:center;
+  color:#3b82f6;
+  margin-top:40px;
 }
 
-.hero p{
-  color:var(--muted);
-  letter-spacing:3px;
-  margin-top:8px;
+.subtitle{
+  text-align:center;
+  color:#94a3b8;
+  margin-bottom:30px;
 }
 
-/* CARD */
 .card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:14px;
+  background:#0a1628cc;
+  border:1px solid #1e3a5f;
+  border-radius:12px;
   padding:20px;
   margin-top:20px;
-  backdrop-filter:blur(10px);
 }
 
-/* TITLE */
-.card h2{
-  font-family:'Orbitron';
-  font-size:14px;
-  color:#60a5fa;
-  margin-bottom:15px;
-  border-left:3px solid var(--blue);
-  padding-left:10px;
+.component{
+  margin-bottom:18px;
+  padding-bottom:12px;
+  border-bottom:1px solid #1e293b;
 }
 
-/* ITEM */
-.item{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:12px 0;
-  border-bottom:1px solid #132a4a;
+.component:last-child{
+  border:none;
 }
 
-.item:last-child{border:none;}
+.name{
+  font-weight:bold;
+  font-size:15px;
+}
 
-.name{font-weight:600;}
-.price{color:#93c5fd;}
+.price{
+  color:#93c5fd;
+  font-weight:bold;
+  margin:4px 0 8px;
+}
 
-/* BUTTON */
 .btn{
+  display:inline-block;
+  margin:3px 4px 3px 0;
+  padding:5px 10px;
   font-size:12px;
-  padding:4px 10px;
   border-radius:6px;
   text-decoration:none;
-  border:1px solid #22c55e;
-  color:#22c55e;
-  margin-right:5px;
-  display:inline-block;
+  font-weight:bold;
 }
 
-/* TOTAL */
+.amazon{background:#166534;color:#22c55e;border:1px solid #22c55e;}
+.md{background:#1e40af;color:#93c5fd;border:1px solid #3b82f6;}
+.prime{background:#581c87;color:#c084fc;border:1px solid #a855f7;}
+.vedant{background:#78350f;color:#facc15;border:1px solid #eab308;}
+.pcstudio{background:#374151;color:#9ca3af;border:1px solid #6b7280;}
+
+.unavailable{
+  color:#ef4444;
+  font-weight:bold;
+}
+
 .total{
   text-align:center;
-  margin-top:15px;
+  background:#3b82f6;
   padding:12px;
-  background:linear-gradient(90deg,#1d4ed8,#3b82f6);
-  border-radius:10px;
+  border-radius:8px;
+  margin-top:15px;
   font-family:'Orbitron';
 }
 
-/* LIST */
-.links li{
-  margin:12px 0;
-}
-
-/* PERFORMANCE */
-.perf li{
-  margin:8px 0;
-}
-
-/* FOOTER */
 .footer{
   text-align:center;
-  margin-top:40px;
+  margin-top:30px;
   color:#64748b;
-}
-
-/* MOBILE */
-@media(max-width:520px){
-  .item{flex-direction:column; align-items:flex-start;}
 }
 </style>
 </head>
 
 <body>
 
-<div class="bg"></div>
-
 <div class="container">
 
-<!-- HERO -->
-<div class="hero">
-  <h1>🚀 My Dream Build</h1>
-  <p>ROG HELIOS • EXTREME PERFORMANCE</p>
-</div>
+<h1>🚀 My Dream Build</h1>
+<p class="subtitle">High-End Workstation • No Compromise</p>
 
-<!-- CORE COMPONENTS -->
 <div class="card">
-  <h2>⚡ Core Components</h2>
+<h3>Core Components</h3>
 
-  <div class="item">
-    <span class="name">G.Skill Trident Z5 64GB</span>
-    <span class="price">₹88,400</span>
-    <a class="btn" href="https://www.amazon.in/s?k=G.Skill+Trident+Z5+DDR5+64GB" target="_blank">Buy</a>
-  </div>
-
-  <div class="item">
-    <span class="name">Ryzen 9 9950X3D</span>
-    <span class="price">₹79,000</span>
-    <a class="btn" href="https://www.amazon.in/s?k=Ryzen+9+9950X3D" target="_blank">Buy</a>
-  </div>
-
-  <div class="item">
-    <span class="name">X870E AORUS Elite</span>
-    <span class="price">₹33,999</span>
-    <a class="btn" href="https://www.amazon.in/s?k=X870E+AORUS+Elite" target="_blank">Buy</a>
-  </div>
-
-  <div class="item">
-    <span class="name">Samsung 9100 Pro 8TB</span>
-    <span class="price">₹1,59,899</span>
-    <span style="color:red;">Unavailable</span>
-  </div>
-
-  <div class="item">
-    <span class="name">RTX 5070 Ti</span>
-    <span class="price">₹1,34,409</span>
-    <a class="btn" href="https://www.amazon.in/s?k=RTX+5070+Ti" target="_blank">Buy</a>
-  </div>
-
-  <div class="total">Core Total: ₹4,95,707</div>
+<!-- RAM -->
+<div class="component">
+<div class="name">G.Skill Trident Z5 DDR5 64GB</div>
+<div class="price">₹88,400</div>
+<a class="btn amazon" href="https://www.amazon.in/s?k=Trident+Z5+DDR5" target="_blank">Amazon</a>
+<a class="btn md" href="https://mdcomputers.in/search?search=Trident+Z5" target="_blank">MD</a>
+<a class="btn prime" href="https://www.primeabgb.com/?s=Trident+Z5&post_type=product" target="_blank">Prime</a>
+<a class="btn vedant" href="https://www.vedantcomputers.com/index.php?route=product/search&search=Trident+Z5" target="_blank">Vedant</a>
 </div>
 
-<!-- ALTERNATE LINKS -->
+<!-- CPU -->
+<div class="component">
+<div class="name">Ryzen 9 9950X3D</div>
+<div class="price">₹79,000</div>
+<a class="btn amazon" href="https://www.amazon.in/s?k=Ryzen+9+9950X3D" target="_blank">Amazon</a>
+<a class="btn md" href="https://mdcomputers.in/search?search=9950X3D" target="_blank">MD</a>
+<a class="btn pcstudio" href="https://www.pcstudio.in/?s=9950X3D&post_type=product" target="_blank">PCStudio</a>
+<a class="btn vedant" href="https://www.vedantcomputers.com/index.php?route=product/search&search=Ryzen+9" target="_blank">Vedant</a>
+</div>
+
+<!-- MOTHERBOARD -->
+<div class="component">
+<div class="name">X870E AORUS Elite</div>
+<div class="price">₹33,999</div>
+<a class="btn amazon" href="https://www.amazon.in/s?k=X870E+AORUS" target="_blank">Amazon</a>
+<a class="btn md" href="https://mdcomputers.in/search?search=X870E" target="_blank">MD</a>
+<a class="btn prime" href="https://www.primeabgb.com/?s=X870E&post_type=product" target="_blank">Prime</a>
+<a class="btn pcstudio" href="https://www.pcstudio.in/?s=X870E&post_type=product" target="_blank">PCStudio</a>
+</div>
+
+<!-- SSD -->
+<div class="component">
+<div class="name">Samsung 9100 Pro 8TB</div>
+<div class="price">₹1,59,899</div>
+<span class="unavailable">Unavailable</span><br>
+<a class="btn amazon" href="https://www.amazon.in/s?k=Samsung+Gen5+SSD" target="_blank">Amazon</a>
+<a class="btn md" href="https://mdcomputers.in/search?search=Samsung+SSD" target="_blank">MD</a>
+<a class="btn prime" href="https://www.primeabgb.com/?s=Samsung+SSD&post_type=product" target="_blank">Prime</a>
+<a class="btn vedant" href="https://www.vedantcomputers.com/index.php?route=product/search&search=Samsung+NVMe" target="_blank">Vedant</a>
+</div>
+
+<!-- GPU -->
+<div class="component">
+<div class="name">RTX 5070 Ti</div>
+<div class="price">₹1,34,409</div>
+<a class="btn amazon" href="https://www.amazon.in/s?k=RTX+5070+Ti" target="_blank">Amazon</a>
+<a class="btn md" href="https://mdcomputers.in/search?search=RTX+5070+Ti" target="_blank">MD</a>
+<a class="btn prime" href="https://www.primeabgb.com/?s=5070+Ti&post_type=product" target="_blank">Prime</a>
+<a class="btn pcstudio" href="https://www.pcstudio.in/?s=5070+Ti&post_type=product" target="_blank">PCStudio</a>
+</div>
+
+<div class="total">Core Total: ₹4,95,707</div>
+
+</div>
+
 <div class="card">
-  <h2>🌐 Alternate Sources</h2>
-
-  <ul class="links">
-
-    <li>
-      <strong>G.Skill Trident Z5 DDR5 64GB</strong><br>
-      <a class="btn" href="https://www.amazon.in/s?k=G.Skill+Trident+Z5+DDR5+64GB" target="_blank">Amazon</a>
-      <a class="btn" href="https://mdcomputers.in/search?search=Trident+Z5+DDR5" target="_blank">MD</a>
-      <a class="btn" href="https://www.primeabgb.com/?s=Trident+Z5&post_type=product" target="_blank">PrimeABGB</a>
-      <a class="btn" href="https://www.vedantcomputers.com/index.php?route=product/search&search=Trident+Z5" target="_blank">Vedant</a>
-    </li>
-
-    <li>
-      <strong>Ryzen 9 9950X3D</strong><br>
-      <a class="btn" href="https://www.amazon.in/s?k=Ryzen+9+9950X3D" target="_blank">Amazon</a>
-      <a class="btn" href="https://mdcomputers.in/search?search=9950X3D" target="_blank">MD</a>
-      <a class="btn" href="https://www.pcstudio.in/?s=9950X3D&post_type=product" target="_blank">PC Studio</a>
-      <a class="btn" href="https://www.vedantcomputers.com/index.php?route=product/search&search=Ryzen+9" target="_blank">Vedant</a>
-    </li>
-
-    <li>
-      <strong>X870E AORUS Elite</strong><br>
-      <a class="btn" href="https://www.amazon.in/s?k=X870E+AORUS+Elite" target="_blank">Amazon</a>
-      <a class="btn" href="https://mdcomputers.in/search?search=X870E+AORUS" target="_blank">MD</a>
-      <a class="btn" href="https://www.primeabgb.com/?s=X870E&post_type=product" target="_blank">PrimeABGB</a>
-      <a class="btn" href="https://www.pcstudio.in/?s=X870E&post_type=product" target="_blank">PC Studio</a>
-    </li>
-
-    <li>
-      <strong>Samsung 9100 Pro 8TB</strong><br>
-      <a class="btn" href="https://www.amazon.in/s?k=Samsung+9100+Pro+SSD" target="_blank">Amazon</a>
-      <a class="btn" href="https://www.primeabgb.com/?s=Samsung+9100+Pro&post_type=product" target="_blank">PrimeABGB</a>
-      <a class="btn" href="https://www.vedantcomputers.com/index.php?route=product/search&search=Samsung+NVMe" target="_blank">Vedant</a>
-      <a class="btn" href="https://mdcomputers.in/search?search=Samsung+Gen5+SSD" target="_blank">MD</a>
-    </li>
-
-    <li>
-      <strong>RTX 5070 Ti</strong><br>
-      <a class="btn" href="https://www.amazon.in/s?k=RTX+5070+Ti" target="_blank">Amazon</a>
-      <a class="btn" href="https://mdcomputers.in/search?search=RTX+5070+Ti" target="_blank">MD</a>
-      <a class="btn" href="https://www.pcstudio.in/?s=5070+Ti&post_type=product" target="_blank">PC Studio</a>
-      <a class="btn" href="https://www.primeabgb.com/?s=5070+Ti&post_type=product" target="_blank">PrimeABGB</a>
-    </li>
-
-  </ul>
+<h3>Performance</h3>
+<ul>
+<li>🔥 4K Ultra Gaming</li>
+<li>🧠 AI Ready</li>
+<li>🎬 Rendering Beast</li>
+<li>⚡ Ultra Fast Storage</li>
+</ul>
 </div>
 
-<!-- PERFORMANCE -->
-<div class="card">
-  <h2>🎯 Performance</h2>
-  <ul class="perf">
-    <li>🔥 4K Ultra Gaming</li>
-    <li>🧠 AI Ready</li>
-    <li>🎬 Rendering Beast</li>
-    <li>⚡ Ultra Fast Storage</li>
-  </ul>
-</div>
-
-<!-- FOOTER -->
 <div class="footer">
-  Built by <b style="color:#3b82f6;">Anjan Ganapathy</b> 🚀
+Built by <b>Anjan Ganapathy</b> 🚀
 </div>
 
 </div>
