@@ -24,24 +24,16 @@ body{
   background:black;
 }
 
-/* 🔥 ASUS BACKGROUND */
+/* ASUS ROG BACKGROUND */
 .bg{
   position:fixed;
   inset:0;
   background:
     linear-gradient(to bottom, rgba(2,6,23,0.4), rgba(2,6,23,0.9)),
-    url("https://dlcdnwebimgs.asus.com/gain/6A8AEB3C-ROG-Helios-case.jpg"); /* ASUS style image */
+    url("https://dlcdnwebimgs.asus.com/gain/6A8AEB3C-ROG-Strix-Helios-case.png");
   background-size:cover;
   background-position:center;
-  z-index:-2;
-}
-
-/* LIGHT GLOW */
-.bg::after{
-  content:'';
-  position:absolute;
-  inset:0;
-  background:radial-gradient(circle at center, rgba(59,130,246,0.25), transparent 60%);
+  z-index:-1;
 }
 
 /* CONTAINER */
@@ -80,7 +72,7 @@ body{
   backdrop-filter:blur(10px);
 }
 
-/* SECTION TITLE */
+/* TITLE */
 .card h2{
   font-family:'Orbitron';
   font-size:14px;
@@ -90,7 +82,7 @@ body{
   padding-left:10px;
 }
 
-/* ITEMS */
+/* ITEM */
 .item{
   display:flex;
   justify-content:space-between;
@@ -155,7 +147,7 @@ body{
   <p>ROG HELIOS • EXTREME PERFORMANCE</p>
 </div>
 
-<!-- CORE -->
+<!-- CORE COMPONENTS -->
 <div class="card">
   <h2>⚡ Core Components</h2>
 
@@ -190,20 +182,6 @@ body{
   </div>
 
   <div class="total">Core Total: ₹4,95,707</div>
-</div>
-
-<!-- SYSTEM -->
-<div class="card">
-  <h2>🧊 Full System</h2>
-  <ul>
-    <li>ROG Helios Cabinet (420mm Modified)</li>
-    <li>ROG Thor 1200W Platinum PSU</li>
-    <li>NZXT Kraken Elite 420 AIO</li>
-    <li>64GB DDR5 RAM</li>
-    <li>Gen5 SSD + RTX GPU</li>
-  </ul>
-
-  <div class="total">Total Build: ₹6,91,094</div>
 </div>
 
 <!-- PERFORMANCE -->
