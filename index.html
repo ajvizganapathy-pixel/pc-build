@@ -2,12 +2,12 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flagship PC Build</title>
+<title>My Dream Build</title>
 
 <style>
 body {
   margin:0;
-  font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Arial;
+  font-family:-apple-system, BlinkMacSystemFont, "Segoe UI";
   background:#0b1220;
   color:#e6edf3;
 }
@@ -23,19 +23,23 @@ body {
   padding:20px;
   border-radius:16px;
   margin-bottom:20px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.5);
+  animation:fadeUp 0.6s ease;
+}
+
+@keyframes fadeUp {
+  from {opacity:0; transform:translateY(20px);}
+  to {opacity:1; transform:translateY(0);}
 }
 
 h1 {
-  color:#3b82f6;
   text-align:center;
-  margin-bottom:5px;
+  color:#3b82f6;
 }
 
 .sub {
   text-align:center;
   color:#94a3b8;
-  margin-bottom:30px;
+  margin-bottom:20px;
 }
 
 .section {
@@ -44,25 +48,38 @@ h1 {
 }
 
 .item {
-  display:flex;
-  justify-content:space-between;
   padding:12px 0;
   border-bottom:1px solid #1e293b;
 }
 
+.row {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.btn {
+  padding:6px 10px;
+  background:#1f2937;
+  border-radius:6px;
+  text-decoration:none;
+  color:#93c5fd;
+  font-size:12px;
+}
+
+.green { color:#22c55e; }
+.red { color:#ef4444; }
+
 .total {
   text-align:center;
   background:#3b82f6;
-  padding:15px;
+  padding:14px;
   border-radius:10px;
-  font-weight:bold;
   margin-top:15px;
+  font-weight:bold;
 }
 
-ul {
-  padding-left:20px;
-  line-height:1.6;
-}
+ul { padding-left:20px; }
 </style>
 </head>
 
@@ -70,49 +87,4 @@ ul {
 
 <div class="container">
 
-<h1>🚀 Flagship PC Build</h1>
-<p class="sub">High-End Workstation • No Compromise</p>
-
-<div class="card">
-<h3 class="section">Core Components</h3>
-
-<div class="item"><span>G.Skill Trident Z5 DDR5 64GB (6000MHz)</span><span>₹88,400</span></div>
-<div class="item"><span>AMD Ryzen 9 9950X3D</span><span>₹79,000</span></div>
-<div class="item"><span>Gigabyte X870E AORUS Elite WiFi7</span><span>₹33,999</span></div>
-<div class="item"><span>Samsung 9100 Pro 8TB Gen5 NVMe</span><span>₹1,59,899</span></div>
-<div class="item"><span>ZOTAC RTX 5070 Ti AMP Extreme</span><span>₹1,34,409</span></div>
-
-<div class="total">Core Total: ₹4,95,707</div>
-</div>
-
-<div class="card">
-<h3 class="section">Full System</h3>
-
-<ul>
-<li>ROG Helios Cabinet (420mm Modded)</li>
-<li>ROG Thor 1200W Platinum PSU</li>
-<li>NZXT Kraken Elite 420 AIO</li>
-<li>64GB DDR5 RAM</li>
-<li>Gen5 SSD + High-end GPU</li>
-</ul>
-
-<div class="total">Total Build Cost: ₹6,91,094</div>
-</div>
-
-<div class="card">
-<h3 class="section">Performance</h3>
-
-<ul>
-<li>🔥 4K Ultra Gaming</li>
-<li>🧠 AI / Machine Learning Ready</li>
-<li>🎬 Blender / Rendering Beast</li>
-<li>⚡ Ultra-fast Storage</li>
-<li>❄️ Stable thermals with 420mm AIO</li>
-</ul>
-
-</div>
-
-</div>
-
-</body>
-</html>
+<h1>🚀 
