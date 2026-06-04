@@ -1,650 +1,1387 @@
+```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Dream Build • High-End Workstation</title>
-<meta name="description" content="Anjan's dream high-end PC build: AMD Ryzen 9 9950X3D, RTX 5070 Ti, 64GB DDR5, Samsung Gen5 NVMe SSD. Total ₹4,95,707.">
-<meta name="author" content="Anjan Ganapathy">
-<meta name="keywords" content="PC build, AMD Ryzen 9950X3D, RTX 5070 Ti, DDR5, NVMe Gen5, high-end workstation">
-
-<!-- Open Graph -->
-<meta property="og:title" content="My Dream Build • High-End Workstation">
-<meta property="og:description" content="AMD Ryzen 9 9950X3D + RTX 5070 Ti + 64GB DDR5 + 8TB Gen5 NVMe — ₹4,95,707 total. No compromise.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://ajvizganapathy-pixel.github.io/pc-build/">
-<meta property="og:image" content="https://ajvizganapathy-pixel.github.io/pc-build/preview.png">
-
-<!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="My Dream Build • High-End Workstation">
-<meta name="twitter:description" content="AMD Ryzen 9 9950X3D + RTX 5070 Ti + 64GB DDR5 + 8TB Gen5 NVMe — ₹4,95,707 total.">
-
-<link rel="canonical" href="https://ajvizganapathy-pixel.github.io/pc-build/">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=JetBrains+Mono:wght@400;600&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
-
-<style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-:root {
-  --bg: #050811;
-  --card: #0c1426;
-  --border: #1a2a4a;
-  --line: rgba(120, 160, 220, 0.12);
-  --text: #dbe4f4;
-  --muted: #6c7a93;
-  --green: #22c55e;
-  --red: #ef4444;
-}
-
-body {
-  font-family: 'Rajdhani', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  overflow-x: hidden;
-  position: relative;
-}
-
-body::before {
-  content: '';
-  position: fixed; inset: 0;
-  background-image:
-    linear-gradient(var(--line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--line) 1px, transparent 1px);
-  background-size: 44px 44px;
-  pointer-events: none;
-  z-index: 0;
-  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
-}
-
-body::after {
-  content: '';
-  position: fixed; inset: 0;
-  background:
-    radial-gradient(circle at 20% 10%, rgba(59,130,246,0.18), transparent 40%),
-    radial-gradient(circle at 80% 90%, rgba(244,63,94,0.12), transparent 40%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.container {
-  max-width: 880px;
-  margin: auto;
-  padding: 40px 16px 80px;
-  position: relative;
-  z-index: 1;
-}
-
-.hero { text-align: center; padding: 30px 10px 10px; }
-.hero h1 {
-  font-family: 'Orbitron', sans-serif;
-  font-weight: 800;
-  font-size: clamp(24px, 6vw, 42px);
-  letter-spacing: 3px;
-  background: linear-gradient(90deg, #60a5fa 0%, #f472b6 50%, #22d3ee 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  text-shadow: 0 0 60px rgba(59,130,246,0.25);
-}
-.hero p {
-  color: var(--muted);
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  font-size: 13px;
-  margin-top: 8px;
-}
-.hero .badge {
-  display: inline-block;
-  margin-top: 14px;
-  padding: 4px 14px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: #93c5fd;
-  letter-spacing: 1px;
-}
-
-.stack {
-  margin-top: 40px;
-  position: relative;
-}
-
-.stack::before {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 0; bottom: 0;
-  width: 2px;
-  background: linear-gradient(180deg,
-    transparent 0%,
-    rgba(59,130,246,0.6) 8%,
-    rgba(244,63,94,0.6) 50%,
-    rgba(34,197,94,0.6) 92%,
-    transparent 100%);
-  filter: blur(0.5px);
-  box-shadow: 0 0 12px rgba(59,130,246,0.4);
-  z-index: 0;
-}
-
-.stack::after {
-  content: '';
-  position: absolute;
-  left: calc(50% - 4px);
-  top: 0;
-  width: 10px; height: 10px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #fff 0%, #60a5fa 50%, transparent 70%);
-  box-shadow: 0 0 14px #60a5fa, 0 0 28px #3b82f6;
-  animation: railPulse 5s linear infinite;
-  z-index: 0;
-}
-
-@keyframes railPulse {
-  0%   { top: -10px; opacity: 0; }
-  10%  { opacity: 1; }
-  90%  { opacity: 1; }
-  100% { top: 100%; opacity: 0; }
-}
-
-.card {
-  background: linear-gradient(180deg, var(--card) 0%, #070c18 100%);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 18px 18px 20px;
-  margin: 26px 0;
-  position: relative;
-  z-index: 1;
-  box-shadow:
-    0 0 0 1px rgba(59,130,246,0.05) inset,
-    0 20px 40px rgba(0,0,0,0.4),
-    0 0 60px rgba(59,130,246,0.05);
-  animation: cardIn 0.8s ease backwards;
-}
-.card:nth-child(1) { animation-delay: 0.05s; }
-.card:nth-child(2) { animation-delay: 0.15s; }
-.card:nth-child(3) { animation-delay: 0.25s; }
-.card:nth-child(4) { animation-delay: 0.35s; }
-.card:nth-child(5) { animation-delay: 0.45s; }
-
-@keyframes cardIn {
-  from { opacity: 0; transform: translateY(30px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.card::before, .card::after {
-  content: '';
-  position: absolute;
-  width: 14px; height: 14px;
-  border: 1.5px solid #3b82f6;
-  opacity: 0.6;
-}
-.card::before { top: -1px; left: -1px;  border-right: none; border-bottom: none; border-top-left-radius: 18px; }
-.card::after  { bottom: -1px; right: -1px; border-left: none;  border-top: none;    border-bottom-right-radius: 18px; }
-
-.cpu-svg {
-  display: block;
-  width: 100%;
-  height: auto;
-  color: rgba(140, 170, 220, 0.45);
-}
-
-.info {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  gap: 12px;
-  padding-top: 14px;
-  margin-top: 6px;
-  border-top: 1px dashed rgba(120, 160, 220, 0.15);
-}
-
-.tag-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 6px;
-}
-
-.tag {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 1.5px;
-  padding: 2px 8px;
-  border-radius: 4px;
-  background: rgba(59,130,246,0.12);
-  color: #93c5fd;
-  border: 1px solid rgba(59,130,246,0.3);
-}
-
-.status-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  display: inline-block;
-}
-.status-dot.ok { background: var(--green); box-shadow: 0 0 8px var(--green); animation: dotPulse 1.6s ease-in-out infinite; }
-.status-dot.no { background: var(--red);   box-shadow: 0 0 8px var(--red); }
-
-@keyframes dotPulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%      { opacity: 0.55; transform: scale(0.85); }
-}
-
-.name {
-  font-weight: 700;
-  font-size: 16px;
-  color: #e8eefc;
-  line-height: 1.2;
-}
-
-.price {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  color: #93c5fd;
-  margin-top: 4px;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  border-radius: 8px;
-  font-weight: 700;
-  font-size: 13px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  text-decoration: none;
-  white-space: nowrap;
-  border: 1px solid;
-  transition: transform 0.15s, filter 0.2s, box-shadow 0.2s;
-  cursor: pointer;
-}
-.btn:hover { transform: translateY(-1px); filter: brightness(1.2); }
-
-.btn.ok {
-  background: linear-gradient(180deg, rgba(34,197,94,0.18), rgba(34,197,94,0.06));
-  color: #86efac;
-  border-color: rgba(34,197,94,0.6);
-  box-shadow: 0 0 14px rgba(34,197,94,0.18);
-}
-.btn.ok:hover { box-shadow: 0 0 22px rgba(34,197,94,0.45); }
-
-.btn.no {
-  background: linear-gradient(180deg, rgba(239,68,68,0.18), rgba(239,68,68,0.06));
-  color: #fca5a5;
-  border-color: rgba(239,68,68,0.6);
-  cursor: not-allowed;
-  opacity: 0.85;
-}
-
-/* Multi-link buy buttons */
-.buy-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  justify-content: flex-end;
-}
-
-.buy-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 5px 11px;
-  border-radius: 6px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  text-decoration: none;
-  border: 1px solid;
-  transition: transform 0.15s, filter 0.2s, box-shadow 0.2s;
-  white-space: nowrap;
-}
-.buy-btn:hover { transform: translateY(-1px); filter: brightness(1.25); }
-
-.buy-btn.amazon  { background: rgba(255,153,0,0.12); color: #fbbf24; border-color: rgba(255,153,0,0.45); }
-.buy-btn.amazon:hover  { box-shadow: 0 0 16px rgba(255,153,0,0.3); }
-.buy-btn.flipkart { background: rgba(16,110,254,0.12); color: #93c5fd; border-color: rgba(16,110,254,0.45); }
-.buy-btn.flipkart:hover { box-shadow: 0 0 16px rgba(16,110,254,0.3); }
-.buy-btn.mdcomp  { background: rgba(168,85,247,0.12); color: #d8b4fe; border-color: rgba(168,85,247,0.45); }
-.buy-btn.mdcomp:hover  { box-shadow: 0 0 16px rgba(168,85,247,0.3); }
-.buy-btn.primeabgb { background: rgba(34,197,94,0.12); color: #86efac; border-color: rgba(34,197,94,0.45); }
-.buy-btn.primeabgb:hover { box-shadow: 0 0 16px rgba(34,197,94,0.3); }
-.buy-btn.vedant  { background: rgba(239,68,68,0.10); color: #fca5a5; border-color: rgba(239,68,68,0.4); }
-.buy-btn.vedant:hover  { box-shadow: 0 0 16px rgba(239,68,68,0.25); }
-
-.buy-btn.dimmed  { opacity: 0.45; cursor: not-allowed; pointer-events: none; }
-
-.oos-tag {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 1.5px;
-  padding: 2px 7px;
-  border-radius: 4px;
-  background: rgba(239,68,68,0.15);
-  color: #fca5a5;
-  border: 1px solid rgba(239,68,68,0.4);
-  text-transform: uppercase;
-  display: inline-block;
-  margin-bottom: 6px;
-}
-
-/* GitHub corner ribbon */
-.github-corner { position: fixed; top: 0; right: 0; z-index: 100; }
-.github-corner svg { fill: #1d4ed8; color: #0a0f1e; }
-.github-corner:hover .octo-arm { animation: octocat-wave 560ms ease-in-out; }
-@keyframes octocat-wave {
-  0%,100% { transform: rotate(0); }
-  20%,60% { transform: rotate(-25deg); }
-  40%,80% { transform: rotate(10deg); }
-}
-
-/* Build links bar */
-.build-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-  margin-top: 26px;
-}
-.build-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 8px 18px;
-  border-radius: 10px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  text-decoration: none;
-  border: 1px solid;
-  transition: transform 0.15s, filter 0.2s, box-shadow 0.2s;
-}
-.build-link:hover { transform: translateY(-2px); filter: brightness(1.2); }
-.build-link.github  { background: rgba(255,255,255,0.06); color: #e2e8f0; border-color: rgba(255,255,255,0.2); }
-.build-link.github:hover  { box-shadow: 0 0 20px rgba(255,255,255,0.15); }
-.build-link.pcpartpicker { background: rgba(34,197,94,0.1); color: #86efac; border-color: rgba(34,197,94,0.35); }
-.build-link.pcpartpicker:hover { box-shadow: 0 0 20px rgba(34,197,94,0.25); }
-
-.total-card {
-  margin-top: 36px;
-  padding: 22px;
-  border-radius: 18px;
-  text-align: center;
-  background: linear-gradient(135deg, #1d4ed8 0%, #7c3aed 50%, #db2777 100%);
-  font-family: 'Orbitron', sans-serif;
-  font-weight: 800;
-  letter-spacing: 2px;
-  font-size: 18px;
-  box-shadow: 0 10px 40px rgba(124,58,237,0.35), 0 0 80px rgba(59,130,246,0.2);
-  position: relative;
-  z-index: 1;
-}
-.total-card .label { font-size: 10px; opacity: 0.85; display: block; margin-bottom: 6px; letter-spacing: 4px; }
-
-.footer {
-  text-align: center;
-  margin-top: 36px;
-  color: var(--muted);
-  font-size: 13px;
-  letter-spacing: 1.5px;
-}
-.footer b { color: #93c5fd; }
-
-/* ===== CPU ARCHITECTURE ANIMATIONS ===== */
-.cpu-architecture {
-  offset-anchor: 10px 0px;
-  animation-name: animation-path;
-  animation-iteration-count: infinite;
-  animation-timing-function: cubic-bezier(0.75, -0.01, 0, 0.99);
-}
-.cpu-line-1 { offset-path: path("M 10 20 h 79.5 q 5 0 5 5 v 30"); animation-duration: 5s; animation-delay: 1s; }
-.cpu-line-2 { offset-path: path("M 180 10 h -69.7 q -5 0 -5 5 v 40"); animation-duration: 2s; animation-delay: 6s; }
-.cpu-line-3 { offset-path: path("M 130 20 v 21.8 q 0 5 -5 5 h -25"); animation-duration: 6s; animation-delay: 4s; }
-.cpu-line-4 { offset-path: path("M 170 80 v -21.8 q 0 -5 -5 -5 h -65"); animation-duration: 3s; animation-delay: 3s; }
-.cpu-line-5 { offset-path: path("M 135 65 h 15 q 5 0 5 5 v 10 q 0 5 -5 5 h -39.8 q -5 0 -5 -5 v -35"); animation-duration: 4s; animation-delay: 9s; }
-.cpu-line-6 { offset-path: path("M 94.8 95 v -46"); animation-duration: 7s; animation-delay: 3s; }
-.cpu-line-7 { offset-path: path("M 88 88 v -15 q 0 -5 -5 -5 h -10 q -5 0 -5 -5 v -5 q 0 -5 5 -5 h 28"); animation-duration: 4s; animation-delay: 4s; }
-.cpu-line-8 { offset-path: path("M 30 30 h 25 q 5 0 5 5 v 6.5 q 0 5 5 5 h 35"); animation-duration: 3s; animation-delay: 3s; }
-
-@keyframes animation-path {
-  0%   { offset-distance: 0%; }
-  100% { offset-distance: 100%; }
-}
-
-@media (max-width: 520px) {
-  .info { grid-template-columns: 1fr; }
-  .info .right { display: flex; justify-content: flex-start; }
-  .buy-links { justify-content: flex-start; }
-  .stack::before { left: 14px; }
-  .stack::after  { left: 10px; }
-  .name { font-size: 15px; }
-  .github-corner svg { width: 60px; height: 60px; }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>X-SERIES PRO // Creator Workstation Spec & Telemetry</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            mono: ['Courier New', 'Courier', 'monospace', 'SFMono-Regular', 'Menlo'],
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          },
+          colors: {
+            cyber: {
+              teal: '#06b6d4',
+              violet: '#8b5cf6',
+              amber: '#f59e0b',
+              emerald: '#10b981',
+              rose: '#f43f5e',
+              slate: '#0f172a',
+              zincDark: '#09090b',
+              zincLight: '#f4f4f5'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Lucide Icons for high-fidelity technical symbols -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* Custom High-Fidelity Technical styling & Grid Backgrounds */
+    .blueprint-grid-dark {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(6, 182, 212, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(6, 182, 212, 0.05) 1px, transparent 1px);
+    }
+    .blueprint-grid-light {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(37, 99, 235, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(37, 99, 235, 0.05) 1px, transparent 1px);
+    }
+    .glow-cyan {
+      box-shadow: 0 0 15px rgba(6, 182, 212, 0.25);
+    }
+    .glow-violet {
+      box-shadow: 0 0 15px rgba(139, 92, 246, 0.25);
+    }
+    /* Smooth transition for theme switching */
+    * {
+      transition: background-color 0.3s ease, border-color 0.3s ease, text-decoration 0.3s ease;
+    }
+    
+    /* Animation keyframes for moving data & fluids */
+    @keyframes pulseTrace {
+      0% { stroke-dashoffset: 100; }
+      100% { stroke-dashoffset: 0; }
+    }
+    .trace-anim {
+      stroke-dasharray: 12;
+      animation: pulseTrace 3s linear infinite;
+    }
+    @keyframes fanSpin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .fan-spin-fast {
+      animation: fanSpin 0.5s linear infinite;
+      transform-origin: center;
+    }
+    .fan-spin-med {
+      animation: fanSpin 1.5s linear infinite;
+      transform-origin: center;
+    }
+    @keyframes dataStream {
+      0% { stroke-dashoffset: 100; }
+      100% { stroke-dashoffset: 0; }
+    }
+    .data-flow {
+      stroke-dasharray: 8 4;
+      animation: dataStream 1.5s linear infinite;
+    }
+  </style>
 </head>
+<body class="bg-zinc-950 text-slate-100 font-sans transition-colors duration-300 dark:bg-zinc-950 dark:text-slate-100 light:bg-slate-50 light:text-slate-900 overflow-x-hidden">
 
-<body>
-
-<!-- GitHub corner -->
-<a href="https://github.com/ajvizganapathy-pixel/pc-build" class="github-corner" target="_blank" rel="noopener" aria-label="View source on GitHub">
-  <svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true">
-    <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
-    <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin:130px 106px;" class="octo-arm"></path>
-    <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path>
-  </svg>
-</a>
-
-<div class="container">
-
-  <div class="hero">
-    <h1>MY DREAM BUILD</h1>
-    <p>High-End Workstation • No Compromise</p>
-    <span class="badge">// ARCHITECTURE VIEW //</span>
-  </div>
-
-  <div class="stack" id="stack"></div>
-
-  <div class="total-card">
-    <span class="label">CORE TOTAL</span>
-    ₹4,95,707
-  </div>
-
-  <div class="build-links">
-    <a class="build-link github" href="https://github.com/ajvizganapathy-pixel/pc-build" target="_blank" rel="noopener">
-      <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-      Source on GitHub
-    </a>
-    <a class="build-link pcpartpicker" href="https://pcpartpicker.com/list/" target="_blank" rel="noopener">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18"/></svg>
-      PCPartPicker
-    </a>
-  </div>
-
-  <div class="footer">
-    Built by <b>Anjan Ganapathy</b> &nbsp;•&nbsp;
-    <a href="https://github.com/ajvizganapathy-pixel/pc-build" style="color:#93c5fd;text-decoration:none;" target="_blank" rel="noopener">github.com/ajvizganapathy-pixel/pc-build</a>
-  </div>
-
-</div>
-
-<script>
-const components = [
-  {
-    code: "RAM", name: "G.Skill Trident Z5 DDR5 64GB", price: "₹88,400", available: true,
-    links: [
-      { label: "Amazon",     cls: "amazon",     url: "https://www.amazon.in/s?k=G.Skill+Trident+Z5+DDR5+64GB" },
-      { label: "Flipkart",   cls: "flipkart",   url: "https://www.flipkart.com/search?q=G.Skill+Trident+Z5+DDR5+64GB" },
-      { label: "MDComp",     cls: "mdcomp",     url: "https://mdcomputers.in/search?q=gskill+trident+z5+ddr5" },
-      { label: "PrimeABGB",  cls: "primeabgb",  url: "https://www.primeabgb.com/search/?q=gskill+trident+z5+ddr5" }
-    ]
-  },
-  {
-    code: "CPU", name: "AMD Ryzen 9 9950X3D", price: "₹79,000", available: true,
-    links: [
-      { label: "Amazon",     cls: "amazon",     url: "https://www.amazon.in/s?k=AMD+Ryzen+9+9950X3D" },
-      { label: "Flipkart",   cls: "flipkart",   url: "https://www.flipkart.com/search?q=AMD+Ryzen+9+9950X3D" },
-      { label: "MDComp",     cls: "mdcomp",     url: "https://mdcomputers.in/search?q=ryzen+9+9950x3d" },
-      { label: "Vedant",     cls: "vedant",     url: "https://www.vedantcomputers.com/search?q=ryzen+9+9950x3d" }
-    ]
-  },
-  {
-    code: "MOBO", name: "Gigabyte X870E AORUS Elite WiFi7", price: "₹33,999", available: true,
-    links: [
-      { label: "Amazon",     cls: "amazon",     url: "https://www.amazon.in/s?k=Gigabyte+X870E+AORUS+Elite+WiFi7" },
-      { label: "Flipkart",   cls: "flipkart",   url: "https://www.flipkart.com/search?q=Gigabyte+X870E+AORUS+Elite" },
-      { label: "MDComp",     cls: "mdcomp",     url: "https://mdcomputers.in/search?q=gigabyte+x870e+aorus" },
-      { label: "PrimeABGB",  cls: "primeabgb",  url: "https://www.primeabgb.com/search/?q=gigabyte+x870e+aorus" }
-    ]
-  },
-  {
-    code: "SSD", name: "Samsung 9100 Pro 8TB Gen5 NVMe", price: "₹1,59,899", available: false,
-    links: [
-      { label: "Amazon",     cls: "amazon",     url: "https://www.amazon.in/s?k=Samsung+9100+Pro+NVMe+Gen5" },
-      { label: "Flipkart",   cls: "flipkart",   url: "https://www.flipkart.com/search?q=Samsung+9100+Pro+NVMe" },
-      { label: "MDComp",     cls: "mdcomp",     url: "https://mdcomputers.in/search?q=samsung+9100+pro" },
-      { label: "PrimeABGB",  cls: "primeabgb",  url: "https://www.primeabgb.com/search/?q=samsung+9100+pro" }
-    ]
-  },
-  {
-    code: "GPU", name: "ZOTAC RTX 5070 Ti AMP Extreme", price: "₹1,34,409", available: true,
-    links: [
-      { label: "Amazon",     cls: "amazon",     url: "https://www.amazon.in/s?k=ZOTAC+RTX+5070+Ti+AMP+Extreme" },
-      { label: "Flipkart",   cls: "flipkart",   url: "https://www.flipkart.com/search?q=RTX+5070+Ti+AMP+Extreme" },
-      { label: "MDComp",     cls: "mdcomp",     url: "https://mdcomputers.in/search?q=rtx+5070+ti" },
-      { label: "Vedant",     cls: "vedant",     url: "https://www.vedantcomputers.com/search?q=rtx+5070+ti" }
-    ]
-  }
-];
-
-function cpuSvg(p, label) {
-  return `
-  <svg class="cpu-svg" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
-    <g stroke="currentColor" fill="none" stroke-width="0.3" stroke-dasharray="100 100" pathLength="100" marker-start="url(#${p}-marker)">
-      <path stroke-dasharray="100 100" pathLength="100" d="M 10 20 h 79.5 q 5 0 5 5 v 30" />
-      <path stroke-dasharray="100 100" pathLength="100" d="M 180 10 h -69.7 q -5 0 -5 5 v 30" />
-      <path d="M 130 20 v 21.8 q 0 5 -5 5 h -10" />
-      <path d="M 170 80 v -21.8 q 0 -5 -5 -5 h -50" />
-      <path stroke-dasharray="100 100" pathLength="100" d="M 135 65 h 15 q 5 0 5 5 v 10 q 0 5 -5 5 h -39.8 q -5 0 -5 -5 v -20" />
-      <path d="M 94.8 95 v -36" />
-      <path d="M 88 88 v -15 q 0 -5 -5 -5 h -10 q -5 0 -5 -5 v -5 q 0 -5 5 -5 h 14" />
-      <path d="M 30 30 h 25 q 5 0 5 5 v 6.5 q 0 5 5 5 h 20" />
-      <animate attributeName="stroke-dashoffset" from="100" to="0" dur="1s" fill="freeze"
-               calcMode="spline" keySplines="0.25,0.1,0.5,1" keyTimes="0; 1" />
-    </g>
-
-    <g mask="url(#${p}-m1)"><circle class="cpu-architecture cpu-line-1" cx="0" cy="0" r="8" fill="url(#${p}-blue)" /></g>
-    <g mask="url(#${p}-m2)"><circle class="cpu-architecture cpu-line-2" cx="0" cy="0" r="8" fill="url(#${p}-yellow)" /></g>
-    <g mask="url(#${p}-m3)"><circle class="cpu-architecture cpu-line-3" cx="0" cy="0" r="8" fill="url(#${p}-pink)" /></g>
-    <g mask="url(#${p}-m4)"><circle class="cpu-architecture cpu-line-4" cx="0" cy="0" r="8" fill="url(#${p}-white)" /></g>
-    <g mask="url(#${p}-m5)"><circle class="cpu-architecture cpu-line-5" cx="0" cy="0" r="8" fill="url(#${p}-green)" /></g>
-    <g mask="url(#${p}-m6)"><circle class="cpu-architecture cpu-line-6" cx="0" cy="0" r="8" fill="url(#${p}-orange)" /></g>
-    <g mask="url(#${p}-m7)"><circle class="cpu-architecture cpu-line-7" cx="0" cy="0" r="8" fill="url(#${p}-cyan)" /></g>
-    <g mask="url(#${p}-m8)"><circle class="cpu-architecture cpu-line-8" cx="0" cy="0" r="8" fill="url(#${p}-rose)" /></g>
-
-    <g fill="url(#${p}-conn)">
-      <rect x="93"  y="37" width="2.5" height="5" rx="0.7" />
-      <rect x="104" y="37" width="2.5" height="5" rx="0.7" />
-      <rect x="116.3" y="44" width="2.5" height="5" rx="0.7" transform="rotate(90 116.25 45.5)" />
-      <rect x="122.8" y="44" width="2.5" height="5" rx="0.7" transform="rotate(90 116.25 45.5)" />
-      <rect x="104" y="16" width="2.5" height="5" rx="0.7" transform="rotate(180 105.25 39.5)" />
-      <rect x="114.5" y="16" width="2.5" height="5" rx="0.7" transform="rotate(180 105.25 39.5)" />
-      <rect x="80" y="-13.6" width="2.5" height="5" rx="0.7" transform="rotate(270 115.25 19.5)" />
-      <rect x="87" y="-13.6" width="2.5" height="5" rx="0.7" transform="rotate(270 115.25 19.5)" />
-    </g>
-
-    <rect x="85" y="40" width="30" height="20" rx="2" fill="#181818" filter="url(#${p}-shadow)" />
-    <text x="100" y="53" font-size="6" font-weight="700" letter-spacing="0.5"
-          text-anchor="middle" fill="url(#${p}-text)">${label}</text>
-
-    <defs>
-      <mask id="${p}-m1"><path d="M 10 20 h 79.5 q 5 0 5 5 v 24" stroke-width="0.5" stroke="white" /></mask>
-      <mask id="${p}-m2"><path d="M 180 10 h -69.7 q -5 0 -5 5 v 24" stroke-width="0.5" stroke="white" /></mask>
-      <mask id="${p}-m3"><path d="M 130 20 v 21.8 q 0 5 -5 5 h -10" stroke-width="0.5" stroke="white" /></mask>
-      <mask id="${p}-m4"><path d="M 170 80 v -21.8 q 0 -5 -5 -5 h -50" stroke-width="0.5" stroke="white" /></mask>
-      <mask id="${p}-m5"><path d="M 135 65 h 15 q 5 0 5 5 v 10 q 0 5 -5 5 h -39.8 q -5 0 -5 -5 v -20" stroke-width="0.5" stroke="white" /></mask>
-      <mask id="${p}-m6"><path d="M 94.8 95 v -36" stroke-width="0.5" stroke="white" /></mask>
-      <mask id="${p}-m7"><path d="M 88 88 v -15 q 0 -5 -5 -5 h -10 q -5 0 -5 -5 v -5 q 0 -5 5 -5 h 14" stroke-width="0.5" stroke="white" /></mask>
-      <mask id="${p}-m8"><path d="M 30 30 h 25 q 5 0 5 5 v 6.5 q 0 5 5 5 h 20" stroke-width="0.5" stroke="white" /></mask>
-
-      <radialGradient id="${p}-blue"   fx="1"><stop offset="0%" stop-color="#00E8ED"/><stop offset="50%" stop-color="#08F"/><stop offset="100%" stop-color="transparent"/></radialGradient>
-      <radialGradient id="${p}-yellow" fx="1"><stop offset="0%" stop-color="#FFD800"/><stop offset="50%" stop-color="#FFD800"/><stop offset="100%" stop-color="transparent"/></radialGradient>
-      <radialGradient id="${p}-pink"   fx="1"><stop offset="0%" stop-color="#830CD1"/><stop offset="50%" stop-color="#FF008B"/><stop offset="100%" stop-color="transparent"/></radialGradient>
-      <radialGradient id="${p}-white"  fx="1"><stop offset="0%" stop-color="white"/><stop offset="100%" stop-color="transparent"/></radialGradient>
-      <radialGradient id="${p}-green"  fx="1"><stop offset="0%" stop-color="#22c55e"/><stop offset="100%" stop-color="transparent"/></radialGradient>
-      <radialGradient id="${p}-orange" fx="1"><stop offset="0%" stop-color="#f97316"/><stop offset="100%" stop-color="transparent"/></radialGradient>
-      <radialGradient id="${p}-cyan"   fx="1"><stop offset="0%" stop-color="#06b6d4"/><stop offset="100%" stop-color="transparent"/></radialGradient>
-      <radialGradient id="${p}-rose"   fx="1"><stop offset="0%" stop-color="#f43f5e"/><stop offset="100%" stop-color="transparent"/></radialGradient>
-
-      <filter id="${p}-shadow" x="-50%" y="-50%" width="200%" height="200%">
-        <feDropShadow dx="1.5" dy="1.5" stdDeviation="1" flood-color="black" flood-opacity="0.1"/>
-      </filter>
-
-      <marker id="${p}-marker" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="14" markerHeight="14">
-        <circle cx="5" cy="5" r="2" fill="black" stroke="#232323" stroke-width="0.5">
-          <animate attributeName="r" values="0; 3; 2" dur="0.5s"/>
-        </circle>
-      </marker>
-
-      <linearGradient id="${p}-conn" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#4F4F4F"/><stop offset="60%" stop-color="#121214"/>
-      </linearGradient>
-
-      <linearGradient id="${p}-text" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0%" stop-color="#666">
-          <animate attributeName="offset" values="-2;-1;0" dur="5s" repeatCount="indefinite"
-                   calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.2 1; 0.4 0 0.2 1"/>
-        </stop>
-        <stop offset="25%" stop-color="white">
-          <animate attributeName="offset" values="-1;0;1" dur="5s" repeatCount="indefinite"
-                   calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.2 1; 0.4 0 0.2 1"/>
-        </stop>
-        <stop offset="50%" stop-color="#666">
-          <animate attributeName="offset" values="0;1;2" dur="5s" repeatCount="indefinite"
-                   calcMode="spline" keyTimes="0;0.5;1" keySplines="0.4 0 0.2 1; 0.4 0 0.2 1"/>
-        </stop>
-      </linearGradient>
-    </defs>
-  </svg>`;
-}
-
-function makeCard(c, idx) {
-  const prefix = `cpu-${idx}`;
-  const statusClass = c.available ? 'ok' : 'no';
-  const oosTag = c.available ? '' : `<span class="oos-tag">Out of Stock</span><br>`;
-  const linkBtns = c.links.map(l =>
-    `<a class="buy-btn ${l.cls}${c.available ? '' : ' dimmed'}" href="${l.url}" target="_blank" rel="noopener">${l.label}</a>`
-  ).join('');
-
-  return `
-  <div class="card">
-    ${cpuSvg(prefix, c.code)}
-    <div class="info">
-      <div class="left">
-        <div class="tag-row">
-          <span class="tag">[${c.code}]</span>
-          <span class="status-dot ${statusClass}"></span>
+  <!-- TOP PERSISTENT SCIENTIFIC HUD / CONTROL HEADER -->
+  <header class="fixed top-0 left-0 w-full z-50 bg-zinc-950/90 dark:bg-zinc-950/95 light:bg-white/95 border-b border-cyan-500/20 dark:border-cyan-500/20 light:border-blue-600/20 backdrop-blur-md px-4 py-3">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+      <!-- Build Branding / Status -->
+      <div class="flex items-center gap-3">
+        <div class="w-2.5 h-2.5 bg-cyan-400 rounded-full animate-ping"></div>
+        <div class="font-mono text-xs tracking-wider">
+          <span class="text-cyan-400 font-bold">SYSTEM // WORKSTATION-9950X3D</span>
+          <span class="hidden md:inline text-slate-500 ml-2">| TARGET ENGINE: 4K COMPUTE & REAL-TIME RENDER</span>
         </div>
-        <div class="name">${c.name}</div>
-        <div class="price">${c.price}</div>
       </div>
-      <div class="right">
-        <div class="buy-links">
-          ${oosTag}${linkBtns}
+
+      <!-- Live Telemetry Tickers -->
+      <div class="flex items-center gap-6 font-mono text-[10px] md:text-xs">
+        <div class="hidden lg:flex items-center gap-2">
+          <span class="text-slate-500">EST. POWER DRAW:</span>
+          <span class="text-amber-400 font-bold" id="hud-power">1084 W</span>
         </div>
+        <div class="hidden lg:flex items-center gap-2">
+          <span class="text-slate-500">THERMAL INDEX:</span>
+          <span class="text-emerald-400 font-bold" id="hud-thermal">38.4 °C</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-slate-500">TOTAL EST. VALUE:</span>
+          <span class="text-cyan-400 font-bold">$7,445.00</span>
+        </div>
+      </div>
+
+      <!-- Quick Action Controls: Theme Switcher & Checkout -->
+      <div class="flex items-center gap-3">
+        <!-- Interactive Theme Switch Toggle -->
+        <button id="theme-toggle" class="p-2 border border-slate-700 hover:border-cyan-400 dark:border-zinc-800 dark:hover:border-cyan-500 light:border-slate-300 light:hover:border-blue-600 rounded transition-all text-slate-400 dark:text-slate-400 light:text-slate-600 hover:text-cyan-400 flex items-center justify-center" aria-label="Toggle Theme">
+          <i data-lucide="sun" class="w-4 h-4 hidden dark:block"></i>
+          <i data-lucide="moon" class="w-4 h-4 block dark:hidden"></i>
+        </button>
+        <!-- Sticky Assembly Trigger -->
+        <a href="#telemetry" class="px-3 py-1.5 text-xs font-mono font-bold tracking-widest bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 hover:bg-cyan-500/30 rounded transition-all">
+          TELEMETRY RUN
+        </a>
       </div>
     </div>
-  </div>`;
-}
+  </header>
 
-document.getElementById('stack').innerHTML = components.map(makeCard).join('');
-</script>
+  <!-- MASTER SYSTEM STATUS DASHBOARD GRID -->
+  <section class="relative pt-24 pb-12 px-4 blueprint-grid-dark dark:blueprint-grid-dark light:blueprint-grid-light border-b border-zinc-800">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-zinc-950/80 dark:to-zinc-950/80 light:to-slate-50/80 pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      
+      <!-- Assembly Summary & Blueprint Title -->
+      <div class="lg:col-span-5 space-y-6">
+        <div class="inline-flex items-center gap-2 px-3 py-1 border border-cyan-500/30 dark:border-cyan-500/30 light:border-blue-600/30 bg-cyan-500/10 dark:bg-cyan-500/10 light:bg-blue-600/5 text-cyan-400 dark:text-cyan-400 light:text-blue-700 font-mono text-xs rounded-full">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> SPECIFICATION LEVEL 01 // PASSION PROJECT BUILD
+        </div>
+        
+        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight">
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-slate-400 dark:from-white dark:to-slate-400 light:from-slate-900 light:to-slate-700">CREATOR</span><br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-violet-500">WORKSTATION</span>
+        </h1>
+        
+        <p class="text-sm md:text-base text-slate-400 dark:text-slate-400 light:text-slate-600 leading-relaxed font-mono">
+          An engineering manifesto designed for massive parallel workloads, ultra-high resolution asset development, neural network generation workflows, and zero-compromise real-time render loops.
+        </p>
 
+        <!-- Dynamic Performance Counters -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 border-t border-slate-800/40 dark:border-zinc-800/40 light:border-slate-300/40 pt-6">
+          <div class="space-y-1">
+            <div class="text-[10px] font-mono text-slate-500">WORKSTATION SCORE</div>
+            <div class="text-2xl font-mono font-bold text-cyan-400 flex items-baseline">
+              <span id="stat-ws">0</span><span class="text-xs text-slate-500 ml-1">/100</span>
+            </div>
+            <div class="w-full bg-slate-800 dark:bg-zinc-900 light:bg-slate-200 h-1 rounded overflow-hidden">
+              <div class="bg-cyan-500 h-full w-[98%]"></div>
+            </div>
+          </div>
+          <div class="space-y-1">
+            <div class="text-[10px] font-mono text-slate-500">AI GENERATION TFLOPS</div>
+            <div class="text-2xl font-mono font-bold text-violet-400 flex items-baseline">
+              <span id="stat-ai">0</span><span class="text-xs text-slate-500 ml-1">TFLOPs</span>
+            </div>
+            <div class="w-full bg-slate-800 dark:bg-zinc-900 light:bg-slate-200 h-1 rounded overflow-hidden">
+              <div class="bg-violet-500 h-full w-[94%]"></div>
+            </div>
+          </div>
+          <div class="space-y-1 col-span-2 sm:col-span-1">
+            <div class="text-[10px] font-mono text-slate-500">UNREAL ENGINE FLOW</div>
+            <div class="text-2xl font-mono font-bold text-emerald-400 flex items-baseline">
+              <span id="stat-ue">0</span><span class="text-xs text-slate-500 ml-1">% CAP</span>
+            </div>
+            <div class="w-full bg-slate-800 dark:bg-zinc-900 light:bg-slate-200 h-1 rounded overflow-hidden">
+              <div class="bg-emerald-500 h-full w-[96%]"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-4 pt-2">
+          <div class="text-xs font-mono text-slate-400 border border-slate-800 dark:border-zinc-800 light:border-slate-200 px-3 py-2 rounded bg-slate-900/50 dark:bg-zinc-900/50 light:bg-white/50 flex items-center gap-2">
+            <i data-lucide="cpu" class="w-4 h-4 text-cyan-400"></i>
+            <span>Blender: <strong>980 Cycles Pt/s</strong></span>
+          </div>
+          <div class="text-xs font-mono text-slate-400 border border-slate-800 dark:border-zinc-800 light:border-slate-200 px-3 py-2 rounded bg-slate-900/50 dark:bg-zinc-900/50 light:bg-white/50 flex items-center gap-2">
+            <i data-lucide="sparkles" class="w-4 h-4 text-violet-400"></i>
+            <span>Gaming Index: <strong>99.4/100</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Chassis Exploded Assembly Blueprint Viewport -->
+      <div class="lg:col-span-7 flex flex-col items-center">
+        <div class="w-full max-w-xl aspect-square border border-slate-800 dark:border-zinc-800 light:border-slate-200 rounded-lg bg-zinc-950/80 dark:bg-zinc-950/80 light:bg-slate-100/50 relative overflow-hidden flex flex-col justify-between p-4 glow-cyan">
+          
+          <!-- Top Grid Status & Title bar -->
+          <div class="flex justify-between items-center text-[10px] font-mono border-b border-slate-800 dark:border-zinc-800 light:border-slate-200 pb-2">
+            <div>ASSEMBLY BLUEPRINT v4.81 (INTERACTIVE MODE)</div>
+            <div class="text-cyan-400 font-bold animate-pulse">SCROLL TO BUILD</div>
+          </div>
+
+          <!-- Dynamic SVG Vector-driven CAD Drawing of Assembly -->
+          <div class="flex-grow flex items-center justify-center relative w-full h-full min-h-[300px]">
+            <svg id="blueprint-svg" class="w-full h-full max-h-[350px]" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Grid Overlay Inside Vector -->
+              <defs>
+                <pattern id="inner-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <path d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" class="text-cyan-500/5 dark:text-cyan-500/5 light:text-blue-600/5" stroke-width="0.5"/>
+                </pattern>
+                <linearGradient id="gradient-glow" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#06b6d4" />
+                  <stop offset="100%" stop-color="#8b5cf6" />
+                </linearGradient>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#inner-grid)" />
+
+              <!-- Technical Axis Overlay Lines -->
+              <line x1="250" y1="20" x2="250" y2="480" stroke="currentColor" class="text-slate-800 dark:text-zinc-900 light:text-slate-200" stroke-width="0.5" stroke-dasharray="5 5"/>
+              <line x1="20" y1="250" x2="480" y2="250" stroke="currentColor" class="text-slate-800 dark:text-zinc-900 light:text-slate-200" stroke-width="0.5" stroke-dasharray="5 5"/>
+
+              <!-- Interactive Blueprint Layers (will animate based on UI assembly steps or active sections) -->
+              <!-- Layer 1: Chassis Outer Core (ROG Helios) -->
+              <g id="layer-chassis" class="transition-transform duration-700 ease-out translate-x-0" opacity="0.4">
+                <rect x="80" y="80" width="340" height="340" rx="16" stroke="currentColor" class="text-slate-700 dark:text-zinc-700 light:text-slate-300" stroke-width="1.5" stroke-dasharray="2 2"/>
+                <path d="M 80 120 L 420 120" stroke="currentColor" class="text-slate-700 dark:text-zinc-700 light:text-slate-300" stroke-width="1"/>
+                <!-- Carry strap accent -->
+                <path d="M 120 80 Q 250 50 380 80" stroke="currentColor" class="text-cyan-500/30" stroke-width="3" fill="none"/>
+                <text x="90" y="105" fill="currentColor" class="text-slate-500" font-family="monospace" font-size="10">SYS_CHASSIS: HELIOS-X</text>
+              </g>
+
+              <!-- Layer 2: ROG Thor PSU Placement -->
+              <g id="layer-psu" class="transition-all duration-700 ease-out translate-y-12" opacity="0.3">
+                <rect x="95" y="340" width="130" height="70" rx="4" stroke="currentColor" class="text-amber-500/60" stroke-width="1.5"/>
+                <!-- OLED Display element inside PSU -->
+                <rect x="110" y="360" width="40" height="15" fill="#1e293b" rx="2"/>
+                <line x1="110" y1="367" x2="150" y2="367" stroke="#10b981" stroke-width="1" class="trace-anim"/>
+                <text x="105" y="352" fill="#f59e0b" font-family="monospace" font-size="8">ROG_THOR_1200W</text>
+              </g>
+
+              <!-- Layer 3: ROG Crosshair X870E Hero Motherboard Outline -->
+              <g id="layer-motherboard" class="transition-all duration-700 ease-out -translate-y-8" opacity="0.2">
+                <rect x="140" y="130" width="220" height="200" rx="6" stroke="currentColor" class="text-cyan-500/60" stroke-width="1.5" fill="currentColor" class="fill-slate-900/50 dark:fill-zinc-900/50 light:fill-white/50"/>
+                <!-- Socket AM5 Outline -->
+                <rect x="225" y="170" width="50" height="50" stroke="#06b6d4" stroke-width="1" fill="none"/>
+                <!-- PCIe Slot -->
+                <rect x="150" y="270" width="160" height="10" fill="#06b6d4" fill-opacity="0.2" stroke="#06b6d4" stroke-width="1"/>
+                <text x="148" y="145" fill="#06b6d4" font-family="monospace" font-size="8">MTHR_BD: ROG_CROSSHAIR_X870E</text>
+              </g>
+
+              <!-- Layer 4: CPU Die Assembly Node -->
+              <g id="layer-cpu" class="transition-all duration-700 ease-out scale-75 opacity-0 origin-center" style="transform-origin: 250px 195px;">
+                <rect x="230" y="175" width="40" height="40" rx="2" fill="url(#gradient-glow)" stroke="#ffffff" stroke-width="1"/>
+                <text x="233" y="198" fill="#ffffff" font-family="monospace" font-size="8" font-weight="bold">9950X3D</text>
+                <!-- Signal traces radiating from CPU -->
+                <path d="M 230 195 L 210 195 M 270 195 L 290 195 M 250 175 L 250 155 M 250 215 L 250 235" stroke="#8b5cf6" stroke-width="1" stroke-dasharray="2 2" class="trace-anim"/>
+              </g>
+
+              <!-- Layer 5: Kraken Elite AIO Cooling Loop -->
+              <g id="layer-cooling" class="transition-all duration-700 ease-out -translate-y-24 opacity-0">
+                <!-- Radiator on top mount -->
+                <rect x="120" y="90" width="260" height="25" rx="3" stroke="#3b82f6" stroke-width="1.5" fill="none"/>
+                <!-- Animated cooling fans -->
+                <circle cx="165" cy="102.5" r="9" stroke="#3b82f6" stroke-width="1"/>
+                <circle cx="250" cy="102.5" r="9" stroke="#3b82f6" stroke-width="1"/>
+                <circle cx="335" cy="102.5" r="9" stroke="#3b82f6" stroke-width="1"/>
+                <!-- Water Block over CPU -->
+                <circle cx="250" cy="195" r="15" stroke="#ef4444" stroke-width="1.5" fill="currentColor" class="fill-slate-900/90 dark:fill-zinc-900/90 light:fill-white/90"/>
+                <circle cx="250" cy="195" r="11" stroke="#3b82f6" stroke-width="1" stroke-dasharray="4 2"/>
+                <!-- Tubes linking Block to Radiator -->
+                <path d="M 240 195 C 200 195, 170 150, 170 115 M 260 195 C 300 195, 330 150, 330 115" stroke="#3b82f6" stroke-width="1.5" fill="none"/>
+                <text x="125" y="105" fill="#3b82f6" font-family="monospace" font-size="7">AIO_RAD: NZXT_420</text>
+              </g>
+
+              <!-- Layer 6: GPU Core Array (RTX 5080) -->
+              <g id="layer-gpu" class="transition-all duration-700 ease-out translate-x-12 opacity-0">
+                <!-- Massive Shroud spanning across PCB -->
+                <rect x="130" y="255" width="220" height="50" rx="4" fill="currentColor" class="fill-slate-900/95 dark:fill-zinc-900/95 light:fill-white/95" stroke="#10b981" stroke-width="1.5"/>
+                <!-- Triple fans vector -->
+                <circle cx="170" cy="280" r="14" stroke="#10b981" stroke-width="1" fill="none"/>
+                <path d="M 170 266 L 170 294 M 156 280 L 184 280" stroke="#10b981" stroke-width="0.5"/>
+                <circle cx="240" cy="280" r="14" stroke="#10b981" stroke-width="1" fill="none"/>
+                <path d="M 240 266 L 240 294 M 226 280 L 254 280" stroke="#10b981" stroke-width="0.5"/>
+                <circle cx="310" cy="280" r="14" stroke="#10b981" stroke-width="1" fill="none"/>
+                <path d="M 310 266 L 310 294 M 296 280 L 324 280" stroke="#10b981" stroke-width="0.5"/>
+                <text x="135" y="267" fill="#10b981" font-family="monospace" font-size="7" font-weight="bold">GPU_NODE: TUF_RTX_5080_OC</text>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Bottom Control interface inside CAD Blueprint -->
+          <div class="border-t border-slate-800 dark:border-zinc-800 light:border-slate-200 pt-2 flex justify-between items-center text-[9px] font-mono text-slate-500">
+            <div class="flex items-center gap-2">
+              <span class="inline-block w-1.5 h-1.5 bg-cyan-500 rounded-full animate-ping"></span>
+              <span>STATE: <strong id="assembly-progress-label" class="text-cyan-400">STRUCTURAL CHASSIS MOUNTED</strong></span>
+            </div>
+            <div>STENCIL DEPTH OPTIMIZED</div>
+          </div>
+        </div>
+        
+        <!-- Interactive CAD Staged Controls -->
+        <div class="mt-4 flex flex-wrap gap-2 justify-center max-w-lg">
+          <button onclick="setAssemblyStep(1)" class="assembly-step-btn px-2.5 py-1 bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 text-xs font-mono rounded hover:bg-cyan-500/30 transition-all">STAGE 1: CHASSIS</button>
+          <button onclick="setAssemblyStep(2)" class="assembly-step-btn px-2.5 py-1 bg-zinc-900 text-slate-400 border border-zinc-800 text-xs font-mono rounded hover:bg-cyan-500/20 hover:text-cyan-400 transition-all">STAGE 2: BOARD & POWER</button>
+          <button onclick="setAssemblyStep(3)" class="assembly-step-btn px-2.5 py-1 bg-zinc-900 text-slate-400 border border-zinc-800 text-xs font-mono rounded hover:bg-cyan-500/20 hover:text-cyan-400 transition-all">STAGE 3: CORE CPU & RAM</button>
+          <button onclick="setAssemblyStep(4)" class="assembly-step-btn px-2.5 py-1 bg-zinc-900 text-slate-400 border border-zinc-800 text-xs font-mono rounded hover:bg-cyan-500/20 hover:text-cyan-400 transition-all">STAGE 4: HEAVY GPU ACCEL</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DYNAMIC CHRONOLOGY OF COMPONENTS (ENGINEERING DOSSIERS) -->
+  <main class="max-w-7xl mx-auto px-4 py-12 space-y-24">
+
+    <!-- COMPONENT DOSSIER 01: AMD RYZEN 9 9950X3D (CPU) -->
+    <section id="cpu-section" class="scroll-mt-24 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-t border-zinc-800/80 pt-16">
+      <!-- Section Info Marker -->
+      <div class="lg:col-span-3 space-y-4">
+        <div class="text-[11px] font-mono text-cyan-400 font-bold tracking-widest uppercase">SYS.DEV_01.CPU</div>
+        <h2 class="text-3xl font-extrabold tracking-tight">AMD Ryzen 9 9950X3D</h2>
+        <div class="text-xs font-mono text-slate-500 dark:text-slate-500 light:text-slate-400">16 CORES / 32 THREADS / 3D V-CACHE TECHNOLOGY</div>
+        
+        <!-- Purchase dossier -->
+        <div class="bg-zinc-900/50 dark:bg-zinc-900/50 light:bg-slate-100 border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 p-4 rounded-lg space-y-3">
+          <div class="flex justify-between items-center text-xs font-mono">
+            <span>EST. MARKET VALUE:</span>
+            <span class="text-cyan-400 font-bold">$799.00</span>
+          </div>
+          <!-- Amazon affiliate search purchase link -->
+          <a href="https://www.amazon.com/s?k=AMD+Ryzen+9+9950X3D" target="_blank" rel="noopener noreferrer" class="w-full py-2 bg-gradient-to-r from-cyan-500 to-violet-600 hover:from-cyan-400 hover:to-violet-500 text-white text-xs font-mono font-bold tracking-wider text-center block rounded shadow transition-all flex items-center justify-center gap-2">
+            <i data-lucide="shopping-cart" class="w-4 h-4"></i> SECURE ON AMAZON
+          </a>
+        </div>
+      </div>
+
+      <!-- Schematic View & Visual Interactive Simulator -->
+      <div class="lg:col-span-5 border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 rounded-lg p-6 bg-zinc-950/80 dark:bg-zinc-950/80 light:bg-slate-100/50 relative overflow-hidden">
+        <div class="absolute top-2 right-2 flex items-center gap-1.5 px-2 py-0.5 bg-emerald-500/10 text-emerald-400 font-mono text-[9px] rounded-full border border-emerald-500/20">
+          <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-ping"></span> LOGICAL RUN
+        </div>
+        <div class="font-mono text-xs text-slate-500 mb-4">DIAG_01: DIE OVERLAY & HEATMAP SENSOR</div>
+
+        <!-- CPU Heatsink/Die Simulator Grid -->
+        <div class="grid grid-cols-4 gap-2 mb-6">
+          <div class="p-3 border border-zinc-800 dark:border-zinc-800 light:border-slate-200 rounded flex flex-col items-center bg-zinc-900/40 dark:bg-zinc-900/40 light:bg-white/40">
+            <span class="text-[9px] font-mono text-slate-500">CCD-1</span>
+            <span class="text-xs font-mono font-bold text-cyan-400" id="cpu-temp-ccd1">37°C</span>
+          </div>
+          <div class="p-3 border border-emerald-500/30 rounded flex flex-col items-center bg-emerald-500/5">
+            <span class="text-[9px] font-mono text-emerald-400">3D-V-CACHE</span>
+            <span class="text-xs font-mono font-bold text-emerald-400">ENABLED</span>
+          </div>
+          <div class="p-3 border border-zinc-800 dark:border-zinc-800 light:border-slate-200 rounded flex flex-col items-center bg-zinc-900/40 dark:bg-zinc-900/40 light:bg-white/40">
+            <span class="text-[9px] font-mono text-slate-500">CCD-2</span>
+            <span class="text-xs font-mono font-bold text-cyan-400" id="cpu-temp-ccd2">36°C</span>
+          </div>
+          <div class="p-3 border border-zinc-800 dark:border-zinc-800 light:border-slate-200 rounded flex flex-col items-center bg-zinc-900/40 dark:bg-zinc-900/40 light:bg-white/40">
+            <span class="text-[9px] font-mono text-slate-500">IO DIE</span>
+            <span class="text-xs font-mono font-bold text-cyan-400" id="cpu-temp-iod">39°C</span>
+          </div>
+        </div>
+
+        <div class="space-y-3 font-mono text-xs">
+          <div>
+            <div class="flex justify-between mb-1">
+              <span class="text-slate-500">CLOCK CYCLE FREQUENCY (CURRENT WORKLOAD):</span>
+              <span class="text-cyan-400 font-bold" id="cpu-freq-label">5.70 GHz</span>
+            </div>
+            <div class="w-full bg-slate-800 dark:bg-zinc-900 light:bg-slate-200 h-2 rounded overflow-hidden">
+              <div id="cpu-freq-bar" class="bg-cyan-400 h-full w-[95%] transition-all duration-300"></div>
+            </div>
+          </div>
+          <div class="flex justify-between items-center pt-2 text-[11px] text-slate-400">
+            <span>VOLTAGE: <strong class="text-slate-300">1.18 V</strong></span>
+            <span>TDP LIMIT: <strong class="text-slate-300">162W</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Specs & Technical Checklist -->
+      <div class="lg:col-span-4 space-y-6">
+        <div>
+          <h3 class="font-mono text-sm text-cyan-400 font-bold border-b border-zinc-800 pb-2 mb-3">HARDWARE ARCHITECTURE</h3>
+          <table class="w-full text-xs font-mono space-y-2 text-slate-400 dark:text-slate-400 light:text-slate-600">
+            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Lithography</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">TSMC 4nm FinFET</td></tr>
+            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Core/Thread Count</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">16C / 32T</td></tr>
+            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">3D V-Cache (L3)</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">128MB Stacked</td></tr>
+            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Max Boost Clock</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">Up to 5.7 GHz</td></tr>
+          </table>
+        </div>
+
+        <div>
+          <h3 class="font-mono text-sm text-cyan-400 font-bold border-b border-zinc-800 pb-2 mb-3">CREATOR PERFORMANCE HIGHLIGHT</h3>
+          <p class="text-xs text-slate-400 dark:text-slate-400 light:text-slate-600 leading-relaxed font-mono">
+            Unleashes exceptional responsiveness in complex 3D assembly pipelines. The 3D V-cache provides instantaneous frame-pacing in heavy spatial calculations, cutting compilation and shader bake cycles by half compared to standard silicon designs.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPONENT DOSSIER 02: ASUS ROG CROSSHAIR X870E HERO (MOTHERBOARD) -->
+    <section id="motherboard-section" class="scroll-mt-24 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-t border-zinc-800/80 pt-16">
+      <div class="lg:col-span-3 space-y-4">
+        <div class="text-[11px] font-mono text-cyan-400 font-bold tracking-widest uppercase">SYS.DEV_02.MTHR</div>
+        <h2 class="text-3xl font-extrabold tracking-tight">ASUS ROG Crosshair X870E Hero</h2>
+        <div class="text-xs font-mono text-slate-500 dark:text-slate-500 light:text-slate-400">AM5 SOCKET / PCI-E GEN 5 / USB4 CONNECTIVITY</div>
+        
+        <div class="bg-zinc-900/50 dark:bg-zinc-900/50 light:bg-slate-100 border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 p-4 rounded-lg space-y-3">
+          <div class="flex justify-between items-center text-xs font-mono">
+            <span>EST. MARKET VALUE:</span>
+            <span class="text-cyan-400 font-bold">$699.00</span>
+          </div>
+          <a href="https://www.amazon.com/s?k=ASUS+ROG+Crosshair+X870E+Hero" target="_blank" rel="noopener noreferrer" class="w-full py-2 bg-gradient-to-r from-cyan-500 to-violet-600 hover:from-cyan-400 hover:to-violet-500 text-white text-xs font-mono font-bold tracking-wider text-center block rounded shadow transition-all flex items-center justify-center gap-2">
+            <i data-lucide="shopping-cart" class="w-4 h-4"></i> SECURE ON AMAZON
+          </a>
+        </div>
+      </div>
+
+      <!-- Motherboard Visual Interactive Feature Callout -->
+      <div class="lg:col-span-5 border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 rounded-lg p-6 bg-zinc-950/80 dark:bg-zinc-950/80 light:bg-slate-100/50 relative overflow-hidden">
+        <div class="font-mono text-xs text-slate-500 mb-4">DIAG_02: MULTI-ZONE POWER STAGE TRACING</div>
+        
+        <!-- Interactive PCB Schematics -->
+        <div class="relative w-full aspect-[4/3] border border-zinc-800 dark:border-zinc-800 light:border-slate-200 rounded-md bg-zinc-900/40 dark:bg-zinc-900/40 light:bg-white/40 overflow-hidden p-2 flex flex-col justify-between">
+          <svg class="w-full h-full max-h-[180px]" viewBox="0 0 300 200">
+            <!-- Motherboard tracks -->
+            <path d="M 20 20 L 80 20 L 100 40 L 100 80 L 120 100 L 280 100" stroke="#8b5cf6" stroke-width="0.75" fill="none" class="trace-anim text-violet-500"/>
+            <path d="M 20 180 L 140 180 L 160 160 L 280 160" stroke="#06b6d4" stroke-width="0.75" fill="none" class="trace-anim text-cyan-500"/>
+            <!-- Major hot regions -->
+            <rect x="30" y="30" width="60" height="60" rx="3" fill="#06b6d4" fill-opacity="0.1" stroke="#06b6d4" stroke-width="1"/>
+            <text x="35" y="42" fill="#06b6d4" font-family="monospace" font-size="6">VRM ZONE</text>
+            
+            <rect x="130" y="40" width="80" height="40" rx="3" fill="#8b5cf6" fill-opacity="0.1" stroke="#8b5cf6" stroke-width="1"/>
+            <text x="135" y="52" fill="#8b5cf6" font-family="monospace" font-size="6">AM5 SOCKET</text>
+
+            <rect x="30" y="120" width="240" height="15" rx="2" fill="#10b981" fill-opacity="0.1" stroke="#10b981" stroke-width="1"/>
+            <text x="35" y="130" fill="#10b981" font-family="monospace" font-size="6">PCIE GEN 5 x16 LANE</text>
+          </svg>
+
+          <!-- Hotspot selectors -->
+          <div class="grid grid-cols-3 gap-2 text-[9px] font-mono border-t border-zinc-800 pt-2">
+            <button onclick="highlightMoboZone('vrm')" class="mobo-btn p-1 border border-cyan-500 bg-cyan-500/10 text-cyan-400 rounded text-center">18+2+2 VRM Power</button>
+            <button onclick="highlightMoboZone('wifi')" class="mobo-btn p-1 border border-zinc-800 text-slate-400 rounded text-center">Wi-Fi 7 Accel</button>
+            <button onclick="highlightMoboZone('usb')" class="mobo-btn p-1 border border-zinc-800 text-slate-400 rounded text-center">Dual USB4</button>
+          </div>
+        </div>
+        <div class="mt-3 font-mono text-xs text-slate-400 dark:text-slate-400 light:text-slate-600" id="mobo-zone-desc">
+          <strong>18+2+2 VRM Phases:</strong> Ensures unwavering power delivery and high-frequency efficiency under extreme continuous workstation rendering.
+        </div>
+      </div>
+
+      <!-- Technical Specifications table & Compatibility -->
+      <div class="lg:col-span-4 space-y-6">
+        <div>
+          <h3 class="font-mono text-sm text-cyan-400 font-bold border-b border-zinc-800 pb-2 mb-3">ENGINEERING INTEGRITY</h3>
+          <table class="w-full text-xs font-mono space-y-2 text-slate-400 dark:text-slate-400 light:text-slate-600">
+            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Form Factor</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">ATX Standard</td></tr>
+            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">I/O Network</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">5Gb Ethernet + Wi-Fi 7</td></tr>
+            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Audio Codec</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">ROG SupremeFX ALC4082</td></tr>
+            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">PCI-E Standard</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">Full Gen 5 Capable</td></tr>
+          </table>
+        </div>
+
+        <div>
+          <h3 class="font-mono text-sm text-cyan-400 font-bold border-b border-zinc-800 pb-2 mb-3">COMPATIBILITY & SAFETY SHIELD</h3>
+          <p class="text-xs text-slate-400 dark:text-slate-400 light:text-slate-600 leading-relaxed font-mono">
+            Features standard PCIe SafeSlot technology designed to hold massive modern GPUs securely. Dynamic OC Switcher logic coordinates motherboard voltage offsets seamlessly with the Ryzen Processor to maximize single-thread performance while exporting massive multicore assets.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPONENT DOSSIER 03: ASUS TUF GAMING RTX 5080 OC 16GB (GPU) -->
+    <section id="gpu-section" class="scroll-mt-24 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-t border-zinc-800/80 pt-16">
+      <div class="lg:col-span-3 space-y-4">
+        <div class="text-[11px] font-mono text-cyan-400 font-bold tracking-widest uppercase">SYS.DEV_03.GPU</div>
+        <h2 class="text-3xl font-extrabold tracking-tight">ASUS TUF Gaming RTX 5080 OC</h2>
+        <div class="text-xs font-mono text-slate-500 dark:text-slate-500 light:text-slate-400">16GB GDDR7 / DLSS 4 / NEXT-GEN RAY TRACING ENGINE</div>
+        
+        <div class="bg-zinc-900/50 dark:bg-zinc-900/50 light:bg-slate-100 border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 p-4 rounded-lg space-y-3">
+          <div class="flex justify-between items-center text-xs font-mono">
+            <span>EST. MARKET VALUE:</span>
+            <span class="text-cyan-400 font-bold">$1,199.00</span>
+          </div>
+          <a href="https://www.amazon.com/s?k=ASUS+TUF+Gaming+RTX+5080+OC" target="_blank" rel="noopener noreferrer" class="w-full py-2 bg-gradient-to-r from-cyan-500 to-violet-600 hover:from-cyan-400 hover:to-violet-500 text-white text-xs font-mono font-bold tracking-wider text-center block rounded shadow transition-all flex items-center justify-center gap-2">
+            <i data-lucide="shopping-cart" class="w-4 h-4"></i> SECURE ON AMAZON
+          </a>
+        </div>
+      </div>
+
+      <!-- GPU Showcase Spotlight Interactive Sequence -->
+      <div class="lg:col-span-5 border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 rounded-lg p-6 bg-zinc-950/80 dark:bg-zinc-950/80 light:bg-slate-100/50 relative overflow-hidden">
+        <div class="font-mono text-xs text-slate-500 mb-4">DIAG_03: THERMAL DYNAMICS & ROTOR FLOW</div>
+
+        <!-- Custom animated GPU schematic vector -->
+        <div class="relative w-full aspect-[4/3] border border-zinc-800 dark:border-zinc-800 light:border-slate-200 rounded-md bg-zinc-900/40 dark:bg-zinc-900/40 light:bg-white/40 overflow-hidden p-4 flex flex-col justify-between">
+          <div class="flex justify-between text-[10px] font-mono">
+            <span class="text-emerald-400">CORE STATS: ACTIVE</span>
+            <span class="text-slate-400" id="gpu-fan-rpm-label">FAN SPEED: 1800 RPM</span>
+          </div>
+          
+          <div class="flex justify-around my-4">
+            <!-- Left Rotor Vector -->
+            <svg class="w-16 h-16 text-emerald-400" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="1.5" stroke-dasharray="5 5" fill="none"/>
+              <g class="fan-spin-fast">
+                <circle cx="50" cy="50" r="8" fill="currentColor"/>
+                <path d="M 50 15 L 50 42 M 50 58 L 50 85 M 15 50 L 42 50 M 58 50 L 85 50" stroke="currentColor" stroke-width="6"/>
+                <path d="M 25 25 L 44 44 M 56 56 L 75 75 M 25 75 L 44 56 M 56 44 L 75 25" stroke="currentColor" stroke-width="6"/>
+              </g>
+            </svg>
+            <!-- Middle Rotor Vector -->
+            <svg class="w-16 h-16 text-emerald-400" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="1.5" stroke-dasharray="5 5" fill="none"/>
+              <g class="fan-spin-fast">
+                <circle cx="50" cy="50" r="8" fill="currentColor"/>
+                <path d="M 50 15 L 50 42 M 50 58 L 50 85 M 15 50 L 42 50 M 58 50 L 85 50" stroke="currentColor" stroke-width="6"/>
+                <path d="M 25 25 L 44 44 M 56 56 L 75 75 M 25 75 L 44 56 M 56 44 L 75 25" stroke="currentColor" stroke-width="6"/>
+              </g>
+            </svg>
+            <!-- Right Rotor Vector -->
+            <svg class="w-16 h-16 text-emerald-400" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="1.5" stroke-dasharray="5 5" fill="none"/>
+              <g class="fan-spin-fast">
+                <circle cx="50" cy="50" r="8" fill="currentColor"/>
+                <path d="M 50 15 L 50 42 M 50 58 L 50 85 M 15 50 L 42 50 M 58 50 L 85 50" stroke="currentColor" stroke-width="6"/>
+                <path d="M 25 25 L 44 44 M 56 56 L 75 75 M 25 75 L 44 56 M 56 44 L 75 25" stroke="currentColor" stroke-width="6"/>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Interaction slider to adjust GPU thermal simulation -->
+          <div class="space-y-1">
+            <div class="flex justify-between text-[10px] font-mono text-slate-500">
+              <span>SIMULATED WORKLOAD STRESSOR</span>
+              <span class="text-emerald-400" id="gpu-load-percent">75%</span>
+            </div>
+            <input type="range" min="0" max="100" value="75" oninput="adjustGpuStress(this.value)" class="w-full h-1 bg-slate-800 dark:bg-zinc-800 light:bg-slate-200 accent-emerald-500 rounded-lg appearance-none cursor-pointer">
+          </div>
+        </div>
+      </div>
+
+      <!-- Specs & Engineering Details -->
+      <div class="lg:col-span-4 space-y-6">
+        <div>
+          <h3 class="font-mono text-sm text-cyan-400 font-bold border-b border-zinc-800 pb-2 mb-3">GRAPHICS ARCHITECTURE</h3>
+          <table class="w-full text-xs font-mono space-y-2 text-slate-400 dark:text-slate-400 light:text-slate-600">
+            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Video Memory</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">16GB GDDR7</td></tr>
+            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Memory Bus Width</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">256-bit</td></tr>
+            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">NVIDIA Tensor Cores</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">Next-Gen Ada / Blackwell Hybrid</td></tr>
+            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Physical Interface</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">PCIe 5.0 x16 Native</td></tr>
+          </table>
+        </div>
+
+        <div>
+          <h3 class="font-mono text-sm text-cyan-400 font-bold border-b border-zinc-800 pb-2 mb-3">PRODUCTION ADVANTAGES</h3>
+          <p class="text-xs text-slate-400 dark:text-slate-400 light:text-slate-600 leading-relaxed font-mono">
+            Optimized with massive localized dual-ball fan bearings. Perfect for training micro-LLMs locally, compiling real-time global illumination calculations in Unreal Engine 5, or running multi-layered high-resolution video grading pipelines.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPONENT DOSSIER 04: CORSAIR VENGEANCE DDR5 96GB (RAM) -->
+    <section id="ram-section" class="scroll-mt-24 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-t border-zinc-800/80 pt-16">
+      <div class="lg:col-span-3 space-y-4">
+        <div class="text-[11px] font-mono text-cyan-400 font-bold tracking-widest uppercase">SYS.DEV_04.MEM</div>
+        <h2 class="text-3xl font-extrabold tracking-tight">Corsair Vengeance DDR5 96GB</h2>
+        <div class="text-xs font-mono text-slate-500 dark:text-slate-500 light:text-slate-400">2x48GB MODULES / 6000MHz / CL30 ULTRA-LOW LATENCY</div>
+        
+        <div class="bg-zinc-900/50 dark:bg-zinc-900/50 light:bg-slate-100 border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 p-4 rounded-lg space-y-3">
+          <div class="flex justify-between items-center text-xs font-mono">
+            <span>EST. MARKET VALUE:</span>
+            <span class="text-cyan-400 font-bold">$389.00</span>
+          </div>
+          <a href="https://www.amazon.com/s?k=Corsair+Vengeance+DDR5+96GB+2x48GB+6000MHz" target="_blank" rel="noopener noreferrer" class="w-full py-2 bg-gradient-to-r from-cyan-500 to-violet-600 hover:from-cyan-400 hover:to-violet-500 text-white text-xs font-mono font-bold tracking-wider text-center block rounded shadow transition-all flex items-center justify-center gap-2">
+            <i data-lucide="shopping-cart" class="w-4 h-4"></i> SECURE ON AMAZON
+          </a>
+        </div>
+      </div>
+
+      <!-- RAM Performance Visualization -->
+      <div class="lg:col-span-5 border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 rounded-lg p-6 bg-zinc-950/80 dark:bg-zinc-950/80 light:bg-slate-100/50 relative overflow-hidden">
+        <div class="font-mono text-xs text-slate-500 mb-4">DIAG_04: THROUGHPUT BANDWIDTH & FREQUENCY INDEX</div>
+
+        <!-- Comparative Frequency Chart -->
+        <div class="space-y-4 font-mono text-xs">
+          <!-- Standard DDR4 memory -->
+          <div>
+            <div class="flex justify-between text-[10px] text-slate-500 mb-1">
+              <span>LEGACY DDR4 (3200 MT/s)</span>
+              <span>25.6 GB/s</span>
+            </div>
+            <div class="w-full bg-slate-800 dark:bg-zinc-900 light:bg-slate-200 h-2 rounded">
+              <div class="bg-slate-600 h-full w-[40%]"></div>
+            </div>
+          </div>
+          
+          <!-- Mid range DDR5 memory -->
+          <div>
+            <div class="flex justify-between text-[10px] text-slate-500 mb-1">
+              <span>BASE LINE DDR5 (4800 MT/s)</span>
+              <span>38.4 GB/s</span>
+            </div>
+            <div class="w-full bg-slate-800 dark:bg-zinc-900 light:bg-slate-200 h-2 rounded">
+              <div class="bg-slate-400 h-full w-[60%]"></div>
+            </div>
+          </div>
+
+          <!-- Corsair Vengeance DDR5 6000 -->
+          <div>
+            <div class="flex justify-between text-[10px] text-cyan-400 font-bold mb-1">
+              <span>CORSAIR VENGEANCE DDR5 (6000 MT/s)</span>
+              <span>48.0 GB/s</span>
+            </div>
+            <div class="w-full bg-slate-800 dark:bg-zinc-900 light:bg-slate-200 h-3 rounded overflow-hidden">
+              <div class="bg-gradient-to-r from-cyan-400 to-violet-500 h-full w-[96%]"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 border-t border-zinc-800 dark:border-zinc-800 light:border-slate-200 pt-4 flex justify-between items-center text-[10px] font-mono text-slate-400">
+          <div>INTEL XMP & AMD EXPO PROFILE: READY</div>
+          <div class="text-cyan-400">X-SERIES TUNED</div>
+        </div>
+      </div>
+
+      <!-- Specs & Technical Checklist -->
+      <div class="lg:col-span-4 space-y-6">
+        <div>
+          <h3 class="font-mono text-sm text-cyan-400 font-bold border-b border-zinc-800 pb-2 mb-3">MEMORY TOPOLOGY</h3>
+          <table class="w-full text-xs font-mono space-y-2 text-slate-400 dark:text-slate-400 light:text-slate-600">
+            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Structure Size</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">96GB (2 x 48GB Dual Channel)</td></tr>
+            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Latency Config</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">CL30-36-36-76</td></tr>
+            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Operating Voltage</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">1.40V (Overclock profile)</td></tr>
+            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Heatsink Layout</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">Solid Anodized Aluminum</td></tr>
+          </table>
+        </div>
+
+        <div>
+          <h3 class="font-mono text-sm text-cyan-400 font-bold border-b border-zinc-800 pb-2 mb-3">HIGH CAPACITY BENEFITS</h3>
+          <p class="text-xs text-slate-400 dark:text-slate-400 light:text-slate-600 leading-relaxed font-mono">
+            Optimized for large spatial memory workflows. The 96GB structure capacity bypasses typical bottlenecks when working on complex scenes in high-end engines, allowing multiple dense structures to remain loaded without swapping data to local SSD partitions.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPONENT DOSSIER 05: SAMSUNG 9100 PRO 8TB GEN5 SSD -->
+    <section id="ssd-section" class="scroll-mt-24 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-t border-zinc-800/80 pt-16">
+      <div class="lg:col-span-3 space-y-4">
+        <div class="text-[11px] font-mono text-cyan-400 font-bold tracking-widest uppercase">SYS.DEV_05.STRG</div>
+        <h2 class="text-3xl font-extrabold tracking-tight">Samsung 9100 Pro PCIe Gen5</h2>
+        <div class="text-xs font-mono text-slate-500 dark:text-slate-500 light:text-slate-400">8TB CAPACITY / PCIe GEN 5 / EXTREME SPEED CACHING</div>
+        
+        <div class="bg-zinc-900/50 dark:bg-zinc-900/50 light:bg-slate-100 border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 p-4 rounded-lg space-y-3">
+          <div class="flex justify-between items-center text-xs font-mono">
+            <span>EST. MARKET VALUE:</span>
+            <span class="text-cyan-400 font-bold">$1,099.00</span>
+          </div>
+          <a href="https://www.amazon.com/s?k=Samsung+9100+Pro+8TB+PCIe+Gen5+SSD" target="_blank" rel="noopener noreferrer" class="w-full py-2 bg-gradient-to-r from-cyan-500 to-violet-600 hover:from-cyan-400 hover:to-violet-500 text-white text-xs font-mono font-bold tracking-wider text-center block rounded shadow transition-all flex items-center justify-center gap-2">
+            <i data-lucide="shopping-cart" class="w-4 h-4"></i> SECURE ON AMAZON
+          </a>
+        </div>
+      </div>
+
+      <!-- SSD Transfer Animation Widget -->
+      <div class="lg:col-span-5 border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 rounded-lg p-6 bg-zinc-950/80 dark:bg-zinc-950/80 light:bg-slate-100/50 relative overflow-hidden">
+        <div class="font-mono text-xs text-slate-500 mb-4">DIAG_05: REAL-TIME SECURE THROUGHPUT TESTER</div>
+
+        <!-- Custom animated storage interface -->
+        <div class="relative w-full aspect-[4/3] border border-zinc-800 dark:border-zinc-800 light:border-slate-200 rounded-md bg-zinc-900/40 dark:bg-zinc-900/40 light:bg-white/40 overflow-hidden p-4 flex flex-col justify-between">
+          <div class="flex justify-between text-[10px] font-mono">
+            <span>CONTROLLER TEMP: <strong class="text-cyan-400">42°C</strong></span>
+            <span class="text-cyan-400 font-bold" id="ssd-read-rate-label">READ SPEED: 14,200 MB/s</span>
+          </div>
+
+          <!-- Storage cell block layout -->
+          <div class="grid grid-cols-10 gap-1.5 my-4">
+            <div class="h-4 bg-cyan-500/20 rounded-sm animate-pulse"></div>
+            <div class="h-4 bg-cyan-500/40 rounded-sm"></div>
+            <div class="h-4 bg-cyan-500/60 rounded-sm animate-pulse"></div>
+            <div class="h-4 bg-cyan-500/30 rounded-sm"></div>
+            <div class="h-4 bg-cyan-500/80 rounded-sm"></div>
+            <div class="h-4 bg-zinc-800 rounded-sm"></div>
+            <div class="h-4 bg-zinc-800 rounded-sm"></div>
+            <div class="h-4 bg-zinc-800 rounded-sm"></div>
+            <div class="h-4 bg-zinc-800 rounded-sm"></div>
+            <div class="h-4 bg-zinc-800 rounded-sm"></div>
+          </div>
+
+          <div class="space-y-1">
+            <div class="flex justify-between text-[9px] font-mono text-slate-500">
+              <span>PCIe GEN 5 x4 LANE UTILIZATION</span>
+              <span>100% BANDWIDTH</span>
+            </div>
+            <!-- Animated data speed tracks -->
+            <svg class="w-full h-4" viewBox="0 0 100 10">
+              <line x1="0" y1="5" x2="100" y2="5" stroke="#06b6d4" stroke-width="2" class="data-flow text-cyan-400"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Specs & Technical Checklist -->
+      <div class="lg:col-span-4 space-y-6">
+        <div>
+          <h3 class="font-mono text-sm text-cyan-400 font-bold border-b border-zinc-800 pb-2 mb-3">NAND CONFIGURATION</h3>
+          <table class="w-full text-xs font-mono space-y-2 text-slate-400 dark:text-slate-400 light:text-slate-600">
+            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Interface Speed</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">Up to 14,500 MB/s Read</td></tr>
+            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Writing Rate</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">Up to 12,000 MB/s Write</td></tr>
+            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Flash Microcell</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">V-NAND v8 3D-stacked</td></tr>
+            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Physical Size</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">M.2 2280 Layout</td></tr>
+          </table>
+        </div>
+
+        <div>
+          <h3 class="font-mono text-sm text-cyan-400 font-bold border-b border-zinc-800 pb-2 mb-3">CREATION CACHING</h3>
+          <p class="text-xs text-slate-400 dark:text-slate-400 light:text-slate-600 leading-relaxed font-mono">
+            Eliminates traditional workspace loading lags. Capable of playing back uncompressed 8K RAW video timelines seamlessly without dropped frames, and ensures fast boot times when loading virtualized sandbox systems.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPONENT DOSSIER 06: SAMSUNG ODYSSEY OLED G9 49" (MONITOR) -->
+    <section id="monitor-section" class="scroll-mt-24 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-t border-zinc-800/80 pt-16">
+      <div class="lg:col-span-3 space-y-4">
+        <div class="text-[11px] font-mono text-cyan-400 font-bold tracking-widest uppercase">SYS.DEV_06.DISP</div>
+        <h2 class="text-3xl font-extrabold tracking-tight">Samsung Odyssey OLED G9</h2>
+        <div class="text-xs font-mono text-slate-500 dark:text-slate-500 light:text-slate-400">49-INCH ULTRA-WIDE Curved Monitor / 240Hz / 1800R CURVATURE</div>
+        
+        <div class="bg-zinc-900/50 dark:bg-zinc-900/50 light:bg-slate-100 border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 p-4 rounded-lg space-y-3">
+          <div class="flex justify-between items-center text-xs font-mono">
+            <span>EST. MARKET VALUE:</span>
+            <span class="text-cyan-400 font-bold">$1,299.00</span>
+          </div>
+          <a href="https://www.amazon.com/s?k=Samsung+Odyssey+OLED+G9+49-inch+monitor" target="_blank" rel="noopener noreferrer" class="w-full py-2 bg-gradient-to-r from-cyan-500 to-violet-600 hover:from-cyan-400 hover:to-violet-500 text-white text-xs font-mono font-bold tracking-wider text-center block rounded shadow transition-all flex items-center justify-center gap-2">
+            <i data-lucide="shopping-cart" class="w-4 h-4"></i> SECURE ON AMAZON
+          </a>
+        </div>
+      </div>
+
+      <!-- Monitor Visualization Canvas -->
+      <div class="lg:col-span-5 border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 rounded-lg p-6 bg-zinc-950/80 dark:bg-zinc-950/80 light:bg-slate-100/50 relative overflow-hidden">
+        <div class="font-mono text-xs text-slate-500 mb-4">DIAG_06: 1800R FIELD OF VIEW GEOMETRY</div>
+
+        <div class="relative w-full aspect-[16/9] border border-zinc-800 dark:border-zinc-800 light:border-slate-200 rounded-md bg-zinc-900/40 dark:bg-zinc-900/40 light:bg-white/40 overflow-hidden flex flex-col justify-between p-4">
+          <!-- Top specs -->
+          <div class="flex justify-between text-[10px] font-mono text-cyan-400">
+            <span>5120 x 1440 DUAL QHD</span>
+            <span>240Hz REFRESH RATE</span>
+          </div>
+
+          <!-- Beautiful Vector showing Monitor Curvature -->
+          <div class="flex-grow flex items-center justify-center">
+            <svg class="w-full max-w-[280px]" viewBox="0 0 200 100">
+              <!-- Grid background -->
+              <path d="M 0 50 Q 100 80 200 50" stroke="#1e293b" stroke-width="6" fill="none"/>
+              <!-- Screen curve -->
+              <path d="M 10 40 Q 100 70 190 40" stroke="#06b6d4" stroke-width="4" fill="none" class="trace-anim text-cyan-400"/>
+              <!-- Stand representation -->
+              <path d="M 100 60 L 100 90 M 80 90 L 120 90" stroke="#64748b" stroke-width="3" fill="none"/>
+              <!-- Display field of view angles -->
+              <line x1="100" y1="90" x2="10" y2="40" stroke="#3b82f6" stroke-width="0.5" stroke-dasharray="2 2"/>
+              <line x1="100" y1="90" x2="190" y2="40" stroke="#3b82f6" stroke-width="0.5" stroke-dasharray="2 2"/>
+              <text x="100" y="82" fill="#3b82f6" font-family="monospace" font-size="6" text-anchor="middle">SWEET SPOT</text>
+            </svg>
+          </div>
+
+          <!-- Sweet spot target -->
+          <div class="text-[9px] font-mono text-slate-500 text-center">
+            0.03ms RESPONSE TIME // OLED SELF-LIT PIXELS
+          </div>
+        </div>
+      </div>
+
+      <!-- Specs & Technical Details -->
+      <div class="lg:col-span-4 space-y-6">
+        <div>
+          <h3 class="font-mono text-sm text-cyan-400 font-bold border-b border-zinc-800 pb-2 mb-3">PANEL SPECIFICATION</h3>
+          <table class="w-full text-xs font-mono space-y-2 text-slate-400 dark:text-slate-400 light:text-slate-600">
+            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Aspect Ratio</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">32:9 Ultra-Wide</td></tr>
+            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Color Spectrum</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">99% DCI-P3 Space</td></tr>
+            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Max Luminosity</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">Peak 1000 nits (HDR)</td></tr>
+            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Dynamic Range</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">VESA DisplayHDR True Black 400</td></tr>
+          </table>
+        </div>
+
+        <div>
+          <h3 class="font-mono text-sm text-cyan-400 font-bold border-b border-zinc-800 pb-2 mb-3">PANORAMIC WORKSPACE</h3>
+          <p class="text-xs text-slate-400 dark:text-slate-400 light:text-slate-600 leading-relaxed font-mono">
+            Offers a wide horizontal canvas equivalent to two adjacent 16:9 displays. Enables seamless multi-tasking without central bezels, allowing your timeline, asset vault, and workspace to reside cleanly in a single, fluid view.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPONENT DOSSIER 07: EXISTING / CORE INFRASTRUCTURE (PSU, COOLING & CASE) -->
+    <section id="infrastructure-section" class="scroll-mt-24 border-t border-zinc-800/80 pt-16">
+      <div class="mb-12">
+        <div class="text-[11px] font-mono text-cyan-400 font-bold tracking-widest uppercase">SYS.DEV_INFRA.CORE</div>
+        <h2 class="text-3xl font-extrabold tracking-tight">Core Infrastructure Dossier</h2>
+        <p class="text-sm text-slate-400 dark:text-slate-400 light:text-slate-600 font-mono mt-2">Integrating pre-existing elements into the high-performance system configuration.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- CARD 1: ASUS ROG Thor 1200W PSU -->
+        <div class="border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 rounded-lg p-6 bg-zinc-950/80 dark:bg-zinc-950/80 light:bg-slate-100/50 flex flex-col justify-between space-y-6">
+          <div class="space-y-2">
+            <div class="text-[10px] font-mono text-amber-500">POWER DIVISION // EXISTING</div>
+            <h3 class="text-xl font-bold">ASUS ROG Thor 1200W II</h3>
+            <p class="text-xs text-slate-400 dark:text-slate-400 light:text-slate-600 font-mono">80 PLUS Platinum certified, complete with localized OLED voltage diagnostics tracking real-time load shifts.</p>
+          </div>
+
+          <!-- Dynamic Wattage simulation display -->
+          <div class="bg-zinc-900/60 p-4 rounded border border-zinc-800 font-mono space-y-2">
+            <div class="flex justify-between items-center text-[10px] text-slate-500">
+              <span>LIVE CURRENT OUTPUT</span>
+              <span class="text-amber-400 animate-pulse">OLED SIM</span>
+            </div>
+            <div class="text-3xl font-bold text-amber-400 flex items-baseline">
+              <span id="psu-watt-val">1084</span><span class="text-xs text-slate-500 ml-1">W</span>
+            </div>
+            <div class="w-full bg-slate-800 h-1.5 rounded overflow-hidden">
+              <div id="psu-load-bar" class="bg-amber-400 h-full w-[90%]"></div>
+            </div>
+          </div>
+
+          <a href="https://www.amazon.com/s?k=ASUS+ROG+Thor+1200W+PSU" target="_blank" rel="noopener noreferrer" class="py-2 border border-amber-500/30 hover:border-amber-500 text-amber-500 hover:bg-amber-500/10 text-xs font-mono font-bold tracking-wider text-center block rounded transition-all">
+            VIEW ON AMAZON
+          </a>
+        </div>
+
+        <!-- CARD 2: NZXT Kraken Elite 420 AIO -->
+        <div class="border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 rounded-lg p-6 bg-zinc-950/80 dark:bg-zinc-950/80 light:bg-slate-100/50 flex flex-col justify-between space-y-6">
+          <div class="space-y-2">
+            <div class="text-[10px] font-mono text-cyan-400">THERMAL DIVISION // EXISTING</div>
+            <h3 class="text-xl font-bold">NZXT Kraken Elite 420</h3>
+            <p class="text-xs text-slate-400 dark:text-slate-400 light:text-slate-600 font-mono">High-capacity 420mm liquid cooling radiator equipped with 3x140mm fans and an customizable LCD block tracking critical temperatures.</p>
+          </div>
+
+          <!-- Custom fan speed RPM visual simulator -->
+          <div class="bg-zinc-900/60 p-4 rounded border border-zinc-800 font-mono space-y-2">
+            <div class="flex justify-between items-center text-[10px] text-slate-500">
+              <span>COOLANT TEMPERATURE</span>
+              <span class="text-cyan-400">LCD SYNC</span>
+            </div>
+            <div class="text-3xl font-bold text-cyan-400 flex items-baseline">
+              <span>32.8</span><span class="text-xs text-slate-500 ml-1">°C</span>
+            </div>
+            <div class="text-[10px] text-slate-500 flex justify-between">
+              <span>PUMP STATE: <strong class="text-emerald-400">2800 RPM</strong></span>
+              <span>FLOWRATE: <strong class="text-slate-300">OPTIMAL</strong></span>
+            </div>
+          </div>
+
+          <a href="https://www.amazon.com/s?k=NZXT+Kraken+Elite+420+AIO" target="_blank" rel="noopener noreferrer" class="py-2 border border-cyan-500/30 hover:border-cyan-500 text-cyan-500 hover:bg-cyan-500/10 text-xs font-mono font-bold tracking-wider text-center block rounded transition-all">
+            VIEW ON AMAZON
+          </a>
+        </div>
+
+        <!-- CARD 3: ASUS ROG Helios Chassis -->
+        <div class="border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 rounded-lg p-6 bg-zinc-950/80 dark:bg-zinc-950/80 light:bg-slate-100/50 flex flex-col justify-between space-y-6">
+          <div class="space-y-2">
+            <div class="text-[10px] font-mono text-violet-400">STRUCTURAL DIVISION // EXISTING</div>
+            <h3 class="text-xl font-bold">ASUS ROG Strix Helios</h3>
+            <p class="text-xs text-slate-400 dark:text-slate-400 light:text-slate-600 font-mono">Premium mid-tower chassis crafted with brushed-aluminum styling, three tempered-glass side panels, and integrated fabric handles.</p>
+          </div>
+
+          <!-- Airflow diagram telemetry outline -->
+          <div class="bg-zinc-900/60 p-4 rounded border border-zinc-800 font-mono space-y-2">
+            <div class="flex justify-between items-center text-[10px] text-slate-500">
+              <span>CHASSIS PRESSURE STATE</span>
+              <span class="text-emerald-400">STABLE</span>
+            </div>
+            <div class="text-sm text-slate-300 flex flex-col gap-1">
+              <div class="flex justify-between text-xs"><span>Front Intake:</span> <span class="text-cyan-400">ACTIVE (3x140mm)</span></div>
+              <div class="flex justify-between text-xs"><span>Top Exhaust:</span> <span class="text-violet-400">ACTIVE (3x140mm)</span></div>
+              <div class="flex justify-between text-xs"><span>Rear Exhaust:</span> <span class="text-violet-400">ACTIVE (1x140mm)</span></div>
+            </div>
+          </div>
+
+          <a href="https://www.amazon.com/s?k=ASUS+ROG+Helios+chassis" target="_blank" rel="noopener noreferrer" class="py-2 border border-violet-500/30 hover:border-violet-500 text-violet-500 hover:bg-violet-500/10 text-xs font-mono font-bold tracking-wider text-center block rounded transition-all">
+            VIEW ON AMAZON
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- LIVE COMPUTATIONAL TELEMETRY & WORKSPACE BENCHMARKS -->
+    <section id="telemetry" class="scroll-mt-24 border-t border-zinc-800/80 pt-16 space-y-8">
+      <div class="text-center max-w-2xl mx-auto space-y-2">
+        <div class="text-[11px] font-mono text-cyan-400 font-bold tracking-widest uppercase">LABORATORY ANALYSIS</div>
+        <h2 class="text-3xl font-extrabold tracking-tight">Dynamic Telemetry Engine</h2>
+        <p class="text-sm text-slate-400 dark:text-slate-400 light:text-slate-600 font-mono">
+          Select a computational simulation to route workloads across vector lines, tracking real-time telemetry shifts and temperature fluctuations.
+        </p>
+      </div>
+
+      <!-- Simulator Selector Buttons -->
+      <div class="flex flex-wrap justify-center gap-3">
+        <button onclick="runBenchmark('idle')" class="bench-btn px-4 py-2 font-mono text-xs border border-zinc-800 bg-zinc-900/50 hover:bg-cyan-500/10 hover:text-cyan-400 text-slate-400 rounded transition-all">SYS_IDLE_CYCLE</button>
+        <button onclick="runBenchmark('blender')" class="bench-btn px-4 py-2 font-mono text-xs border border-zinc-800 bg-zinc-900/50 hover:bg-cyan-500/10 hover:text-cyan-400 text-slate-400 rounded transition-all">BLENDER_3D_CYCLES</button>
+        <button onclick="runBenchmark('ue5')" class="bench-btn px-4 py-2 font-mono text-xs border border-zinc-800 bg-zinc-900/50 hover:bg-cyan-500/10 hover:text-cyan-400 text-slate-400 rounded transition-all">UNREAL_ENGINE_5_NANITE_BAKE</button>
+        <button onclick="runBenchmark('ai')" class="bench-btn px-4 py-2 font-mono text-xs border border-zinc-800 bg-zinc-900/50 hover:bg-cyan-500/10 hover:text-cyan-400 text-slate-400 rounded transition-all">STABLE_DIFFUSION_LOCAL_TRAIN</button>
+      </div>
+
+      <!-- Real-time Active Telemetry Grid Display -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- TELEMETRY NODE 1: CPU Temperature -->
+        <div class="border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 rounded-lg p-5 bg-zinc-950/80 dark:bg-zinc-950/80 light:bg-slate-100/50 font-mono space-y-3">
+          <div class="text-[10px] text-slate-500">THERMAL_ZONE // CPU</div>
+          <div class="flex justify-between items-baseline">
+            <span class="text-3xl font-bold text-cyan-400" id="tele-cpu-temp">38.4</span><span class="text-sm text-slate-500">°C</span>
+          </div>
+          <div class="w-full bg-slate-800 h-1.5 rounded overflow-hidden">
+            <div id="tele-cpu-temp-bar" class="bg-cyan-400 h-full w-[40%] transition-all duration-500"></div>
+          </div>
+          <div class="text-[9px] text-slate-500 flex justify-between">
+            <span>9950X3D DIE INDEX</span>
+            <span id="tele-cpu-state">STABLE // LIQUID COOLING ACCEL</span>
+          </div>
+        </div>
+
+        <!-- TELEMETRY NODE 2: GPU Active Core Clock -->
+        <div class="border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 rounded-lg p-5 bg-zinc-950/80 dark:bg-zinc-950/80 light:bg-slate-100/50 font-mono space-y-3">
+          <div class="text-[10px] text-slate-500">CLOCK_SPEED // TUF_RTX_5080</div>
+          <div class="flex justify-between items-baseline">
+            <span class="text-3xl font-bold text-emerald-400" id="tele-gpu-clock">2200</span><span class="text-sm text-slate-500">MHz</span>
+          </div>
+          <div class="w-full bg-slate-800 h-1.5 rounded overflow-hidden">
+            <div id="tele-gpu-clock-bar" class="bg-emerald-400 h-full w-[55%] transition-all duration-500"></div>
+          </div>
+          <div class="text-[9px] text-slate-500 flex justify-between">
+            <span>NVIDIA BLACKWELL CHIP</span>
+            <span id="tele-gpu-state">CLOCK STATE STABLE</span>
+          </div>
+        </div>
+
+        <!-- TELEMETRY NODE 3: Memory Swapping Buffer -->
+        <div class="border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 rounded-lg p-5 bg-zinc-950/80 dark:bg-zinc-950/80 light:bg-slate-100/50 font-mono space-y-3">
+          <div class="text-[10px] text-slate-500">MEMORY_CAPACITY // 96GB</div>
+          <div class="flex justify-between items-baseline">
+            <span class="text-3xl font-bold text-violet-400" id="tele-ram-used">18.4</span><span class="text-sm text-slate-500">GB</span>
+          </div>
+          <div class="w-full bg-slate-800 h-1.5 rounded overflow-hidden">
+            <div id="tele-ram-bar" class="bg-violet-400 h-full w-[20%] transition-all duration-500"></div>
+          </div>
+          <div class="text-[9px] text-slate-500 flex justify-between">
+            <span>VENGEANCE 6000MT/s</span>
+            <span id="tele-ram-percent">19% UTILIZED</span>
+          </div>
+        </div>
+
+        <!-- TELEMETRY NODE 4: System Total Power Flow -->
+        <div class="border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 rounded-lg p-5 bg-zinc-950/80 dark:bg-zinc-950/80 light:bg-slate-100/50 font-mono space-y-3">
+          <div class="text-[10px] text-slate-500">POWER_BUDGET // 1200W</div>
+          <div class="flex justify-between items-baseline">
+            <span class="text-3xl font-bold text-amber-400" id="tele-pwr-draw">245</span><span class="text-sm text-slate-500">W</span>
+          </div>
+          <div class="w-full bg-slate-800 h-1.5 rounded overflow-hidden">
+            <div id="tele-pwr-bar" class="bg-amber-400 h-full w-[25%] transition-all duration-500"></div>
+          </div>
+          <div class="text-[9px] text-slate-500 flex justify-between">
+            <span>THOR II PLATINUM EFFICIENCY</span>
+            <span id="tele-pwr-eff">92% EFFICIENCY LOAD CURVE</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MASTER SYSTEM BUILD MANIFEST TABLE -->
+  <section class="max-w-7xl mx-auto px-4 py-12 border-t border-zinc-800/80">
+    <div class="mb-8 font-mono">
+      <h2 class="text-2xl font-bold">System Manifest Document</h2>
+      <p class="text-xs text-slate-500 mt-1">RAW RECAP SHEET // TECHNICAL VERIFICATION</p>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="w-full text-left font-mono text-xs border-collapse">
+        <thead>
+          <tr class="border-b border-zinc-800 text-slate-500 uppercase tracking-wider">
+            <th class="py-3 px-4">Component Node</th>
+            <th class="py-3 px-4">Core Model Descriptor</th>
+            <th class="py-3 px-4">State</th>
+            <th class="py-3 px-4 text-right">Est. Unit Price</th>
+            <th class="py-3 px-4 text-center">Amazon Link</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-zinc-900/60 text-slate-400 dark:text-slate-400 light:text-slate-700">
+          <tr>
+            <td class="py-3.5 px-4 text-cyan-400 font-bold">SYS.DEV_01.CPU</td>
+            <td class="py-3.5 px-4 text-slate-200 dark:text-slate-200 light:text-slate-900">AMD Ryzen 9 9950X3D</td>
+            <td class="py-3.5 px-4 text-emerald-400">IN TRANSIT</td>
+            <td class="py-3.5 px-4 text-right text-slate-300 dark:text-slate-300 light:text-slate-800">$799.00</td>
+            <td class="py-3.5 px-4 text-center"><a href="https://www.amazon.com/s?k=AMD+Ryzen+9+9950X3D" target="_blank" class="text-cyan-400 hover:underline">VISIT <i data-lucide="external-link" class="inline w-3 h-3"></i></a></td>
+          </tr>
+          <tr>
+            <td class="py-3.5 px-4 text-cyan-400 font-bold">SYS.DEV_02.MTHR</td>
+            <td class="py-3.5 px-4 text-slate-200 dark:text-slate-200 light:text-slate-900">ASUS ROG Crosshair X870E Hero</td>
+            <td class="py-3.5 px-4 text-emerald-400">IN TRANSIT</td>
+            <td class="py-3.5 px-4 text-right text-slate-300 dark:text-slate-300 light:text-slate-800">$699.00</td>
+            <td class="py-3.5 px-4 text-center"><a href="https://www.amazon.com/s?k=ASUS+ROG+Crosshair+X870E+Hero" target="_blank" class="text-cyan-400 hover:underline">VISIT <i data-lucide="external-link" class="inline w-3 h-3"></i></a></td>
+          </tr>
+          <tr>
+            <td class="py-3.5 px-4 text-cyan-400 font-bold">SYS.DEV_03.GPU</td>
+            <td class="py-3.5 px-4 text-slate-200 dark:text-slate-200 light:text-slate-900">ASUS TUF Gaming RTX 5080 OC 16GB</td>
+            <td class="py-3.5 px-4 text-emerald-400">IN TRANSIT</td>
+            <td class="py-3.5 px-4 text-right text-slate-300 dark:text-slate-300 light:text-slate-800">$1,199.00</td>
+            <td class="py-3.5 px-4 text-center"><a href="https://www.amazon.com/s?k=ASUS+TUF+Gaming+RTX+5080+OC" target="_blank" class="text-cyan-400 hover:underline">VISIT <i data-lucide="external-link" class="inline w-3 h-3"></i></a></td>
+          </tr>
+          <tr>
+            <td class="py-3.5 px-4 text-cyan-400 font-bold">SYS.DEV_04.MEM</td>
+            <td class="py-3.5 px-4 text-slate-200 dark:text-slate-200 light:text-slate-900">Corsair Vengeance DDR5 96GB (2x48GB)</td>
+            <td class="py-3.5 px-4 text-emerald-400">IN TRANSIT</td>
+            <td class="py-3.5 px-4 text-right text-slate-300 dark:text-slate-300 light:text-slate-800">$389.00</td>
+            <td class="py-3.5 px-4 text-center"><a href="https://www.amazon.com/s?k=Corsair+Vengeance+DDR5+96GB+2x48GB+6000MHz" target="_blank" class="text-cyan-400 hover:underline">VISIT <i data-lucide="external-link" class="inline w-3 h-3"></i></a></td>
+          </tr>
+          <tr>
+            <td class="py-3.5 px-4 text-cyan-400 font-bold">SYS.DEV_05.STRG</td>
+            <td class="py-3.5 px-4 text-slate-200 dark:text-slate-200 light:text-slate-900">Samsung 9100 Pro 8TB Gen5 SSD</td>
+            <td class="py-3.5 px-4 text-emerald-400">IN TRANSIT</td>
+            <td class="py-3.5 px-4 text-right text-slate-300 dark:text-slate-300 light:text-slate-800">$1,099.00</td>
+            <td class="py-3.5 px-4 text-center"><a href="https://www.amazon.com/s?k=Samsung+9100+Pro+8TB+PCIe+Gen5+SSD" target="_blank" class="text-cyan-400 hover:underline">VISIT <i data-lucide="external-link" class="inline w-3 h-3"></i></a></td>
+          </tr>
+          <tr>
+            <td class="py-3.5 px-4 text-cyan-400 font-bold">SYS.DEV_06.DISP</td>
+            <td class="py-3.5 px-4 text-slate-200 dark:text-slate-200 light:text-slate-900">Samsung Odyssey OLED G9 49-inch</td>
+            <td class="py-3.5 px-4 text-emerald-400">IN TRANSIT</td>
+            <td class="py-3.5 px-4 text-right text-slate-300 dark:text-slate-300 light:text-slate-800">$1,299.00</td>
+            <td class="py-3.5 px-4 text-center"><a href="https://www.amazon.com/s?k=Samsung+Odyssey+OLED+G9+49-inch+monitor" target="_blank" class="text-cyan-400 hover:underline">VISIT <i data-lucide="external-link" class="inline w-3 h-3"></i></a></td>
+          </tr>
+          <tr>
+            <td class="py-3.5 px-4 text-slate-500 font-bold">SYS.DEV_INFRA.01</td>
+            <td class="py-3.5 px-4 text-slate-200 dark:text-slate-200 light:text-slate-900">ASUS ROG Thor 1200W PSU</td>
+            <td class="py-3.5 px-4 text-slate-500">EXISTING</td>
+            <td class="py-3.5 px-4 text-right text-slate-300 dark:text-slate-300 light:text-slate-800">$359.00</td>
+            <td class="py-3.5 px-4 text-center"><a href="https://www.amazon.com/s?k=ASUS+ROG+Thor+1200W+PSU" target="_blank" class="text-cyan-400 hover:underline">VISIT <i data-lucide="external-link" class="inline w-3 h-3"></i></a></td>
+          </tr>
+          <tr>
+            <td class="py-3.5 px-4 text-slate-500 font-bold">SYS.DEV_INFRA.02</td>
+            <td class="py-3.5 px-4 text-slate-200 dark:text-slate-200 light:text-slate-900">NZXT Kraken Elite 420 AIO</td>
+            <td class="py-3.5 px-4 text-slate-500">EXISTING</td>
+            <td class="py-3.5 px-4 text-right text-slate-300 dark:text-slate-300 light:text-slate-800">$299.00</td>
+            <td class="py-3.5 px-4 text-center"><a href="https://www.amazon.com/s?k=NZXT+Kraken+Elite+420+AIO" target="_blank" class="text-cyan-400 hover:underline">VISIT <i data-lucide="external-link" class="inline w-3 h-3"></i></a></td>
+          </tr>
+          <tr>
+            <td class="py-3.5 px-4 text-slate-500 font-bold">SYS.DEV_INFRA.03</td>
+            <td class="py-3.5 px-4 text-slate-200 dark:text-slate-200 light:text-slate-900">ASUS ROG Helios Chassis</td>
+            <td class="py-3.5 px-4 text-slate-500">EXISTING</td>
+            <td class="py-3.5 px-4 text-right text-slate-300 dark:text-slate-300 light:text-slate-800">$349.00</td>
+            <td class="py-3.5 px-4 text-center"><a href="https://www.amazon.com/s?k=ASUS+ROG+Helios+chassis" target="_blank" class="text-cyan-400 hover:underline">VISIT <i data-lucide="external-link" class="inline w-3 h-3"></i></a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- MASTER SYSTEM FOOTER / INTELLECTUAL DOSSIER SIGN OFF -->
+  <footer class="border-t border-zinc-800 bg-zinc-950 dark:bg-zinc-950 light:bg-slate-100 py-12 px-4">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+      <div class="space-y-1 font-mono text-center md:text-left">
+        <div class="text-sm font-bold tracking-wider text-slate-300 dark:text-slate-300 light:text-slate-800">X-SERIES COMPUTE SPECIFICATIONS</div>
+        <div class="text-xs text-slate-500">CONFIDENTIAL // INTERNAL ENGINEERING MANIFEST v4.81</div>
+      </div>
+      <div class="text-[10px] font-mono text-slate-500 text-center md:text-right">
+        All hardware properties are simulated calculations based on manufacturer technical documentation drafts. <br>
+        Developed for high-fidelity interactive visualization. All links query actual market vendors directly.
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODERN VANILLA JAVASCRIPT LOGIC -->
+  <script>
+    // Initialize Lucide vector symbol icons
+    lucide.createIcons();
+
+    // SYSTEM METRICS & PERFORMANCE VALUE INTERPOLATION CODES
+    function animateCounters() {
+      const duration = 2000; // 2 seconds
+      const steps = 60;
+      const stepDuration = duration / steps;
+      
+      let currentStep = 0;
+      
+      const wsTarget = 98;
+      const aiTarget = 144;
+      const ueTarget = 96;
+      
+      const interval = setInterval(() => {
+        currentStep++;
+        const progress = currentStep / steps;
+        
+        // Easing multiplier
+        const ease = 1 - Math.pow(1 - progress, 3);
+        
+        document.getElementById('stat-ws').innerText = Math.round(wsTarget * ease);
+        document.getElementById('stat-ai').innerText = Math.round(aiTarget * ease);
+        document.getElementById('stat-ue').innerText = Math.round(ueTarget * ease);
+        
+        if (currentStep >= steps) {
+          clearInterval(interval);
+        }
+      }, stepDuration);
+    }
+
+    // Trigger metrics counter interpolation on initial mount
+    document.addEventListener("DOMContentLoaded", () => {
+      animateCounters();
+    });
+
+    // ASSEMBLY CONTROLLER SIMULATION LOGIC
+    function setAssemblyStep(step) {
+      const chassis = document.getElementById('layer-chassis');
+      const psu = document.getElementById('layer-psu');
+      const mobo = document.getElementById('layer-motherboard');
+      const cpu = document.getElementById('layer-cpu');
+      const cooling = document.getElementById('layer-cooling');
+      const gpu = document.getElementById('layer-gpu');
+      const progressLabel = document.getElementById('assembly-progress-label');
+      
+      // Reset classes & elements
+      const buttons = document.querySelectorAll('.assembly-step-btn');
+      buttons.forEach(btn => {
+        btn.classList.remove('bg-cyan-500/20', 'text-cyan-400', 'border-cyan-500/30');
+        btn.classList.add('bg-zinc-900', 'text-slate-400', 'border-zinc-800');
+      });
+      
+      // Update targeted active button state styling
+      buttons[step - 1].classList.remove('bg-zinc-900', 'text-slate-400', 'border-zinc-800');
+      buttons[step - 1].add('bg-cyan-500/20', 'text-cyan-400', 'border-cyan-500/30');
+
+      if (step === 1) {
+        chassis.setAttribute('opacity', '0.6');
+        psu.setAttribute('opacity', '0.2');
+        psu.setAttribute('transform', 'translateY(40px)');
+        mobo.setAttribute('opacity', '0.1');
+        cpu.setAttribute('opacity', '0');
+        cooling.setAttribute('opacity', '0');
+        gpu.setAttribute('opacity', '0');
+        progressLabel.innerText = "CHASSIS CORE STRUCTURAL LAYER ALIGNED";
+      } else if (step === 2) {
+        chassis.setAttribute('opacity', '0.4');
+        psu.setAttribute('opacity', '0.9');
+        psu.setAttribute('transform', 'translateY(0)');
+        mobo.setAttribute('opacity', '0.8');
+        mobo.setAttribute('transform', 'translateY(0)');
+        cpu.setAttribute('opacity', '0');
+        cooling.setAttribute('opacity', '0');
+        gpu.setAttribute('opacity', '0');
+        progressLabel.innerText = "ROG MOTHERBOARD & THOR ATX CURRENT PIPES CONNECTED";
+      } else if (step === 3) {
+        chassis.setAttribute('opacity', '0.2');
+        psu.setAttribute('opacity', '0.8');
+        mobo.setAttribute('opacity', '0.9');
+        cpu.setAttribute('opacity', '1');
+        cpu.setAttribute('transform', 'scale(1)');
+        cooling.setAttribute('opacity', '1');
+        cooling.setAttribute('transform', 'translateY(0)');
+        gpu.setAttribute('opacity', '0');
+        progressLabel.innerText = "AMD SILICON MOUNTED & LIQUID PIPES ROUTED";
+      } else if (step === 4) {
+        chassis.setAttribute('opacity', '0.15');
+        psu.setAttribute('opacity', '0.8');
+        mobo.setAttribute('opacity', '0.8');
+        cpu.setAttribute('opacity', '0.9');
+        cooling.setAttribute('opacity', '0.9');
+        gpu.setAttribute('opacity', '1');
+        gpu.setAttribute('transform', 'translateX(0)');
+        progressLabel.innerText = "NVIDIA RTX VECTOR MATRIX PIPELINE ASSEMBLED";
+      }
+    }
+
+    // SCROLL TRIGGERS SYSTEM ASSEMBLER FLOW
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const height = document.body.scrollHeight - window.innerHeight;
+      const scrollPercent = scrollTop / height;
+      
+      // Map scroll state progress to assembly phases organically
+      if (scrollPercent < 0.15) {
+        setAssemblyStep(1);
+      } else if (scrollPercent >= 0.15 && scrollPercent < 0.35) {
+        setAssemblyStep(2);
+      } else if (scrollPercent >= 0.35 && scrollPercent < 0.55) {
+        setAssemblyStep(3);
+      } else if (scrollPercent >= 0.55) {
+        setAssemblyStep(4);
+      }
+    });
+
+    // SYSTEM THEME MANAGEMENT CODES (PRESERVES THEMES PRECISELY)
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const htmlElement = document.documentElement;
+
+    themeToggleBtn.addEventListener('click', () => {
+      if (htmlElement.classList.contains('dark')) {
+        htmlElement.classList.remove('dark');
+        htmlElement.classList.add('light');
+        localStorage.setItem('theme', 'light');
+      } else {
+        htmlElement.classList.remove('light');
+        htmlElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    });
+
+    // SYSTEM VRM INTENSITY AND MOTHERBOARD SCHEMATIC ROUTING
+    function highlightMoboZone(zone) {
+      const descEl = document.getElementById('mobo-zone-desc');
+      const buttons = document.querySelectorAll('.mobo-btn');
+      
+      buttons.forEach(btn => {
+        btn.classList.remove('border-cyan-500', 'bg-cyan-500/10', 'text-cyan-400');
+        btn.classList.add('border-zinc-800', 'text-slate-400');
+      });
+
+      if (zone === 'vrm') {
+        descEl.innerHTML = "<strong>18+2+2 VRM Phases:</strong> Ensures unwavering power delivery and high-frequency efficiency under extreme continuous workstation rendering.";
+        event.currentTarget.classList.add('border-cyan-500', 'bg-cyan-500/10', 'text-cyan-400');
+      } else if (zone === 'wifi') {
+        descEl.innerHTML = "<strong>Wi-Fi 7 Accel:</strong> Features high bandwidth multi-link channels for rapid data transmission with local workstation render clusters.";
+        event.currentTarget.classList.add('border-cyan-500', 'bg-cyan-500/10', 'text-cyan-400');
+      } else if (zone === 'usb') {
+        descEl.innerHTML = "<strong>Dual USB4 Ports:</strong> Support up to 40Gbps symmetrical speed per line, delivering high-speed interface routing for mass storage.";
+        event.currentTarget.classList.add('border-cyan-500', 'bg-cyan-500/10', 'text-cyan-400');
+      }
+    }
+
+    // WORKLOAD TELEMETRY SIMULATOR RUNNERS
+    function runBenchmark(mode) {
+      const cpuTemp = document.getElementById('tele-cpu-temp');
+      const cpuTempBar = document.getElementById('tele-cpu-temp-bar');
+      const cpuState = document.getElementById('tele-cpu-state');
+      
+      const gpuClock = document.getElementById('tele-gpu-clock');
+      const gpuClockBar = document.getElementById('tele-gpu-clock-bar');
+      const gpuState = document.getElementById('tele-gpu-state');
+      
+      const ramUsed = document.getElementById('tele-ram-used');
+      const ramBar = document.getElementById('tele-ram-bar');
+      const ramPercent = document.getElementById('tele-ram-percent');
+      
+      const pwrDraw = document.getElementById('tele-pwr-draw');
+      const pwrBar = document.getElementById('tele-pwr-bar');
+      const pwrEff = document.getElementById('tele-pwr-eff');
+      
+      const hudPower = document.getElementById('hud-power');
+      const hudThermal = document.getElementById('hud-thermal');
+
+      const psuWattVal = document.getElementById('psu-watt-val');
+      const psuLoadBar = document.getElementById('psu-load-bar');
+
+      if (mode === 'idle') {
+        cpuTemp.innerText = "34.2";
+        cpuTempBar.style.width = "25%";
+        cpuState.innerText = "SYS_IDLE // COLD CORE LOGIC";
+        
+        gpuClock.innerText = "500";
+        gpuClockBar.style.width = "10%";
+        gpuState.innerText = "RTX IDLE STATE";
+        
+        ramUsed.innerText = "8.2";
+        ramBar.style.width = "8%";
+        ramPercent.innerText = "8.5% BUFFER LOADED";
+        
+        pwrDraw.innerText = "120";
+        pwrBar.style.width = "10%";
+        pwrEff.innerText = "94.5% EFFICIENCY RATIO";
+
+        hudPower.innerText = "120 W";
+        hudThermal.innerText = "34.2 °C";
+        psuWattVal.innerText = "120";
+        psuLoadBar.style.width = "10%";
+      }
+      else if (mode === 'blender') {
+        cpuTemp.innerText = "78.4";
+        cpuTempBar.style.width = "82%";
+        cpuState.innerText = "100% THR_LOAD // CYCLES ACCEL ON";
+        
+        gpuClock.innerText = "2420";
+        gpuClockBar.style.width = "85%";
+        gpuState.innerText = "CUDA ENGINE RENDERING GRID";
+        
+        ramUsed.innerText = "64.8";
+        ramBar.style.width = "68%";
+        ramPercent.innerText = "68% ASSET BUFFER STAGE";
+        
+        pwrDraw.innerText = "840";
+        pwrBar.style.width = "70%";
+        pwrEff.innerText = "91% PLATINUM HIGH-LOAD DRAW";
+
+        hudPower.innerText = "840 W";
+        hudThermal.innerText = "78.4 °C";
+        psuWattVal.innerText = "840";
+        psuLoadBar.style.width = "70%";
+      }
+      else if (mode === 'ue5') {
+        cpuTemp.innerText = "68.1";
+        cpuTempBar.style.width = "68%";
+        cpuState.innerText = "SHADER CORE TRACE COMPILATION active";
+        
+        gpuClock.innerText = "2550";
+        gpuClockBar.style.width = "95%";
+        gpuState.innerText = "DIRECTX 12 ULTIMATE // RT ACTIVE";
+        
+        ramUsed.innerText = "84.2";
+        ramBar.style.width = "88%";
+        ramPercent.innerText = "88% CACHE STACKED FOR HIGH-FIDELITY";
+        
+        pwrDraw.innerText = "920";
+        pwrBar.style.width = "78%";
+        pwrEff.innerText = "90.2% DYNAMIC SPIKE RESERVE";
+
+        hudPower.innerText = "920 W";
+        hudThermal.innerText = "68.1 °C";
+        psuWattVal.innerText = "920";
+        psuLoadBar.style.width = "78%";
+      }
+      else if (mode === 'ai') {
+        cpuTemp.innerText = "52.4";
+        cpuTempBar.style.width = "48%";
+        cpuState.innerText = "PYTORCH STAGE DATA LOAD PROCESS";
+        
+        gpuClock.innerText = "2610";
+        gpuClockBar.style.width = "100%";
+        gpuState.innerText = "FP8 TENSOR CORES RUNNING COMPUTE";
+        
+        ramUsed.innerText = "42.5";
+        ramBar.style.width = "44%";
+        ramPercent.innerText = "44% IN-MEMORY VECTOR STORE";
+        
+        pwrDraw.innerText = "1084";
+        pwrBar.style.width = "90%";
+        pwrEff.innerText = "89.4% MAX COMPUTE SATURATION";
+
+        hudPower.innerText = "1084 W";
+        hudThermal.innerText = "52.4 °C";
+        psuWattVal.innerText = "1084";
+        psuLoadBar.style.width = "90%";
+      }
+    }
+
+    // ADJUST GPU COMPUTE LOAD FROM RANGE SLIDER
+    function adjustGpuStress(value) {
+      document.getElementById('gpu-load-percent').innerText = value + "%";
+      const fanSpeedLabel = document.getElementById('gpu-fan-rpm-label');
+      const rpm = Math.round(500 + (value / 100) * 1900);
+      fanSpeedLabel.innerText = "FAN SPEED: " + rpm + " RPM";
+    }
+
+    // TIMED HEAT SENSOR RANDOM VARIATION FOR DOCUMENTATION LIFE
+    setInterval(() => {
+      const ccd1 = Math.round(35 + Math.random() * 4);
+      const ccd2 = Math.round(34 + Math.random() * 4);
+      const iod = Math.round(38 + Math.random() * 3);
+      
+      const ccd1El = document.getElementById('cpu-temp-ccd1');
+      const ccd2El = document.getElementById('cpu-temp-ccd2');
+      const iodEl = document.getElementById('cpu-temp-iod');
+      
+      if(ccd1El) ccd1El.innerText = ccd1 + "°C";
+      if(ccd2El) ccd2El.innerText = ccd2 + "°C";
+      if(iodEl) iodEl.innerText = iod + "°C";
+    }, 4000);
+
+  </script>
 </body>
 </html>
+
+```
