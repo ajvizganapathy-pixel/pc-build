@@ -1,1387 +1,3447 @@
-```html
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth dark">
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>X-SERIES PRO // Creator Workstation Spec & Telemetry</title>
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            mono: ['Courier New', 'Courier', 'monospace', 'SFMono-Regular', 'Menlo'],
-            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-          },
-          colors: {
-            cyber: {
-              teal: '#06b6d4',
-              violet: '#8b5cf6',
-              amber: '#f59e0b',
-              emerald: '#10b981',
-              rose: '#f43f5e',
-              slate: '#0f172a',
-              zincDark: '#09090b',
-              zincLight: '#f4f4f5'
-            }
-          }
-        }
-      }
-    }
-  </script>
-  <!-- Lucide Icons for high-fidelity technical symbols -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <style>
-    /* Custom High-Fidelity Technical styling & Grid Backgrounds */
-    .blueprint-grid-dark {
-      background-size: 40px 40px;
-      background-image: 
-        linear-gradient(to right, rgba(6, 182, 212, 0.05) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(6, 182, 212, 0.05) 1px, transparent 1px);
-    }
-    .blueprint-grid-light {
-      background-size: 40px 40px;
-      background-image: 
-        linear-gradient(to right, rgba(37, 99, 235, 0.05) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(37, 99, 235, 0.05) 1px, transparent 1px);
-    }
-    .glow-cyan {
-      box-shadow: 0 0 15px rgba(6, 182, 212, 0.25);
-    }
-    .glow-violet {
-      box-shadow: 0 0 15px rgba(139, 92, 246, 0.25);
-    }
-    /* Smooth transition for theme switching */
-    * {
-      transition: background-color 0.3s ease, border-color 0.3s ease, text-decoration 0.3s ease;
-    }
-    
-    /* Animation keyframes for moving data & fluids */
-    @keyframes pulseTrace {
-      0% { stroke-dashoffset: 100; }
-      100% { stroke-dashoffset: 0; }
-    }
-    .trace-anim {
-      stroke-dasharray: 12;
-      animation: pulseTrace 3s linear infinite;
-    }
-    @keyframes fanSpin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    .fan-spin-fast {
-      animation: fanSpin 0.5s linear infinite;
-      transform-origin: center;
-    }
-    .fan-spin-med {
-      animation: fanSpin 1.5s linear infinite;
-      transform-origin: center;
-    }
-    @keyframes dataStream {
-      0% { stroke-dashoffset: 100; }
-      100% { stroke-dashoffset: 0; }
-    }
-    .data-flow {
-      stroke-dasharray: 8 4;
-      animation: dataStream 1.5s linear infinite;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APEX BUILD // Creator Workstation — Anjan's Flagship Rig</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* =============================================
+   CSS CUSTOM PROPERTIES — THEME SYSTEM
+============================================= */
+:root {
+  --col-cyan:   #00e5ff;
+  --col-gold:   #f5a623;
+  --col-red:    #ff3366;
+  --col-green:  #00ff9f;
+  --col-purple: #9b51e0;
+  --r: 12px;
+  --r-lg: 20px;
+}
+
+[data-theme="dark"] {
+  --bg:        #04050a;
+  --bg2:       #080c14;
+  --surface:   #0d1120;
+  --surface2:  #111827;
+  --glass:     rgba(13,17,32,0.85);
+  --glass2:    rgba(255,255,255,0.04);
+  --border:    rgba(0,229,255,0.12);
+  --border2:   rgba(255,255,255,0.06);
+  --text:      #e8eaf6;
+  --text2:     #8892a4;
+  --text3:     #4a5568;
+  --accent:    #00e5ff;
+  --accent2:   #f5a623;
+  --shadow:    rgba(0,229,255,0.15);
+  --shadow2:   rgba(0,0,0,0.8);
+  --glow:      0 0 30px rgba(0,229,255,0.2), 0 0 80px rgba(0,229,255,0.05);
+  --scan-line: rgba(0,229,255,0.03);
+}
+
+[data-theme="light"] {
+  --bg:        #f0f4f8;
+  --bg2:       #e8eef6;
+  --surface:   #ffffff;
+  --surface2:  #f7f9fc;
+  --glass:     rgba(255,255,255,0.92);
+  --glass2:    rgba(0,0,0,0.03);
+  --border:    rgba(0,100,160,0.15);
+  --border2:   rgba(0,0,0,0.07);
+  --text:      #0d1120;
+  --text2:     #4a5568;
+  --text3:     #9ba8b6;
+  --accent:    #0077b6;
+  --accent2:   #e06b00;
+  --shadow:    rgba(0,119,182,0.12);
+  --shadow2:   rgba(0,0,0,0.1);
+  --glow:      0 4px 24px rgba(0,119,182,0.12);
+  --scan-line: rgba(0,119,182,0.015);
+}
+
+/* =============================================
+   RESET & BASE
+============================================= */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Syne', sans-serif;
+  overflow-x: hidden;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+/* Scan-line overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    var(--scan-line) 2px,
+    var(--scan-line) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Circuit grid background */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0.3;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* =============================================
+   PARTICLES
+============================================= */
+#particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: particleDrift linear infinite;
+  opacity: 0;
+}
+
+@keyframes particleDrift {
+  0%   { transform: translateY(100vh) translateX(0); opacity: 0; }
+  10%  { opacity: 0.6; }
+  90%  { opacity: 0.3; }
+  100% { transform: translateY(-10vh) translateX(80px); opacity: 0; }
+}
+
+/* =============================================
+   NAVBAR
+============================================= */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 0 32px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  transition: all 0.3s ease;
+}
+
+.nav-logo {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+.nav-logo span {
+  color: var(--text2);
+  font-weight: 400;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--text2);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--accent); }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Theme toggle */
+#theme-toggle {
+  width: 52px;
+  height: 28px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
+}
+
+#theme-toggle::before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 0 10px var(--shadow);
+}
+
+[data-theme="light"] #theme-toggle::before {
+  transform: translateX(24px);
+}
+
+.theme-icon {
+  font-size: 13px;
+  position: absolute;
+}
+
+.theme-icon.moon { left: 6px; }
+.theme-icon.sun  { right: 5px; }
+
+/* Build score badge */
+.nav-score {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  background: rgba(0, 229, 255, 0.05);
+  letter-spacing: 0.05em;
+}
+
+/* =============================================
+   HERO SECTION
+============================================= */
+#hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 160px 24px 80px;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.hero-bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+  animation: orbFloat 8s ease-in-out infinite;
+}
+
+.hero-bg-orb.orb1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(0,229,255,0.15), transparent 70%);
+  top: -100px; left: -100px;
+  animation-delay: 0s;
+}
+
+.hero-bg-orb.orb2 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(155,81,224,0.12), transparent 70%);
+  bottom: -80px; right: -80px;
+  animation-delay: -4s;
+}
+
+.hero-bg-orb.orb3 {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(245,166,35,0.1), transparent 70%);
+  top: 40%; left: 60%;
+  animation-delay: -2s;
+}
+
+@keyframes orbFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(30px, -20px) scale(1.05); }
+  66%       { transform: translate(-20px, 30px) scale(0.95); }
+}
+
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeSlideUp 0.8s 0.2s forwards;
+}
+
+.hero-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: clamp(48px, 8vw, 96px);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+  opacity: 0;
+  animation: fadeSlideUp 0.8s 0.4s forwards;
+}
+
+.hero-title .line1 {
+  color: var(--text);
+}
+
+.hero-title .line2 {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--col-purple) 50%, var(--accent2) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradientShift 4s ease infinite, fadeSlideUp 0.8s 0.5s forwards;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
+}
+
+.hero-subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(12px, 1.5vw, 15px);
+  color: var(--text2);
+  letter-spacing: 0.05em;
+  margin-bottom: 48px;
+  opacity: 0;
+  animation: fadeSlideUp 0.8s 0.6s forwards;
+}
+
+/* Build value counter */
+.hero-value-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 24px;
+  padding: 20px 40px;
+  background: var(--glass);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  backdrop-filter: blur(20px);
+  margin-bottom: 60px;
+  opacity: 0;
+  animation: fadeSlideUp 0.8s 0.8s forwards;
+  box-shadow: var(--glow);
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 900px;
+}
+
+.hero-stat {
+  text-align: center;
+}
+
+.hero-stat-value {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--accent);
+  display: block;
+  line-height: 1;
+}
+
+.hero-stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  color: var(--text3);
+  text-transform: uppercase;
+  display: block;
+  margin-top: 4px;
+}
+
+.hero-stat-divider {
+  width: 1px;
+  height: 40px;
+  background: var(--border);
+}
+
+/* Score bars */
+.score-bars {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeSlideUp 0.8s 1s forwards;
+  margin-bottom: 48px;
+  max-width: 800px;
+}
+
+.score-bar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  min-width: 120px;
+}
+
+.score-bar-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--text3);
+  text-transform: uppercase;
+}
+
+.score-bar-track {
+  width: 100%;
+  height: 6px;
+  background: var(--surface2);
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid var(--border2);
+}
+
+.score-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  width: 0%;
+  transition: width 2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.score-bar-fill.blender  { background: linear-gradient(90deg, var(--accent), var(--col-purple)); }
+.score-bar-fill.ue       { background: linear-gradient(90deg, var(--col-gold), var(--accent2)); }
+.score-bar-fill.ai-gen   { background: linear-gradient(90deg, var(--col-green), var(--accent)); }
+.score-bar-fill.gaming   { background: linear-gradient(90deg, var(--col-red), var(--col-purple)); }
+.score-bar-fill.workst   { background: linear-gradient(90deg, var(--accent), var(--col-green)); }
+
+.score-val {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* CTA row */
+.hero-cta-row {
+  display: flex;
+  gap: 16px;
+  opacity: 0;
+  animation: fadeSlideUp 0.8s 1.2s forwards;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.btn-primary {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 14px 32px;
+  background: var(--accent);
+  color: #000;
+  border: none;
+  border-radius: var(--r);
+  cursor: pointer;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.2);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.btn-primary:hover::before { opacity: 1; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px var(--shadow); }
+
+.btn-secondary {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  padding: 13px 32px;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  cursor: pointer;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+/* Scroll indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeSlideUp 0.8s 1.5s forwards;
+}
+
+.scroll-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: scrollBounce 2s ease-in-out infinite;
+}
+
+.scroll-dot:nth-child(2) { animation-delay: 0.2s; opacity: 0.6; }
+.scroll-dot:nth-child(3) { animation-delay: 0.4s; opacity: 0.3; }
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(4px); }
+}
+
+.scroll-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  color: var(--text3);
+  text-transform: uppercase;
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* =============================================
+   SECTION LAYOUT
+============================================= */
+.section-wrapper {
+  position: relative;
+  z-index: 2;
+  padding: 0 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Section header */
+.section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 48px;
+  padding-top: 100px;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.section-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.section-line {
+  flex: 1;
+  min-width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  margin-bottom: 8px;
+  opacity: 0.4;
+}
+
+/* =============================================
+   COMPONENT CARDS
+============================================= */
+.component-section {
+  padding: 80px 0;
+  position: relative;
+  z-index: 2;
+  border-bottom: 1px solid var(--border2);
+}
+
+.component-section:last-child { border-bottom: none; }
+
+.component-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  align-items: stretch;
+}
+
+.component-grid.reverse { direction: rtl; }
+.component-grid.reverse > * { direction: ltr; }
+
+/* Hero image panel */
+.comp-image-panel {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg) 0 0 var(--r-lg);
+  overflow: hidden;
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.component-grid.reverse .comp-image-panel {
+  border-radius: 0 var(--r-lg) var(--r-lg) 0;
+}
+
+.comp-image-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, var(--glass2) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.comp-image-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, var(--shadow) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.comp-image-panel:hover .comp-image-glow { opacity: 1; }
+
+/* Animated border */
+.comp-image-panel::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--accent), transparent 40%, transparent 60%, var(--accent2));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.component-section:hover .comp-image-panel::after { opacity: 1; }
+
+.comp-product-img {
+  width: 85%;
+  max-width: 340px;
+  height: 280px;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4));
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.comp-image-panel:hover .comp-product-img {
+  transform: scale(1.05) translateY(-8px);
+}
+
+/* Type badge */
+.comp-type-badge {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  padding: 5px 10px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  z-index: 2;
+}
+
+.badge-cpu    { background: rgba(0,229,255,0.15); color: var(--col-cyan); border: 1px solid rgba(0,229,255,0.3); }
+.badge-mobo   { background: rgba(155,81,224,0.15); color: var(--col-purple); border: 1px solid rgba(155,81,224,0.3); }
+.badge-gpu    { background: rgba(0,255,159,0.12); color: var(--col-green); border: 1px solid rgba(0,255,159,0.25); }
+.badge-ram    { background: rgba(245,166,35,0.12); color: var(--col-gold); border: 1px solid rgba(245,166,35,0.25); }
+.badge-ssd    { background: rgba(255,51,102,0.12); color: var(--col-red); border: 1px solid rgba(255,51,102,0.25); }
+.badge-monitor { background: rgba(0,229,255,0.1); color: var(--col-cyan); border: 1px solid rgba(0,229,255,0.2); }
+.badge-case   { background: rgba(155,81,224,0.1); color: var(--col-purple); border: 1px solid rgba(155,81,224,0.2); }
+.badge-psu    { background: rgba(255,51,102,0.1); color: var(--col-red); border: 1px solid rgba(255,51,102,0.2); }
+.badge-cooler { background: rgba(0,229,255,0.1); color: var(--col-cyan); border: 1px solid rgba(0,229,255,0.2); }
+
+/* New badge */
+.badge-new {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: var(--accent);
+  color: #000;
+  text-transform: uppercase;
+  z-index: 2;
+  animation: badgePulse 2s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0,229,255,0.4); }
+  50%       { box-shadow: 0 0 0 6px rgba(0,229,255,0); }
+}
+
+/* Info panel */
+.comp-info-panel {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-left: none;
+  border-radius: 0 var(--r-lg) var(--r-lg) 0;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.component-grid.reverse .comp-info-panel {
+  border-left: 1px solid var(--border2);
+  border-right: none;
+  border-radius: var(--r-lg) 0 0 var(--r-lg);
+}
+
+.comp-category {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+.comp-name {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: clamp(20px, 2.5vw, 30px);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.comp-desc {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text2);
+  font-family: 'Syne', sans-serif;
+}
+
+/* Price row */
+.comp-price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.comp-price {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--accent2);
+}
+
+.comp-price-note {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 0.08em;
+}
+
+/* Specs table */
+.specs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.spec-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 12px;
+  background: var(--glass2);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  transition: border-color 0.2s;
+}
+
+.spec-item:hover { border-color: var(--border); }
+
+.spec-key {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--text3);
+  text-transform: uppercase;
+}
+
+.spec-val {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* Tags */
+.comp-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.comp-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: var(--glass2);
+  border: 1px solid var(--border2);
+  color: var(--text2);
+  letter-spacing: 0.05em;
+  transition: all 0.2s;
+}
+
+.comp-tag:hover { border-color: var(--accent); color: var(--accent); }
+
+/* Amazon button */
+.btn-amazon {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 24px;
+  background: #ff9900;
+  color: #000;
+  border: none;
+  border-radius: var(--r);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: fit-content;
+}
+
+.btn-amazon:hover {
+  background: #e8870a;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255,153,0,0.3);
+}
+
+.btn-amazon svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Compatibility notes */
+.compat-note {
+  padding: 12px 16px;
+  background: rgba(0,255,159,0.06);
+  border: 1px solid rgba(0,255,159,0.2);
+  border-radius: 8px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.compat-note .compat-icon {
+  color: var(--col-green);
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.compat-note p {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--text2);
+  letter-spacing: 0.02em;
+}
+
+/* Use case pills */
+.usecase-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.usecase-pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+
+.pill-render { background: rgba(0,229,255,0.1); color: var(--col-cyan); border: 1px solid rgba(0,229,255,0.2); }
+.pill-ai     { background: rgba(0,255,159,0.1); color: var(--col-green); border: 1px solid rgba(0,255,159,0.2); }
+.pill-game   { background: rgba(255,51,102,0.1); color: var(--col-red); border: 1px solid rgba(255,51,102,0.2); }
+.pill-video  { background: rgba(245,166,35,0.1); color: var(--col-gold); border: 1px solid rgba(245,166,35,0.2); }
+.pill-3d     { background: rgba(155,81,224,0.1); color: var(--col-purple); border: 1px solid rgba(155,81,224,0.2); }
+
+/* =============================================
+   ANIMATION VISUALIZATIONS
+============================================= */
+
+/* CPU Cores viz */
+.cpu-cores-viz {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 4px;
+  padding: 16px;
+  background: var(--glass2);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+}
+
+.cpu-core {
+  aspect-ratio: 1;
+  border-radius: 3px;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s;
+}
+
+.cpu-core::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  border-radius: inherit;
+  transition: transform 0.1s ease;
+}
+
+.cpu-core.active::after { transform: scaleY(1); }
+
+.cpu-core-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--text3);
+  text-align: center;
+  margin-top: 6px;
+  letter-spacing: 0.1em;
+  grid-column: 1/-1;
+}
+
+/* RAM bandwidth viz */
+.ram-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px;
+  background: var(--glass2);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+}
+
+.ram-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ram-bar-key {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--text3);
+  width: 48px;
+  text-align: right;
+  letter-spacing: 0.05em;
+}
+
+.ram-bar-track {
+  flex: 1;
+  height: 8px;
+  background: var(--surface);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.ram-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  animation: ramPulse 3s ease-in-out infinite;
+}
+
+@keyframes ramPulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.6; }
+}
+
+/* SSD throughput viz */
+.ssd-viz {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  background: var(--glass2);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+}
+
+.ssd-viz-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ssd-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--text3); width: 40px; }
+
+.ssd-track {
+  flex: 1;
+  height: 12px;
+  background: var(--surface);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+
+.ssd-fill {
+  height: 100%;
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+}
+
+.ssd-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  animation: ssdScan 2s linear infinite;
+}
+
+@keyframes ssdScan {
+  0%   { left: -100%; }
+  100% { left: 100%; }
+}
+
+.ssd-val { font-family: 'Rajdhani', monospace; font-size: 12px; font-weight: 700; color: var(--text2); width: 70px; }
+
+/* PSU power viz */
+.psu-viz {
+  padding: 16px;
+  background: var(--glass2);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.psu-arc-container {
+  position: relative;
+  width: 120px;
+  height: 65px;
+  margin: 0 auto;
+}
+
+.psu-arc-container svg { width: 100%; height: auto; overflow: visible; }
+
+/* GPU perf viz */
+.gpu-meter {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.gpu-meter-item {
+  padding: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  text-align: center;
+}
+
+.gpu-meter-val {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--col-green);
+  line-height: 1;
+}
+
+.gpu-meter-key {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  color: var(--text3);
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* =============================================
+   ASSEMBLY TIMELINE
+============================================= */
+#assembly {
+  position: relative;
+  z-index: 2;
+  padding: 100px 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.assembly-title-block {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.assembly-timeline {
+  position: relative;
+  padding: 0 20px;
+}
+
+.assembly-timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  background: linear-gradient(180deg, var(--accent), var(--col-purple), var(--accent2));
+  opacity: 0.4;
+}
+
+.assembly-step {
+  display: grid;
+  grid-template-columns: 1fr 60px 1fr;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 40px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.assembly-step.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.assembly-step-content {
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--r);
+  transition: all 0.3s ease;
+}
+
+.assembly-step-content:hover {
+  border-color: var(--border);
+  transform: scale(1.01);
+  box-shadow: var(--glow);
+}
+
+.assembly-step:nth-child(odd) .assembly-step-content { margin-right: 20px; }
+.assembly-step:nth-child(even) .assembly-step-content { margin-left: 20px; grid-column: 3; }
+.assembly-step:nth-child(even) .assembly-step-node { grid-column: 2; grid-row: 1; }
+.assembly-step:nth-child(even) .assembly-step-empty { grid-column: 1; grid-row: 1; }
+
+.assembly-step-empty { }
+
+.assembly-step-node {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.node-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--surface2);
+  border: 2px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent);
+  box-shadow: 0 0 20px rgba(0,229,255,0.2);
+  transition: all 0.3s;
+}
+
+.assembly-step.visible .node-circle {
+  animation: nodeGlow 2s ease-in-out infinite;
+}
+
+@keyframes nodeGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0,229,255,0.3), 0 0 20px rgba(0,229,255,0.2); }
+  50%       { box-shadow: 0 0 0 8px rgba(0,229,255,0), 0 0 30px rgba(0,229,255,0.3); }
+}
+
+.step-name {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.step-note {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text3);
+  line-height: 1.5;
+}
+
+/* =============================================
+   TOTAL BUILD SUMMARY
+============================================= */
+#summary {
+  position: relative;
+  z-index: 2;
+  padding: 100px 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.summary-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--glow);
+}
+
+.summary-header {
+  padding: 40px 48px;
+  background: linear-gradient(135deg, rgba(0,229,255,0.05), rgba(155,81,224,0.05));
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.summary-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.summary-total {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 52px;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent2), var(--col-gold));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
+}
+
+.summary-total-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: var(--text3);
+  text-transform: uppercase;
+  text-align: right;
+}
+
+.summary-body {
+  padding: 32px 48px;
+}
+
+.summary-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 4px;
+}
+
+.summary-table tr td {
+  padding: 12px 16px;
+  font-size: 14px;
+}
+
+.summary-table tr td:first-child {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  width: 100px;
+}
+
+.summary-table tr td:nth-child(2) {
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.summary-table tr td:last-child {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  text-align: right;
+}
+
+.summary-table tr {
+  background: var(--glass2);
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.summary-table tr:hover { background: var(--surface2); }
+
+.summary-table tr td:first-child { border-radius: 8px 0 0 8px; }
+.summary-table tr td:last-child   { border-radius: 0 8px 8px 0; }
+
+.summary-divider {
+  height: 1px;
+  background: var(--border2);
+  margin: 16px 0;
+}
+
+.summary-footer {
+  padding: 32px 48px;
+  background: var(--glass2);
+  border-top: 1px solid var(--border2);
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.summary-perf-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  flex: 1;
+}
+
+.perf-block {
+  text-align: center;
+  padding: 16px 8px;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--r);
+  transition: all 0.2s;
+}
+
+.perf-block:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+.perf-score {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.perf-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  color: var(--text3);
+  text-transform: uppercase;
+}
+
+/* =============================================
+   FOOTER
+============================================= */
+footer {
+  position: relative;
+  z-index: 2;
+  padding: 60px 24px;
+  border-top: 1px solid var(--border2);
+  text-align: center;
+}
+
+.footer-logo {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--text3);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.footer-logo span { color: var(--accent); }
+
+.footer-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text3);
+  letter-spacing: 0.08em;
+  line-height: 1.7;
+}
+
+.footer-text a { color: var(--accent); text-decoration: none; }
+.footer-text a:hover { text-decoration: underline; }
+
+/* =============================================
+   SCROLL-TRIGGERED ANIMATIONS
+============================================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.reveal-left.visible, .reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* =============================================
+   UTILITIES
+============================================= */
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent), var(--col-purple));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-accent  { color: var(--accent) !important; }
+.text-gold    { color: var(--col-gold) !important; }
+.text-green   { color: var(--col-green) !important; }
+.text-red     { color: var(--col-red) !important; }
+
+/* =============================================
+   RESPONSIVE
+============================================= */
+@media (max-width: 1024px) {
+  .component-grid { grid-template-columns: 1fr; }
+  .component-grid.reverse { direction: ltr; }
+
+  .comp-image-panel { border-radius: var(--r-lg) var(--r-lg) 0 0; min-height: 300px; }
+  .comp-info-panel  { border-left: 1px solid var(--border2); border-top: none; border-radius: 0 0 var(--r-lg) var(--r-lg); }
+  .component-grid.reverse .comp-image-panel { border-radius: var(--r-lg) var(--r-lg) 0 0; }
+  .component-grid.reverse .comp-info-panel  { border-right: 1px solid var(--border2); border-radius: 0 0 var(--r-lg) var(--r-lg); }
+
+  .assembly-timeline::before { left: 30px; }
+  .assembly-step { grid-template-columns: 60px 1fr; }
+  .assembly-step-empty { display: none; }
+  .assembly-step-content { margin-left: 10px !important; margin-right: 0 !important; grid-column: 2 !important; grid-row: 1 !important; }
+  .assembly-step-node    { grid-column: 1; grid-row: 1; }
+
+  .summary-perf-grid { grid-template-columns: repeat(3, 1fr); }
+  .specs-grid { grid-template-columns: 1fr; }
+  .nav-links  { display: none; }
+}
+
+@media (max-width: 640px) {
+  nav { padding: 0 16px; }
+  .comp-info-panel { padding: 24px 20px; }
+  .summary-body    { padding: 24px 20px; }
+  .summary-header  { padding: 24px 20px; }
+  .summary-footer  { padding: 24px 20px; }
+  .summary-perf-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero-value-card { padding: 16px 24px; gap: 16px; }
+  .hero-stat-divider { display: none; }
+  .score-bars { gap: 8px; }
+  .score-bar-item { min-width: 100px; }
+}
+
+/* =============================================
+   ANIMATED GRADIENT BORDERS ON COMP CARDS
+============================================= */
+@keyframes borderRotate {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.component-section:hover .comp-image-panel::after {
+  opacity: 1;
+  background: linear-gradient(
+    135deg,
+    var(--col-cyan),
+    var(--col-purple),
+    var(--accent2),
+    var(--col-green),
+    var(--col-cyan)
+  );
+  background-size: 300% 300%;
+  animation: borderRotate 3s linear infinite;
+}
+
+/* =============================================
+   CARD 3D TILT — applied via JS
+============================================= */
+.comp-image-panel {
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+/* =============================================
+   GPU SPOTLIGHT SECTION
+============================================= */
+#gpu-spotlight {
+  position: relative;
+  z-index: 2;
+  padding: 100px 24px;
+  overflow: hidden;
+  background: var(--bg2);
+  border-top: 1px solid var(--border2);
+  border-bottom: 1px solid var(--border2);
+}
+
+.spotlight-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.spotlight-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .spotlight-grid { grid-template-columns: 1fr; }
+}
+
+.spotlight-left {
+  position: relative;
+}
+
+.spotlight-img-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 340px;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.spotlight-img-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 40%, rgba(0,255,159,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.spotlight-img {
+  width: 80%;
+  max-width: 360px;
+  height: 260px;
+  object-fit: contain;
+  filter: drop-shadow(0 30px 60px rgba(0,255,159,0.25));
+  transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
+  animation: gpuFloat 4s ease-in-out infinite;
+}
+
+@keyframes gpuFloat {
+  0%,100% { transform: translateY(0) rotate(-1deg); }
+  50%      { transform: translateY(-12px) rotate(1deg); }
+}
+
+.spotlight-img-wrap:hover .spotlight-img {
+  animation-play-state: paused;
+  transform: scale(1.06) translateY(-8px);
+}
+
+/* Glowing aura rings */
+.aura-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(0,255,159,0.12);
+  animation: auraExpand 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.aura-ring:nth-child(1) { width: 200px; height: 200px; animation-delay: 0s; }
+.aura-ring:nth-child(2) { width: 300px; height: 300px; animation-delay: 0.6s; opacity: 0.6; }
+.aura-ring:nth-child(3) { width: 400px; height: 400px; animation-delay: 1.2s; opacity: 0.3; }
+
+@keyframes auraExpand {
+  0%   { transform: scale(0.95); opacity: 0.4; }
+  50%  { transform: scale(1.05); opacity: 0.15; }
+  100% { transform: scale(0.95); opacity: 0.4; }
+}
+
+/* Callout chips */
+.spotlight-callouts {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.callout-chip {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--r);
+  transition: all 0.25s;
+  cursor: default;
+}
+
+.callout-chip:hover {
+  border-color: var(--col-green);
+  transform: translateX(6px);
+  box-shadow: -4px 0 20px rgba(0,255,159,0.08);
+}
+
+.callout-chip:hover .callout-icon { background: rgba(0,255,159,0.2); }
+
+.callout-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--glass2);
+  border: 1px solid var(--border2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+  transition: background 0.25s;
+}
+
+.callout-body {}
+
+.callout-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  display: block;
+  line-height: 1.2;
+}
+
+.callout-desc {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 0.05em;
+  display: block;
+  margin-top: 2px;
+}
+
+/* =============================================
+   SCROLL-STORY / ASSEMBLY CINEMATIC
+============================================= */
+#scroll-story {
+  position: relative;
+  z-index: 2;
+  padding: 100px 24px 60px;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.scroll-story-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.story-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.story-stages {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border2);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  border: 1px solid var(--border2);
+}
+
+@media (max-width: 768px) {
+  .story-stages { grid-template-columns: 1fr; }
+}
+
+.story-stage {
+  background: var(--surface);
+  padding: 32px 28px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+
+.story-stage::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.story-stage:nth-child(1)::before { background: linear-gradient(90deg, var(--col-cyan), var(--col-purple)); }
+.story-stage:nth-child(2)::before { background: linear-gradient(90deg, var(--col-purple), var(--col-green)); }
+.story-stage:nth-child(3)::before { background: linear-gradient(90deg, var(--col-green), var(--accent2)); }
+
+.story-stage:hover { background: var(--surface2); }
+.story-stage:hover::before { opacity: 1; }
+
+.stage-num {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 72px;
+  font-weight: 700;
+  color: var(--border2);
+  line-height: 1;
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  pointer-events: none;
+  transition: color 0.3s;
+}
+
+.story-stage:hover .stage-num { color: var(--border); }
+
+.stage-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.stage-subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.stage-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.stage-list li {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  color: var(--text2);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.5;
+}
+
+.stage-list li::before {
+  content: '›';
+  color: var(--accent);
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.stage-components {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.stage-comp-pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--glass2);
+  border: 1px solid var(--border2);
+  color: var(--text3);
+  letter-spacing: 0.05em;
+}
+
+/* =============================================
+   MOBO FEATURE CALLOUT VISUAL
+============================================= */
+.mobo-features {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  padding: 16px;
+  background: var(--glass2);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+}
+
+.mobo-feat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  transition: all 0.2s;
+}
+
+.mobo-feat:hover { border-color: var(--col-purple); }
+
+.mobo-feat-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--col-purple);
+  flex-shrink: 0;
+  box-shadow: 0 0 6px var(--col-purple);
+  animation: featPulse 2s ease-in-out infinite;
+}
+
+.mobo-feat:nth-child(2n) .mobo-feat-dot { animation-delay: -1s; }
+
+@keyframes featPulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.5; transform: scale(1.3); }
+}
+
+.mobo-feat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text2);
+  letter-spacing: 0.04em;
+}
+
+/* =============================================
+   SECTION CINEMATIC TRANSITIONS
+============================================= */
+.component-section {
+  transition: opacity 0.1s;
+}
+
+/* Staggered reveal delays */
+.reveal-left  { transition-delay: 0s; }
+.reveal-right { transition-delay: 0.1s; }
+
+/* =============================================
+   MOBILE 480PX POLISH
+============================================= */
+@media (max-width: 480px) {
+  .hero-title { font-size: 36px; }
+  .comp-name  { font-size: 20px; }
+  .comp-price { font-size: 24px; }
+  .specs-grid { grid-template-columns: 1fr; }
+  .usecase-row { gap: 4px; }
+  .usecase-pill { font-size: 9px; padding: 3px 8px; }
+  .comp-tags { gap: 4px; }
+  .comp-tag  { font-size: 9px; }
+  .section-title { font-size: 24px; }
+  .bench-grid, .story-stages { grid-template-columns: 1fr; }
+  .summary-perf-grid { grid-template-columns: 1fr 1fr; }
+  .mobo-features { grid-template-columns: 1fr; }
+  .spotlight-callouts { gap: 10px; }
+  .callout-chip { padding: 12px 14px; gap: 12px; }
+  .donut-legend { grid-template-columns: 1fr; }
+  #fab { bottom: 16px; right: 16px; width: 44px; height: 44px; }
+}
+
+/* =============================================
+   ASSEMBLY PROGRESS INDICATOR
+============================================= */
+.assembly-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+
+.asm-progress-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.asm-step-bubble {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text3);
+  transition: all 0.4s;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.asm-step-bubble.done {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #000;
+  box-shadow: 0 0 12px var(--shadow);
+}
+
+.asm-connector-line {
+  width: 24px;
+  height: 1px;
+  background: var(--border2);
+  transition: background 0.4s;
+}
+
+.asm-connector-line.done { background: var(--accent); opacity: 0.5; }
+
+/* =============================================
+   FOOTER ENHANCEMENT
+============================================= */
+.footer-build-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 800px;
+  margin: 0 auto 40px;
+}
+
+@media (max-width: 600px) {
+  .footer-build-grid { grid-template-columns: 1fr; }
+}
+
+.footer-build-item {
+  padding: 16px;
+  background: var(--glass2);
+  border: 1px solid var(--border2);
+  border-radius: var(--r);
+  text-align: left;
+  transition: border-color 0.2s;
+}
+
+.footer-build-item:hover { border-color: var(--border); }
+
+.fbi-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--text3);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.fbi-val {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  display: block;
+}
+
+/* =============================================
+   SCROLL PROGRESS BAR
+============================================= */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--col-cyan), var(--col-purple), var(--accent2));
+  z-index: 9998;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 12px var(--shadow);
+}
+
+/* =============================================
+   SECTION CONNECTOR TRACES
+============================================= */
+.section-connector {
+  position: relative;
+  z-index: 2;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.section-connector svg {
+  width: 100%;
+  height: 60px;
+  position: absolute;
+}
+
+.connector-line {
+  stroke: var(--border);
+  stroke-width: 1;
+  fill: none;
+  stroke-dasharray: 6 4;
+  animation: connectorDash 2s linear infinite;
+}
+
+.connector-line.active {
+  stroke: var(--accent);
+  stroke-width: 1.5;
+  opacity: 0.5;
+}
+
+@keyframes connectorDash {
+  to { stroke-dashoffset: -20; }
+}
+
+/* =============================================
+   BENCHMARK SECTION
+============================================= */
+#benchmarks {
+  position: relative;
+  z-index: 2;
+  padding: 0 24px 80px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.bench-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 900px) {
+  .bench-grid { grid-template-columns: 1fr; }
+}
+
+.bench-card {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.bench-card:hover {
+  border-color: var(--border);
+  box-shadow: var(--glow);
+}
+
+.bench-card-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bench-card-title .bench-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.bench-subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 0.1em;
+  margin-bottom: 24px;
+}
+
+.bench-row {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.bench-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.bench-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.bench-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.bench-score {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.bench-track {
+  width: 100%;
+  height: 8px;
+  background: var(--surface2);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--border2);
+  position: relative;
+}
+
+.bench-fill {
+  height: 100%;
+  border-radius: 4px;
+  width: 0%;
+  transition: width 1.6s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.bench-fill.animated { }
+
+.bench-fill::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -60%;
+  width: 40%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  animation: benchShine 2.5s ease-in-out infinite;
+}
+
+@keyframes benchShine {
+  0%   { left: -60%; }
+  100% { left: 160%; }
+}
+
+.bench-note {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--text3);
+  letter-spacing: 0.05em;
+}
+
+/* Highlight bar for this build */
+.bench-item.this-build .bench-name { color: var(--accent); }
+.bench-item.this-build .bench-track { border-color: var(--accent); }
+
+/* =============================================
+   EXPLODED VIEW CANVAS SECTION
+============================================= */
+#exploded {
+  position: relative;
+  z-index: 2;
+  padding: 0 24px 100px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.exploded-wrapper {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--glow);
+}
+
+.exploded-header {
+  padding: 24px 32px;
+  border-bottom: 1px solid var(--border2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.exploded-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.exploded-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.exploded-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--border2);
+  background: var(--glass2);
+  color: var(--text2);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+}
+
+.exploded-btn:hover,
+.exploded-btn.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(0, 229, 255, 0.05);
+}
+
+#exploded-canvas {
+  display: block;
+  width: 100%;
+  cursor: grab;
+  background: var(--bg);
+}
+
+#exploded-canvas:active { cursor: grabbing; }
+
+.exploded-legend {
+  padding: 16px 32px;
+  border-top: 1px solid var(--border2);
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.legend-item:hover { color: var(--text); }
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* =============================================
+   TOOLTIP
+============================================= */
+#tooltip {
+  position: fixed;
+  z-index: 5000;
+  padding: 10px 14px;
+  background: var(--glass);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  max-width: 200px;
+  line-height: 1.5;
+  box-shadow: var(--glow);
+}
+
+#tooltip.visible { opacity: 1; }
+
+.tooltip-name {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 2px;
+}
+
+/* =============================================
+   MOBILE HAMBURGER
+============================================= */
+#hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 8px;
+  background: none;
+  border: none;
+}
+
+#hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text2);
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+
+#hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+#hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+#hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+#mobile-menu {
+  display: none;
+  position: fixed;
+  top: 64px;
+  left: 0;
+  right: 0;
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  z-index: 999;
+  padding: 20px 24px;
+  flex-direction: column;
+  gap: 4px;
+}
+
+#mobile-menu.open { display: flex; }
+
+#mobile-menu a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--text2);
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border2);
+  transition: color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#mobile-menu a:hover { color: var(--accent); }
+#mobile-menu a::after { content: '→'; opacity: 0.4; }
+
+@media (max-width: 768px) {
+  #hamburger { display: flex; }
+  .nav-links  { display: none !important; }
+  .nav-score  { display: none; }
+}
+
+/* =============================================
+   IMAGE SHIMMER LOADING
+============================================= */
+.img-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--surface2) 25%,
+    var(--surface) 50%,
+    var(--surface2) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* =============================================
+   SPEC HIGHLIGHT ON HOVER
+============================================= */
+.spec-item:hover .spec-val { color: var(--accent); }
+.spec-item:hover .spec-key { color: var(--text2); }
+
+/* =============================================
+   SECTION DIVIDER GLOW
+============================================= */
+.section-divider {
+  position: relative;
+  z-index: 2;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.2;
+  margin: 0 24px;
+}
+
+/* =============================================
+   POWER BUDGET SECTION
+============================================= */
+#power {
+  position: relative;
+  z-index: 2;
+  padding: 0 24px 80px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.power-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .power-grid { grid-template-columns: 1fr; }
+}
+
+.power-card {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--r-lg);
+  padding: 32px;
+}
+
+.power-card-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.power-component-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border2);
+}
+
+.power-component-row:last-child { border-bottom: none; }
+
+.power-comp-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  flex: 1;
+}
+
+.power-comp-watt {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text2);
+  width: 60px;
+  text-align: right;
+}
+
+.power-comp-bar {
+  width: 80px;
+  height: 6px;
+  background: var(--surface2);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.power-comp-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 1.4s cubic-bezier(0.4,0,0.2,1);
+}
+
+.power-total-row {
+  margin-top: 16px;
+  padding: 16px;
+  background: rgba(0,229,255,0.05);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.power-total-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--text2);
+  text-transform: uppercase;
+}
+
+.power-total-val {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+/* Donut chart */
+.donut-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+#donut-canvas {
+  display: block;
+  filter: drop-shadow(0 0 20px rgba(0,229,255,0.15));
+}
+
+.donut-legend {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  width: 100%;
+}
+
+.donut-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text2);
+}
+
+.donut-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* =============================================
+   FLOATING ACTION BUTTON
+============================================= */
+#fab {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 1000;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 24px var(--shadow);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  opacity: 0;
+  transform: scale(0);
+}
+
+#fab.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+#fab:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 32px var(--shadow);
+}
+
+#fab svg {
+  width: 20px;
+  height: 20px;
+  color: #000;
+}
+
+/* =============================================
+   COMPONENT QUICK-NAV SIDEBAR
+============================================= */
+#quick-nav {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 500;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+#quick-nav.visible { opacity: 1; }
+
+.quick-nav-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+  border: 1px solid var(--border2);
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.quick-nav-dot::before {
+  content: attr(data-label);
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: var(--text3);
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+#quick-nav:hover .quick-nav-dot::before { opacity: 1; }
+
+.quick-nav-dot:hover,
+.quick-nav-dot.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: scale(1.4);
+  box-shadow: 0 0 8px var(--shadow);
+}
+
+@media (max-width: 1200px) {
+  #quick-nav { display: none; }
+}
+
+/* =============================================
+   THERMAL ZONES VISUAL
+============================================= */
+.thermal-strip {
+  display: flex;
+  gap: 6px;
+  padding: 12px 16px;
+  background: var(--glass2);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  flex-wrap: wrap;
+}
+
+.thermal-zone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  min-width: 60px;
+}
+
+.thermal-temp {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.thermal-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  color: var(--text3);
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.thermal-bar {
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+}
+
+/* =============================================
+   GLOWING CIRCUITRY HERO ENHANCEMENT
+============================================= */
+.circuit-trace {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-circuit-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.08;
+  z-index: 0;
+}
+
+[data-theme="light"] .hero-circuit-svg { opacity: 0.04; }
+
+.circuit-path {
+  stroke: var(--accent);
+  stroke-width: 1;
+  fill: none;
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  animation: traceCircuit 4s ease forwards;
+}
+
+.circuit-path:nth-child(2) { animation-delay: 0.5s; stroke: var(--col-purple); }
+.circuit-path:nth-child(3) { animation-delay: 1s; stroke: var(--accent2); }
+
+@keyframes traceCircuit {
+  to { stroke-dashoffset: 0; }
+}
+
+/* =============================================
+   COMPONENT COUNTER STRIP
+============================================= */
+.component-counter-strip {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid var(--border2);
+  border-bottom: 1px solid var(--border2);
+  background: var(--surface);
+}
+
+.component-counter-strip::-webkit-scrollbar { display: none; }
+
+.counter-strip-item {
+  flex: 1;
+  min-width: 120px;
+  padding: 20px 16px;
+  text-align: center;
+  border-right: 1px solid var(--border2);
+  transition: background 0.2s;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.counter-strip-item:last-child { border-right: none; }
+.counter-strip-item:hover { background: var(--glass2); }
+
+.counter-strip-item.owned { opacity: 0.7; }
+
+.csi-num {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--text3);
+  display: block;
+  margin-bottom: 2px;
+}
+
+.csi-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: var(--text3);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.csi-price {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  display: block;
+}
+</style>
 </head>
-<body class="bg-zinc-950 text-slate-100 font-sans transition-colors duration-300 dark:bg-zinc-950 dark:text-slate-100 light:bg-slate-50 light:text-slate-900 overflow-x-hidden">
+<body>
 
-  <!-- TOP PERSISTENT SCIENTIFIC HUD / CONTROL HEADER -->
-  <header class="fixed top-0 left-0 w-full z-50 bg-zinc-950/90 dark:bg-zinc-950/95 light:bg-white/95 border-b border-cyan-500/20 dark:border-cyan-500/20 light:border-blue-600/20 backdrop-blur-md px-4 py-3">
-    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
-      <!-- Build Branding / Status -->
-      <div class="flex items-center gap-3">
-        <div class="w-2.5 h-2.5 bg-cyan-400 rounded-full animate-ping"></div>
-        <div class="font-mono text-xs tracking-wider">
-          <span class="text-cyan-400 font-bold">SYSTEM // WORKSTATION-9950X3D</span>
-          <span class="hidden md:inline text-slate-500 ml-2">| TARGET ENGINE: 4K COMPUTE & REAL-TIME RENDER</span>
-        </div>
+<!-- ===== SCROLL PROGRESS ===== -->
+<div id="scroll-progress"></div>
+
+<!-- ===== TOOLTIP ===== -->
+<div id="tooltip"><span class="tooltip-name"></span><span class="tooltip-desc"></span></div>
+
+<!-- ===== FAB — BACK TO TOP ===== -->
+<button id="fab" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 19V5M5 12l7-7 7 7"/>
+  </svg>
+</button>
+
+<!-- ===== QUICK NAV DOTS ===== -->
+<nav id="quick-nav" aria-label="Section quick navigation">
+  <div class="quick-nav-dot" data-target="hero"       data-label="Top"></div>
+  <div class="quick-nav-dot" data-target="cpu"        data-label="CPU"></div>
+  <div class="quick-nav-dot" data-target="mobo"       data-label="Mobo"></div>
+  <div class="quick-nav-dot" data-target="gpu"        data-label="GPU"></div>
+  <div class="quick-nav-dot" data-target="ram"        data-label="RAM"></div>
+  <div class="quick-nav-dot" data-target="ssd"        data-label="SSD"></div>
+  <div class="quick-nav-dot" data-target="monitor"    data-label="Display"></div>
+  <div class="quick-nav-dot" data-target="case"       data-label="Case"></div>
+  <div class="quick-nav-dot" data-target="psu"        data-label="PSU"></div>
+  <div class="quick-nav-dot" data-target="cooler"     data-label="Cooler"></div>
+  <div class="quick-nav-dot" data-target="benchmarks" data-label="Bench"></div>
+  <div class="quick-nav-dot" data-target="power"      data-label="Power"></div>
+  <div class="quick-nav-dot" data-target="summary"    data-label="Summary"></div>
+</nav>
+
+<!-- ===== MOBILE MENU ===== -->
+<div id="mobile-menu">
+  <a href="#cpu"        onclick="closeMobileMenu()">01 // CPU</a>
+  <a href="#mobo"       onclick="closeMobileMenu()">02 // Motherboard</a>
+  <a href="#gpu"        onclick="closeMobileMenu()">03 // GPU</a>
+  <a href="#ram"        onclick="closeMobileMenu()">04 // RAM</a>
+  <a href="#ssd"        onclick="closeMobileMenu()">05 // SSD</a>
+  <a href="#monitor"    onclick="closeMobileMenu()">06 // Display</a>
+  <a href="#case"       onclick="closeMobileMenu()">07 // Case</a>
+  <a href="#psu"        onclick="closeMobileMenu()">08 // PSU</a>
+  <a href="#cooler"     onclick="closeMobileMenu()">09 // Cooler</a>
+  <a href="#benchmarks" onclick="closeMobileMenu()">Benchmarks</a>
+  <a href="#power"      onclick="closeMobileMenu()">Power Budget</a>
+  <a href="#summary"    onclick="closeMobileMenu()">Build Summary</a>
+</div>
+
+<!-- ===== PARTICLES ===== -->
+<div id="particles"></div>
+
+<!-- ===== NAVBAR ===== -->
+<nav>
+  <div class="nav-logo">APEX<span> // Build</span></div>
+  <ul class="nav-links">
+    <li><a href="#cpu">CPU</a></li>
+    <li><a href="#mobo">Mobo</a></li>
+    <li><a href="#gpu">GPU</a></li>
+    <li><a href="#ram">RAM</a></li>
+    <li><a href="#ssd">SSD</a></li>
+    <li><a href="#monitor">Display</a></li>
+    <li><a href="#summary">Summary</a></li>
+  </ul>
+  <div class="nav-right">
+    <span class="nav-score" id="nav-score">BUILD SCORE: —</span>
+    <button id="theme-toggle" aria-label="Toggle theme" title="Toggle dark/light mode">
+      <span class="theme-icon moon">🌙</span>
+      <span class="theme-icon sun">☀️</span>
+    </button>
+    <button id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ===== LIVE TELEMETRY HUD ===== -->
+<div id="live-hud" style="
+  position:fixed;top:64px;left:0;right:0;z-index:499;
+  background:rgba(4,5,10,0.95);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(0,229,255,0.1);
+  padding:6px 24px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:8px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;
+  letter-spacing:.08em;
+  transition:background 0.4s;
+">
+  <!-- Left: system ID -->
+  <div style="display:flex;align-items:center;gap:8px;">
+    <span style="width:6px;height:6px;border-radius:50%;background:var(--col-green);display:inline-block;animation:badgePulse 2s ease-in-out infinite;"></span>
+    <span style="color:var(--text3);text-transform:uppercase;">SYS // WORKSTATION-9950X3D</span>
+    <span id="hud-workload-label" style="color:var(--accent);font-weight:700;margin-left:8px;">IDLE</span>
+  </div>
+  <!-- Centre: telemetry tickers -->
+  <div style="display:flex;gap:20px;flex-wrap:wrap;">
+    <div style="display:flex;gap:6px;align-items:center;">
+      <span style="color:var(--text3);">CPU:</span>
+      <span id="hud-cpu-temp" style="color:var(--col-cyan);font-weight:700;">34.2 °C</span>
+    </div>
+    <div style="display:flex;gap:6px;align-items:center;">
+      <span style="color:var(--text3);">GPU:</span>
+      <span id="hud-gpu-clock" style="color:var(--col-green);font-weight:700;">500 MHz</span>
+    </div>
+    <div style="display:flex;gap:6px;align-items:center;">
+      <span style="color:var(--text3);">RAM:</span>
+      <span id="hud-ram-used" style="color:var(--col-purple);font-weight:700;">8.2 GB</span>
+    </div>
+    <div style="display:flex;gap:6px;align-items:center;">
+      <span style="color:var(--text3);">PWR:</span>
+      <span id="hud-power" style="color:var(--col-gold);font-weight:700;">120 W</span>
+    </div>
+    <div style="display:flex;gap:6px;align-items:center;">
+      <span style="color:var(--text3);">THERMAL:</span>
+      <span id="hud-thermal" style="color:var(--col-gold);font-weight:700;">34.2 °C</span>
+    </div>
+  </div>
+  <!-- Right: quick bench launchers -->
+  <div style="display:flex;gap:6px;flex-wrap:wrap;">
+    <button onclick="runWorkload('idle')"    class="hud-bench-btn" data-mode="idle"    style="padding:3px 10px;border-radius:4px;border:1px solid rgba(255,255,255,0.08);background:rgba(0,229,255,0.08);color:var(--col-cyan);font-family:inherit;font-size:9px;letter-spacing:.1em;cursor:pointer;transition:all .2s;text-transform:uppercase;">IDLE</button>
+    <button onclick="runWorkload('blender')" class="hud-bench-btn" data-mode="blender" style="padding:3px 10px;border-radius:4px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--text3);font-family:inherit;font-size:9px;letter-spacing:.1em;cursor:pointer;transition:all .2s;text-transform:uppercase;">BLENDER</button>
+    <button onclick="runWorkload('ue5')"     class="hud-bench-btn" data-mode="ue5"     style="padding:3px 10px;border-radius:4px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--text3);font-family:inherit;font-size:9px;letter-spacing:.1em;cursor:pointer;transition:all .2s;text-transform:uppercase;">UE5</button>
+    <button onclick="runWorkload('ai')"      class="hud-bench-btn" data-mode="ai"      style="padding:3px 10px;border-radius:4px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--text3);font-family:inherit;font-size:9px;letter-spacing:.1em;cursor:pointer;transition:all .2s;text-transform:uppercase;">AI TRAIN</button>
+  </div>
+</div>
+
+<!-- ===== HERO ===== -->
+<section id="hero">
+  <!-- Circuit trace background -->
+  <svg class="hero-circuit-svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path class="circuit-path" d="M0,200 L200,200 L200,400 L400,400 L400,200 L600,200 L600,500 L800,500"/>
+    <path class="circuit-path" d="M1440,300 L1200,300 L1200,100 L1000,100 L1000,600 L700,600 L700,400"/>
+    <path class="circuit-path" d="M300,900 L300,700 L600,700 L600,600 L900,600 L900,800 L1100,800 L1100,700"/>
+    <!-- Circuit dots at corners -->
+    <circle cx="200" cy="200" r="3" fill="var(--col-cyan)" opacity="0.6"/>
+    <circle cx="400" cy="400" r="3" fill="var(--col-cyan)" opacity="0.6"/>
+    <circle cx="600" cy="200" r="3" fill="var(--accent2)" opacity="0.5"/>
+    <circle cx="1200" cy="300" r="3" fill="var(--col-purple)" opacity="0.6"/>
+    <circle cx="1000" cy="100" r="3" fill="var(--col-purple)" opacity="0.6"/>
+    <circle cx="300" cy="700" r="3" fill="var(--col-green)" opacity="0.5"/>
+    <circle cx="900" cy="600" r="3" fill="var(--col-green)" opacity="0.5"/>
+  </svg>
+
+  <div class="hero-bg-orb orb1"></div>
+  <div class="hero-bg-orb orb2"></div>
+  <div class="hero-bg-orb orb3"></div>
+
+  <p class="hero-eyebrow">// Flagship Creator Workstation — Anjan's Build Manifest 2026</p>
+  <h1 class="hero-title">
+    <div class="line1">NO LIMITS.</div>
+    <div class="line2">CREATOR APEX.</div>
+  </h1>
+  <p class="hero-subtitle">9 Components. 1 System. Absolute Dominance in Render, AI & Gaming.</p>
+
+  <div class="hero-value-card">
+    <div class="hero-stat">
+      <span class="hero-stat-value" id="total-counter">$0</span>
+      <span class="hero-stat-label">Total Build Value</span>
+    </div>
+    <div class="hero-stat-divider"></div>
+    <div class="hero-stat">
+      <span class="hero-stat-value">16C / 32T</span>
+      <span class="hero-stat-label">CPU Threads</span>
+    </div>
+    <div class="hero-stat-divider"></div>
+    <div class="hero-stat">
+      <span class="hero-stat-value">96 GB</span>
+      <span class="hero-stat-label">DDR5 RAM</span>
+    </div>
+    <div class="hero-stat-divider"></div>
+    <div class="hero-stat">
+      <span class="hero-stat-value">14.8 GB/s</span>
+      <span class="hero-stat-label">SSD Read</span>
+    </div>
+    <div class="hero-stat-divider"></div>
+    <div class="hero-stat">
+      <span class="hero-stat-value">49″ OLED</span>
+      <span class="hero-stat-label">Display</span>
+    </div>
+  </div>
+
+  <div class="score-bars">
+    <div class="score-bar-item">
+      <span class="score-bar-label">Blender</span>
+      <div class="score-bar-track"><div class="score-bar-fill blender" data-target="97"></div></div>
+      <span class="score-val" data-counter="97">0</span>
+    </div>
+    <div class="score-bar-item">
+      <span class="score-bar-label">Unreal Engine</span>
+      <div class="score-bar-track"><div class="score-bar-fill ue" data-target="96"></div></div>
+      <span class="score-val" data-counter="96">0</span>
+    </div>
+    <div class="score-bar-item">
+      <span class="score-bar-label">AI Gen</span>
+      <div class="score-bar-track"><div class="score-bar-fill ai-gen" data-target="94"></div></div>
+      <span class="score-val" data-counter="94">0</span>
+    </div>
+    <div class="score-bar-item">
+      <span class="score-bar-label">Gaming</span>
+      <div class="score-bar-track"><div class="score-bar-fill gaming" data-target="99"></div></div>
+      <span class="score-val" data-counter="99">0</span>
+    </div>
+    <div class="score-bar-item">
+      <span class="score-bar-label">Workstation</span>
+      <div class="score-bar-track"><div class="score-bar-fill workst" data-target="98"></div></div>
+      <span class="score-val" data-counter="98">0</span>
+    </div>
+  </div>
+
+  <div class="hero-cta-row">
+    <a href="#cpu" class="btn-primary">Explore Components</a>
+    <a href="#summary" class="btn-secondary">View Full Summary</a>
+  </div>
+
+  <div class="scroll-indicator">
+    <div class="scroll-dot"></div>
+    <div class="scroll-dot"></div>
+    <div class="scroll-dot"></div>
+    <span class="scroll-text">Scroll to explore</span>
+  </div>
+</section>
+
+<!-- ====================================================
+     COMPONENT COUNTER STRIP
+===================================================== -->
+<div class="component-counter-strip">
+  <a href="#cpu"     class="counter-strip-item">
+    <span class="csi-num">01</span>
+    <span class="csi-label">CPU</span>
+    <span class="csi-price text-accent">~$699</span>
+  </a>
+  <a href="#mobo"    class="counter-strip-item">
+    <span class="csi-num">02</span>
+    <span class="csi-label">Mobo</span>
+    <span class="csi-price" style="color:var(--col-purple);">~$449</span>
+  </a>
+  <a href="#gpu"     class="counter-strip-item">
+    <span class="csi-num">03</span>
+    <span class="csi-label">GPU</span>
+    <span class="csi-price text-green">~$1,179</span>
+  </a>
+  <a href="#ram"     class="counter-strip-item">
+    <span class="csi-num">04</span>
+    <span class="csi-label">RAM</span>
+    <span class="csi-price text-gold">~$189</span>
+  </a>
+  <a href="#ssd"     class="counter-strip-item">
+    <span class="csi-num">05</span>
+    <span class="csi-label">SSD</span>
+    <span class="csi-price text-red">~$589</span>
+  </a>
+  <a href="#monitor" class="counter-strip-item">
+    <span class="csi-num">06</span>
+    <span class="csi-label">Display</span>
+    <span class="csi-price text-accent">~$1,299</span>
+  </a>
+  <a href="#case"    class="counter-strip-item owned">
+    <span class="csi-num">07</span>
+    <span class="csi-label">Case</span>
+    <span class="csi-price text-gold">✓ Owned</span>
+  </a>
+  <a href="#psu"     class="counter-strip-item owned">
+    <span class="csi-num">08</span>
+    <span class="csi-label">PSU</span>
+    <span class="csi-price text-gold">✓ Owned</span>
+  </a>
+  <a href="#cooler"  class="counter-strip-item owned">
+    <span class="csi-num">09</span>
+    <span class="csi-label">Cooler</span>
+    <span class="csi-price text-gold">✓ Owned</span>
+  </a>
+</div>
+
+<!-- ====================================================
+     BLUEPRINT CAD ASSEMBLY VIEWPORT
+===================================================== -->
+<section id="blueprint-cad" style="position:relative;z-index:2;padding:80px 24px 0;max-width:1400px;margin:0 auto;">
+  <div class="reveal" style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--glow);">
+
+    <!-- CAD header bar -->
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 24px;border-bottom:1px solid var(--border2);flex-wrap:wrap;gap:12px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="width:7px;height:7px;border-radius:50%;background:var(--col-cyan);display:inline-block;animation:badgePulse 2s ease-in-out infinite;"></span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.15em;color:var(--accent);text-transform:uppercase;">ASSEMBLY BLUEPRINT v4.81 // INTERACTIVE MODE</span>
+      </div>
+      <span id="cad-stage-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--col-green);font-weight:700;animation:badgePulse 2s ease-in-out infinite;">STAGE 1 — STRUCTURAL CHASSIS MOUNTED</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr auto;gap:0;">
+      <!-- SVG viewport -->
+      <div style="background:var(--bg);padding:24px;display:flex;align-items:center;justify-content:center;min-height:360px;border-right:1px solid var(--border2);">
+        <svg id="blueprint-svg" style="width:100%;max-width:500px;max-height:340px;" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="cad-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(0,229,255,0.04)" stroke-width="0.5"/>
+            </pattern>
+            <linearGradient id="cad-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#00e5ff"/>
+              <stop offset="100%" stop-color="#9b51e0"/>
+            </linearGradient>
+          </defs>
+          <rect width="500" height="500" fill="url(#cad-grid)"/>
+          <!-- Axis lines -->
+          <line x1="250" y1="20" x2="250" y2="480" stroke="rgba(255,255,255,0.03)" stroke-width="0.5" stroke-dasharray="5 5"/>
+          <line x1="20" y1="250" x2="480" y2="250" stroke="rgba(255,255,255,0.03)" stroke-width="0.5" stroke-dasharray="5 5"/>
+          <!-- Watermark -->
+          <text x="250" y="265" text-anchor="middle" fill="rgba(0,229,255,0.04)" font-family="Rajdhani,sans-serif" font-size="64" font-weight="700">APEX</text>
+
+          <!-- LAYER 1: Chassis outline -->
+          <g id="cad-chassis" opacity="0.6">
+            <rect x="80" y="80" width="340" height="340" rx="16" stroke="rgba(100,116,139,0.5)" stroke-width="1.5" stroke-dasharray="3 3"/>
+            <path d="M 80 120 L 420 120" stroke="rgba(100,116,139,0.3)" stroke-width="0.8"/>
+            <path d="M 120 80 Q 250 52 380 80" stroke="rgba(0,229,255,0.2)" stroke-width="2.5" fill="none"/>
+            <text x="90" y="108" fill="rgba(0,229,255,0.35)" font-family="monospace" font-size="9">SYS_CHASSIS: HELIOS-X</text>
+          </g>
+
+          <!-- LAYER 2: PSU -->
+          <g id="cad-psu" opacity="0.15">
+            <rect x="95" y="345" width="130" height="65" rx="4" stroke="rgba(245,166,35,0.6)" stroke-width="1.5"/>
+            <rect x="110" y="363" width="40" height="12" fill="#1a1f2e" rx="2"/>
+            <line x1="110" y1="369" x2="150" y2="369" stroke="#f5a623" stroke-width="1" stroke-dasharray="4 2" style="animation:connectorDash 2s linear infinite;"/>
+            <text x="102" y="356" fill="rgba(245,166,35,0.6)" font-family="monospace" font-size="8">ROG_THOR_1200W</text>
+          </g>
+
+          <!-- LAYER 3: Motherboard -->
+          <g id="cad-mobo" opacity="0.1">
+            <rect x="140" y="130" width="220" height="200" rx="6" stroke="rgba(0,229,255,0.5)" stroke-width="1.5" fill="rgba(0,229,255,0.02)"/>
+            <rect x="225" y="168" width="52" height="52" stroke="#00e5ff" stroke-width="1" fill="none"/>
+            <rect x="148" y="270" width="165" height="10" fill="rgba(0,229,255,0.08)" stroke="#00e5ff" stroke-width="0.8"/>
+            <text x="146" y="144" fill="rgba(0,229,255,0.45)" font-family="monospace" font-size="7.5">MTHR_BD: ROG_CROSSHAIR_X870E</text>
+          </g>
+
+          <!-- LAYER 4: CPU die -->
+          <g id="cad-cpu" opacity="0" style="transform-origin:250px 194px;">
+            <rect x="229" y="173" width="42" height="42" rx="2" fill="url(#cad-grad)" stroke="#fff" stroke-width="0.8"/>
+            <text x="233" y="197" fill="#fff" font-family="monospace" font-size="7.5" font-weight="bold">9950X3D</text>
+            <path d="M229 194 L209 194 M271 194 L291 194 M250 173 L250 153 M250 215 L250 235" stroke="#9b51e0" stroke-width="0.8" stroke-dasharray="2 2" style="animation:connectorDash 1.5s linear infinite;"/>
+          </g>
+
+          <!-- LAYER 5: AIO cooling -->
+          <g id="cad-cooling" opacity="0">
+            <rect x="118" y="88" width="264" height="24" rx="3" stroke="#3b82f6" stroke-width="1.5" fill="none"/>
+            <!-- Fan circles -->
+            <circle cx="163" cy="100" r="9" stroke="#3b82f6" stroke-width="1" fill="none"/>
+            <g class="cad-fan-spin" style="transform-origin:163px 100px;animation:fanSpin360 0.7s linear infinite;">
+              <line x1="163" y1="92" x2="163" y2="108" stroke="#3b82f6" stroke-width="2.5"/>
+              <line x1="155" y1="100" x2="171" y2="100" stroke="#3b82f6" stroke-width="2.5"/>
+            </g>
+            <circle cx="250" cy="100" r="9" stroke="#3b82f6" stroke-width="1" fill="none"/>
+            <g class="cad-fan-spin" style="transform-origin:250px 100px;animation:fanSpin360 0.7s linear infinite;animation-delay:-.23s;">
+              <line x1="250" y1="92" x2="250" y2="108" stroke="#3b82f6" stroke-width="2.5"/>
+              <line x1="242" y1="100" x2="258" y2="100" stroke="#3b82f6" stroke-width="2.5"/>
+            </g>
+            <circle cx="337" cy="100" r="9" stroke="#3b82f6" stroke-width="1" fill="none"/>
+            <g class="cad-fan-spin" style="transform-origin:337px 100px;animation:fanSpin360 0.7s linear infinite;animation-delay:-.46s;">
+              <line x1="337" y1="92" x2="337" y2="108" stroke="#3b82f6" stroke-width="2.5"/>
+              <line x1="329" y1="100" x2="345" y2="100" stroke="#3b82f6" stroke-width="2.5"/>
+            </g>
+            <!-- Water block -->
+            <circle cx="250" cy="194" r="15" stroke="#ef4444" stroke-width="1.5" fill="rgba(4,5,10,0.9)"/>
+            <circle cx="250" cy="194" r="11" stroke="#3b82f6" stroke-width="1" stroke-dasharray="4 2" style="animation:connectorDash 2s linear infinite;"/>
+            <!-- Tubes -->
+            <path d="M238 194 C200 194,168 148,168 112 M262 194 C300 194,332 148,332 112" stroke="#3b82f6" stroke-width="1.5" fill="none"/>
+            <text x="124" y="101" fill="rgba(59,130,246,0.6)" font-family="monospace" font-size="7">AIO_RAD: NZXT_420</text>
+          </g>
+
+          <!-- LAYER 6: GPU -->
+          <g id="cad-gpu" opacity="0">
+            <rect x="128" y="253" width="224" height="52" rx="4" fill="rgba(4,5,10,0.95)" stroke="rgba(0,255,159,0.7)" stroke-width="1.5"/>
+            <!-- 3 GPU fans -->
+            <circle cx="168" cy="279" r="15" stroke="rgba(0,255,159,0.5)" stroke-width="1" fill="none"/>
+            <g style="transform-origin:168px 279px;animation:fanSpin360 0.45s linear infinite;">
+              <path d="M168 265 L168 293 M154 279 L182 279 M158 269 L178 289 M178 269 L158 289" stroke="rgba(0,255,159,0.7)" stroke-width="2"/>
+            </g>
+            <circle cx="240" cy="279" r="15" stroke="rgba(0,255,159,0.5)" stroke-width="1" fill="none"/>
+            <g style="transform-origin:240px 279px;animation:fanSpin360 0.45s linear infinite;animation-delay:-.15s;">
+              <path d="M240 265 L240 293 M226 279 L254 279 M230 269 L250 289 M250 269 L230 289" stroke="rgba(0,255,159,0.7)" stroke-width="2"/>
+            </g>
+            <circle cx="312" cy="279" r="15" stroke="rgba(0,255,159,0.5)" stroke-width="1" fill="none"/>
+            <g style="transform-origin:312px 279px;animation:fanSpin360 0.45s linear infinite;animation-delay:-.3s;">
+              <path d="M312 265 L312 293 M298 279 L326 279 M302 269 L322 289 M322 269 L302 289" stroke="rgba(0,255,159,0.7)" stroke-width="2"/>
+            </g>
+            <!-- PCIe data trace -->
+            <path d="M128 305 L80 305" stroke="rgba(0,255,159,0.4)" stroke-width="0.8" stroke-dasharray="3 2" style="animation:connectorDash 1s linear infinite;"/>
+            <text x="134" y="264" fill="rgba(0,255,159,0.6)" font-family="monospace" font-size="7" font-weight="bold">GPU_NODE: TUF_RTX_5080_OC</text>
+          </g>
+        </svg>
       </div>
 
-      <!-- Live Telemetry Tickers -->
-      <div class="flex items-center gap-6 font-mono text-[10px] md:text-xs">
-        <div class="hidden lg:flex items-center gap-2">
-          <span class="text-slate-500">EST. POWER DRAW:</span>
-          <span class="text-amber-400 font-bold" id="hud-power">1084 W</span>
-        </div>
-        <div class="hidden lg:flex items-center gap-2">
-          <span class="text-slate-500">THERMAL INDEX:</span>
-          <span class="text-emerald-400 font-bold" id="hud-thermal">38.4 °C</span>
-        </div>
-        <div class="flex items-center gap-2">
-          <span class="text-slate-500">TOTAL EST. VALUE:</span>
-          <span class="text-cyan-400 font-bold">$7,445.00</span>
-        </div>
-      </div>
+      <!-- Stage control panel -->
+      <div style="display:flex;flex-direction:column;gap:8px;padding:24px 20px;background:var(--surface2);min-width:200px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.12em;color:var(--text3);text-transform:uppercase;margin-bottom:4px;">Assembly Stages</div>
+        <button onclick="setCadStage(1)" id="cad-btn-1" class="cad-stage-btn active-stage" style="padding:10px 14px;border-radius:6px;border:1px solid var(--accent);background:rgba(0,229,255,0.08);color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;cursor:pointer;text-align:left;text-transform:uppercase;transition:all .2s;">① Chassis</button>
+        <button onclick="setCadStage(2)" id="cad-btn-2" class="cad-stage-btn" style="padding:10px 14px;border-radius:6px;border:1px solid var(--border2);background:transparent;color:var(--text3);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;cursor:pointer;text-align:left;text-transform:uppercase;transition:all .2s;">② Board &amp; Power</button>
+        <button onclick="setCadStage(3)" id="cad-btn-3" class="cad-stage-btn" style="padding:10px 14px;border-radius:6px;border:1px solid var(--border2);background:transparent;color:var(--text3);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;cursor:pointer;text-align:left;text-transform:uppercase;transition:all .2s;">③ CPU &amp; Cooling</button>
+        <button onclick="setCadStage(4)" id="cad-btn-4" class="cad-stage-btn" style="padding:10px 14px;border-radius:6px;border:1px solid var(--border2);background:transparent;color:var(--text3);font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.1em;cursor:pointer;text-align:left;text-transform:uppercase;transition:all .2s;">④ GPU Matrix</button>
 
-      <!-- Quick Action Controls: Theme Switcher & Checkout -->
-      <div class="flex items-center gap-3">
-        <!-- Interactive Theme Switch Toggle -->
-        <button id="theme-toggle" class="p-2 border border-slate-700 hover:border-cyan-400 dark:border-zinc-800 dark:hover:border-cyan-500 light:border-slate-300 light:hover:border-blue-600 rounded transition-all text-slate-400 dark:text-slate-400 light:text-slate-600 hover:text-cyan-400 flex items-center justify-center" aria-label="Toggle Theme">
-          <i data-lucide="sun" class="w-4 h-4 hidden dark:block"></i>
-          <i data-lucide="moon" class="w-4 h-4 block dark:hidden"></i>
-        </button>
-        <!-- Sticky Assembly Trigger -->
-        <a href="#telemetry" class="px-3 py-1.5 text-xs font-mono font-bold tracking-widest bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 hover:bg-cyan-500/30 rounded transition-all">
-          TELEMETRY RUN
-        </a>
+        <div style="margin-top:auto;padding-top:16px;border-top:1px solid var(--border2);">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;">Scroll to Build</div>
+          <div id="cad-progress-dots" style="display:flex;gap:4px;">
+            <div class="cad-pdot" data-s="1" style="width:20px;height:4px;border-radius:2px;background:var(--accent);cursor:pointer;transition:all .3s;"></div>
+            <div class="cad-pdot" data-s="2" style="width:20px;height:4px;border-radius:2px;background:var(--border2);cursor:pointer;transition:all .3s;"></div>
+            <div class="cad-pdot" data-s="3" style="width:20px;height:4px;border-radius:2px;background:var(--border2);cursor:pointer;transition:all .3s;"></div>
+            <div class="cad-pdot" data-s="4" style="width:20px;height:4px;border-radius:2px;background:var(--border2);cursor:pointer;transition:all .3s;"></div>
+          </div>
+        </div>
       </div>
     </div>
-  </header>
+  </div>
+</section>
 
-  <!-- MASTER SYSTEM STATUS DASHBOARD GRID -->
-  <section class="relative pt-24 pb-12 px-4 blueprint-grid-dark dark:blueprint-grid-dark light:blueprint-grid-light border-b border-zinc-800">
-    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-zinc-950/80 dark:to-zinc-950/80 light:to-slate-50/80 pointer-events-none"></div>
-    <div class="max-w-7xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-      
-      <!-- Assembly Summary & Blueprint Title -->
-      <div class="lg:col-span-5 space-y-6">
-        <div class="inline-flex items-center gap-2 px-3 py-1 border border-cyan-500/30 dark:border-cyan-500/30 light:border-blue-600/30 bg-cyan-500/10 dark:bg-cyan-500/10 light:bg-blue-600/5 text-cyan-400 dark:text-cyan-400 light:text-blue-700 font-mono text-xs rounded-full">
-          <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> SPECIFICATION LEVEL 01 // PASSION PROJECT BUILD
-        </div>
-        
-        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight">
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-slate-100 to-slate-400 dark:from-white dark:to-slate-400 light:from-slate-900 light:to-slate-700">CREATOR</span><br>
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-violet-500">WORKSTATION</span>
-        </h1>
-        
-        <p class="text-sm md:text-base text-slate-400 dark:text-slate-400 light:text-slate-600 leading-relaxed font-mono">
-          An engineering manifesto designed for massive parallel workloads, ultra-high resolution asset development, neural network generation workflows, and zero-compromise real-time render loops.
-        </p>
+<!-- ====================================================
+     COMPONENT 01 — CPU
+===================================================== -->
+<section class="component-section" id="cpu">
+  <div class="section-wrapper">
+    <div class="section-header reveal">
+      <div>
+        <span class="section-num">01 // PROCESSOR</span>
+        <h2 class="section-title">Central Processing Unit</h2>
+      </div>
+      <div class="section-line"></div>
+    </div>
 
-        <!-- Dynamic Performance Counters -->
-        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 border-t border-slate-800/40 dark:border-zinc-800/40 light:border-slate-300/40 pt-6">
-          <div class="space-y-1">
-            <div class="text-[10px] font-mono text-slate-500">WORKSTATION SCORE</div>
-            <div class="text-2xl font-mono font-bold text-cyan-400 flex items-baseline">
-              <span id="stat-ws">0</span><span class="text-xs text-slate-500 ml-1">/100</span>
-            </div>
-            <div class="w-full bg-slate-800 dark:bg-zinc-900 light:bg-slate-200 h-1 rounded overflow-hidden">
-              <div class="bg-cyan-500 h-full w-[98%]"></div>
-            </div>
-          </div>
-          <div class="space-y-1">
-            <div class="text-[10px] font-mono text-slate-500">AI GENERATION TFLOPS</div>
-            <div class="text-2xl font-mono font-bold text-violet-400 flex items-baseline">
-              <span id="stat-ai">0</span><span class="text-xs text-slate-500 ml-1">TFLOPs</span>
-            </div>
-            <div class="w-full bg-slate-800 dark:bg-zinc-900 light:bg-slate-200 h-1 rounded overflow-hidden">
-              <div class="bg-violet-500 h-full w-[94%]"></div>
-            </div>
-          </div>
-          <div class="space-y-1 col-span-2 sm:col-span-1">
-            <div class="text-[10px] font-mono text-slate-500">UNREAL ENGINE FLOW</div>
-            <div class="text-2xl font-mono font-bold text-emerald-400 flex items-baseline">
-              <span id="stat-ue">0</span><span class="text-xs text-slate-500 ml-1">% CAP</span>
-            </div>
-            <div class="w-full bg-slate-800 dark:bg-zinc-900 light:bg-slate-200 h-1 rounded overflow-hidden">
-              <div class="bg-emerald-500 h-full w-[96%]"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="flex flex-wrap gap-4 pt-2">
-          <div class="text-xs font-mono text-slate-400 border border-slate-800 dark:border-zinc-800 light:border-slate-200 px-3 py-2 rounded bg-slate-900/50 dark:bg-zinc-900/50 light:bg-white/50 flex items-center gap-2">
-            <i data-lucide="cpu" class="w-4 h-4 text-cyan-400"></i>
-            <span>Blender: <strong>980 Cycles Pt/s</strong></span>
-          </div>
-          <div class="text-xs font-mono text-slate-400 border border-slate-800 dark:border-zinc-800 light:border-slate-200 px-3 py-2 rounded bg-slate-900/50 dark:bg-zinc-900/50 light:bg-white/50 flex items-center gap-2">
-            <i data-lucide="sparkles" class="w-4 h-4 text-violet-400"></i>
-            <span>Gaming Index: <strong>99.4/100</strong></span>
+    <div class="component-grid">
+      <div class="comp-image-panel reveal-left">
+        <div class="comp-image-glow"></div>
+        <span class="comp-type-badge badge-cpu">CPU</span>
+        <span class="badge-new">New 2025</span>
+        <img
+          class="comp-product-img"
+          src="https://m.media-amazon.com/images/I/61a6A2sFSAL._AC_SL1200_.jpg"
+          alt="AMD Ryzen 9 9950X3D"
+          loading="lazy"
+          onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 280%22><rect fill=%22%230d1120%22 width=%22400%22 height=%22280%22/><text fill=%22%2300e5ff%22 font-family=%22monospace%22 font-size=%2216%22 x=%22200%22 y=%22140%22 text-anchor=%22middle%22>AMD Ryzen 9 9950X3D</text></svg>'">
+        <div style="position:absolute;bottom:16px;left:0;right:0;z-index:2;">
+          <!-- CPU cores visualization -->
+          <div class="cpu-cores-viz" style="max-width:280px;margin:0 auto;">
+            <div class="cpu-core" id="core0"></div><div class="cpu-core" id="core1"></div>
+            <div class="cpu-core" id="core2"></div><div class="cpu-core" id="core3"></div>
+            <div class="cpu-core" id="core4"></div><div class="cpu-core" id="core5"></div>
+            <div class="cpu-core" id="core6"></div><div class="cpu-core" id="core7"></div>
+            <div class="cpu-core" id="core8"></div><div class="cpu-core" id="core9"></div>
+            <div class="cpu-core" id="core10"></div><div class="cpu-core" id="core11"></div>
+            <div class="cpu-core" id="core12"></div><div class="cpu-core" id="core13"></div>
+            <div class="cpu-core" id="core14"></div><div class="cpu-core" id="core15"></div>
+            <div class="cpu-core-label">16 Zen 5 Cores / 32 Threads</div>
           </div>
         </div>
       </div>
 
-      <!-- Interactive Chassis Exploded Assembly Blueprint Viewport -->
-      <div class="lg:col-span-7 flex flex-col items-center">
-        <div class="w-full max-w-xl aspect-square border border-slate-800 dark:border-zinc-800 light:border-slate-200 rounded-lg bg-zinc-950/80 dark:bg-zinc-950/80 light:bg-slate-100/50 relative overflow-hidden flex flex-col justify-between p-4 glow-cyan">
+      <div class="comp-info-panel reveal-right">
+        <span class="comp-category">01 // AMD Processor</span>
+        <h3 class="comp-name">AMD Ryzen 9 9950X3D<br>16-Core Processor</h3>
+        <p class="comp-desc">The world's best processor for creators and gamers. Featuring AMD's 2nd Gen 3D V-Cache technology stacked on one CCD, delivering 128MB L3 cache total. Zen 5 architecture with IPC improvements across all workloads — from Blender rendering to real-time game simulation.</p>
+
+        <div class="comp-price-row">
+          <div>
+            <div class="comp-price">~$699</div>
+            <div class="comp-price-note">Launch MSRP · Retail prices vary</div>
+          </div>
+          <a href="https://www.amazon.com/AMD-Ryzen-9950X3D-16-Core-Processor/dp/B0DVZSG8D5" target="_blank" rel="noopener" class="btn-amazon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.23 10.56V10c-1.94 0-3.99.37-3.99 2.67 0 1.15.6 1.93 1.62 1.93.75 0 1.41-.46 1.83-1.22.52-.93.54-1.8.54-2.82zM20.96 17.4c-.1.09-.27.1-.39.03C20 16.97 19.09 16.28 17.88 15c-1.18 1.21-2.02 1.97-3.14 2.38-.87.31-1.83.48-2.87.48-2.4 0-4.28-1.57-4.28-3.94 0-2.72 1.9-4.09 4.64-4.58 1.38-.26 3.26-.5 3.26-2.08 0-1.67-1.17-2.12-2.39-2.12-1.28 0-2.5.52-2.5 2.12 0 .2-.22.43-.44.43h-2.27c-.24 0-.44-.18-.44-.42 0-3.19 2.8-4.63 5.91-4.63 1.54 0 3.41.42 4.52 1.39C19.26 5.69 19.58 7.02 19.58 8.38v4.08c0 1.11.47 1.58.94 2.1.15.17.18.38-.03.53l-1.53 1.31zm2.04-1.95C22.5 14.9 22 14.3 22 13.47V8.38c0-2-.52-3.57-1.59-4.62C19.3 2.74 17.42 2 14.69 2c-2.64 0-5.48.9-7.19 2.98-.36.44-.39.99-.08 1.38l1.52 1.86c.37.45.97.49 1.38.06C11.27 7.14 12.68 6.4 14.3 6.4c1.46 0 2.62.69 2.62 2.3v.66c-1.19.5-2.79.79-3.96 1-2.98.54-6.19 1.94-6.19 5.44 0 3.18 2.5 5.19 5.45 5.19 1.62 0 3.01-.41 4.15-1.13 1.24 1.12 1.67 1.41 2.58 2.03.47.31 1.02.21 1.37-.19l1.7-1.49c.37-.31.44-.86.08-1.17l-.1-.08z"/></svg>
+            Buy on Amazon
+          </a>
+        </div>
+
+        <div class="specs-grid">
+          <div class="spec-item"><span class="spec-key">Architecture</span><span class="spec-val">AMD Zen 5</span></div>
+          <div class="spec-item"><span class="spec-key">Cores / Threads</span><span class="spec-val">16C / 32T</span></div>
+          <div class="spec-item"><span class="spec-key">Base / Boost</span><span class="spec-val">4.3 / 5.7 GHz</span></div>
+          <div class="spec-item"><span class="spec-key">L3 Cache</span><span class="spec-val">128 MB (3D V-Cache)</span></div>
+          <div class="spec-item"><span class="spec-key">TDP</span><span class="spec-val">170W (230W max)</span></div>
+          <div class="spec-item"><span class="spec-key">Socket</span><span class="spec-val">AMD AM5</span></div>
+        </div>
+
+        <div class="usecase-row">
+          <span class="usecase-pill pill-render">Blender Cycles</span>
+          <span class="usecase-pill pill-ai">AI Inference</span>
+          <span class="usecase-pill pill-game">AAA Gaming</span>
+          <span class="usecase-pill pill-video">8K Video</span>
+          <span class="usecase-pill pill-3d">Simulation</span>
+        </div>
+
+        <div class="compat-note">
+          <span class="compat-icon">✓</span>
+          <p>Compatible with AM5 socket. Requires DDR5 memory. Works natively with ASUS ROG Crosshair X870E Hero. 3D V-Cache on CCD0 — gaming threads auto-routed for maximum cache hit rates.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- connector -->
+<div class="section-connector" aria-hidden="true">
+  <svg viewBox="0 0 1400 60" preserveAspectRatio="none"><line class="connector-line" x1="700" y1="0" x2="700" y2="60"/><circle cx="700" cy="30" r="4" fill="var(--accent)" opacity="0.3"/></svg>
+</div>
+
+<!-- ====================================================
+     COMPONENT 02 — MOTHERBOARD
+===================================================== -->
+<section class="component-section" id="mobo">
+  <div class="section-wrapper">
+    <div class="section-header reveal">
+      <div>
+        <span class="section-num">02 // MOTHERBOARD</span>
+        <h2 class="section-title">Platform Foundation</h2>
+      </div>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="component-grid reverse">
+      <div class="comp-image-panel reveal-right">
+        <div class="comp-image-glow"></div>
+        <span class="comp-type-badge badge-mobo">MOBO</span>
+        <img
+          class="comp-product-img"
+          src="https://m.media-amazon.com/images/I/71w2+2i8e6L._AC_SL1500_.jpg"
+          alt="ASUS ROG Crosshair X870E Hero"
+          loading="lazy"
+          onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 400 280%22><rect fill=%22%230d1120%22 width=%22400%22 height=%22280%22/><text fill=%22%239b51e0%22 font-family=%22monospace%22 font-size=%2214%22 x=%22200%22 y=%22140%22 text-anchor=%22middle%22>ROG Crosshair X870E Hero</text></svg>'">
+      </div>
+
+      <div class="comp-info-panel reveal-left">
+        <span class="comp-category">02 // ASUS ROG Motherboard</span>
+        <h3 class="comp-name">ROG Crosshair<br>X870E Hero</h3>
+        <p class="comp-desc">The AI PC-ready flagship X870E platform with unyielding 18+2+2 power stages, five M.2 slots (three PCIe 5.0), Wi-Fi 7, USB4, and ROG's Polymo Lighting II. Designed to extract every MHz from the Ryzen 9 9950X3D through Dynamic OC Switcher and Core Flex overclocking.</p>
+
+        <div class="comp-price-row">
+          <div>
+            <div class="comp-price">~$449</div>
+            <div class="comp-price-note">Current market pricing</div>
+          </div>
+          <a href="https://www.amazon.com/ASUS-ROG-X870E-Motherboard-Overclocking/dp/B0DDZSP2BG" target="_blank" rel="noopener" class="btn-amazon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.23 10.56V10c-1.94 0-3.99.37-3.99 2.67 0 1.15.6 1.93 1.62 1.93.75 0 1.41-.46 1.83-1.22.52-.93.54-1.8.54-2.82zM20.96 17.4c-.1.09-.27.1-.39.03C20 16.97 19.09 16.28 17.88 15c-1.18 1.21-2.02 1.97-3.14 2.38-.87.31-1.83.48-2.87.48-2.4 0-4.28-1.57-4.28-3.94 0-2.72 1.9-4.09 4.64-4.58 1.38-.26 3.26-.5 3.26-2.08 0-1.67-1.17-2.12-2.39-2.12-1.28 0-2.5.52-2.5 2.12 0 .2-.22.43-.44.43h-2.27c-.24 0-.44-.18-.44-.42 0-3.19 2.8-4.63 5.91-4.63 1.54 0 3.41.42 4.52 1.39C19.26 5.69 19.58 7.02 19.58 8.38v4.08c0 1.11.47 1.58.94 2.1.15.17.18.38-.03.53l-1.53 1.31zm2.04-1.95C22.5 14.9 22 14.3 22 13.47V8.38c0-2-.52-3.57-1.59-4.62C19.3 2.74 17.42 2 14.69 2c-2.64 0-5.48.9-7.19 2.98-.36.44-.39.99-.08 1.38l1.52 1.86c.37.45.97.49 1.38.06C11.27 7.14 12.68 6.4 14.3 6.4c1.46 0 2.62.69 2.62 2.3v.66c-1.19.5-2.79.79-3.96 1-2.98.54-6.19 1.94-6.19 5.44 0 3.18 2.5 5.19 5.45 5.19 1.62 0 3.01-.41 4.15-1.13 1.24 1.12 1.67 1.41 2.58 2.03.47.31 1.02.21 1.37-.19l1.7-1.49c.37-.31.44-.86.08-1.17l-.1-.08z"/></svg>
+            Buy on Amazon
+          </a>
+        </div>
+
+        <div class="specs-grid">
+          <div class="spec-item"><span class="spec-key">Chipset</span><span class="spec-val">AMD X870E</span></div>
+          <div class="spec-item"><span class="spec-key">Form Factor</span><span class="spec-val">ATX</span></div>
+          <div class="spec-item"><span class="spec-key">Power Stages</span><span class="spec-val">18+2+2 (110A)</span></div>
+          <div class="spec-item"><span class="spec-key">M.2 Slots</span><span class="spec-val">5× (3× PCIe 5.0)</span></div>
+          <div class="spec-item"><span class="spec-key">Memory</span><span class="spec-val">DDR5, AEMP/EXPO</span></div>
+          <div class="spec-item"><span class="spec-key">Connectivity</span><span class="spec-val">Wi-Fi 7, USB4®</span></div>
+        </div>
+
+        <!-- Mobo Feature Callouts -->
+        <div class="mobo-features">
+          <div class="mobo-feat"><div class="mobo-feat-dot"></div><span class="mobo-feat-label">AI OC — Optimizes clocks via NPU</span></div>
+          <div class="mobo-feat"><div class="mobo-feat-dot"></div><span class="mobo-feat-label">PCIe 5.0 x16 SafeSlot</span></div>
+          <div class="mobo-feat"><div class="mobo-feat-dot"></div><span class="mobo-feat-label">3× PCIe 5.0 M.2 NVMe</span></div>
+          <div class="mobo-feat"><div class="mobo-feat-dot"></div><span class="mobo-feat-label">Wi-Fi 7 + BT 5.4 onboard</span></div>
+          <div class="mobo-feat"><div class="mobo-feat-dot"></div><span class="mobo-feat-label">USB4® 40Gbps rear I/O</span></div>
+          <div class="mobo-feat"><div class="mobo-feat-dot"></div><span class="mobo-feat-label">Polymo II ARGB lighting</span></div>
+          <div class="mobo-feat"><div class="mobo-feat-dot"></div><span class="mobo-feat-label">BIOS FlashBack™ — no CPU needed</span></div>
+          <div class="mobo-feat"><div class="mobo-feat-dot"></div><span class="mobo-feat-label">2.5GbE + 10GbE LAN dual-port</span></div>
+        </div>
+
+        <div class="usecase-row">
+          <span class="usecase-pill pill-render">AI Overclocking</span>
+          <span class="usecase-pill pill-3d">PCIe 5.0</span>
+          <span class="usecase-pill pill-video">Wi-Fi 7</span>
+          <span class="usecase-pill pill-ai">Core Flex OC</span>
+        </div>
+
+        <div class="compat-note">
+          <span class="compat-icon">✓</span>
+          <p>AM5 socket — direct CPU fit with Ryzen 9 9950X3D. Supports 420mm AIO radiators (NZXT Kraken Elite 420 compatible). ATX form factor fits ASUS ROG Strix Helios GX601.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- connector -->
+<div class="section-connector" aria-hidden="true">
+  <svg viewBox="0 0 1400 60" preserveAspectRatio="none"><line class="connector-line" x1="700" y1="0" x2="700" y2="60"/><circle cx="700" cy="30" r="4" fill="var(--col-purple)" opacity="0.3"/></svg>
+</div>
+
+<!-- ====================================================
+     COMPONENT 03 — GPU
+===================================================== -->
+<section class="component-section" id="gpu">
+  <div class="section-wrapper">
+    <div class="section-header reveal">
+      <div>
+        <span class="section-num">03 // GRAPHICS</span>
+        <h2 class="section-title">Visual Processing Unit</h2>
+      </div>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="component-grid">
+      <div class="comp-image-panel reveal-left">
+        <div class="comp-image-glow"></div>
+        <span class="comp-type-badge badge-gpu">GPU</span>
+        <span class="badge-new">Blackwell</span>
+        <img
+          class="comp-product-img"
+          src="https://m.media-amazon.com/images/I/81+zYt7gjBL._AC_SL1500_.jpg"
+          alt="ASUS TUF Gaming RTX 5080 OC 16GB"
           
-          <!-- Top Grid Status & Title bar -->
-          <div class="flex justify-between items-center text-[10px] font-mono border-b border-slate-800 dark:border-zinc-800 light:border-slate-200 pb-2">
-            <div>ASSEMBLY BLUEPRINT v4.81 (INTERACTIVE MODE)</div>
-            <div class="text-cyan-400 font-bold animate-pulse">SCROLL TO BUILD</div>
-          </div>
-
-          <!-- Dynamic SVG Vector-driven CAD Drawing of Assembly -->
-          <div class="flex-grow flex items-center justify-center relative w-full h-full min-h-[300px]">
-            <svg id="blueprint-svg" class="w-full h-full max-h-[350px]" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <!-- Grid Overlay Inside Vector -->
-              <defs>
-                <pattern id="inner-grid" width="20" height="20" patternUnits="userSpaceOnUse">
-                  <path d="M 20 0 L 0 0 0 20" fill="none" stroke="currentColor" class="text-cyan-500/5 dark:text-cyan-500/5 light:text-blue-600/5" stroke-width="0.5"/>
-                </pattern>
-                <linearGradient id="gradient-glow" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#06b6d4" />
-                  <stop offset="100%" stop-color="#8b5cf6" />
-                </linearGradient>
-              </defs>
-              <rect width="100%" height="100%" fill="url(#inner-grid)" />
-
-              <!-- Technical Axis Overlay Lines -->
-              <line x1="250" y1="20" x2="250" y2="480" stroke="currentColor" class="text-slate-800 dark:text-zinc-900 light:text-slate-200" stroke-width="0.5" stroke-dasharray="5 5"/>
-              <line x1="20" y1="250" x2="480" y2="250" stroke="currentColor" class="text-slate-800 dark:text-zinc-900 light:text-slate-200" stroke-width="0.5" stroke-dasharray="5 5"/>
-
-              <!-- Interactive Blueprint Layers (will animate based on UI assembly steps or active sections) -->
-              <!-- Layer 1: Chassis Outer Core (ROG Helios) -->
-              <g id="layer-chassis" class="transition-transform duration-700 ease-out translate-x-0" opacity="0.4">
-                <rect x="80" y="80" width="340" height="340" rx="16" stroke="currentColor" class="text-slate-700 dark:text-zinc-700 light:text-slate-300" stroke-width="1.5" stroke-dasharray="2 2"/>
-                <path d="M 80 120 L 420 120" stroke="currentColor" class="text-slate-700 dark:text-zinc-700 light:text-slate-300" stroke-width="1"/>
-                <!-- Carry strap accent -->
-                <path d="M 120 80 Q 250 50 380 80" stroke="currentColor" class="text-cyan-500/30" stroke-width="3" fill="none"/>
-                <text x="90" y="105" fill="currentColor" class="text-slate-500" font-family="monospace" font-size="10">SYS_CHASSIS: HELIOS-X</text>
-              </g>
-
-              <!-- Layer 2: ROG Thor PSU Placement -->
-              <g id="layer-psu" class="transition-all duration-700 ease-out translate-y-12" opacity="0.3">
-                <rect x="95" y="340" width="130" height="70" rx="4" stroke="currentColor" class="text-amber-500/60" stroke-width="1.5"/>
-                <!-- OLED Display element inside PSU -->
-                <rect x="110" y="360" width="40" height="15" fill="#1e293b" rx="2"/>
-                <line x1="110" y1="367" x2="150" y2="367" stroke="#10b981" stroke-width="1" class="trace-anim"/>
-                <text x="105" y="352" fill="#f59e0b" font-family="monospace" font-size="8">ROG_THOR_1200W</text>
-              </g>
-
-              <!-- Layer 3: ROG Crosshair X870E Hero Motherboard Outline -->
-              <g id="layer-motherboard" class="transition-all duration-700 ease-out -translate-y-8" opacity="0.2">
-                <rect x="140" y="130" width="220" height="200" rx="6" stroke="currentColor" class="text-cyan-500/60" stroke-width="1.5" fill="currentColor" class="fill-slate-900/50 dark:fill-zinc-900/50 light:fill-white/50"/>
-                <!-- Socket AM5 Outline -->
-                <rect x="225" y="170" width="50" height="50" stroke="#06b6d4" stroke-width="1" fill="none"/>
-                <!-- PCIe Slot -->
-                <rect x="150" y="270" width="160" height="10" fill="#06b6d4" fill-opacity="0.2" stroke="#06b6d4" stroke-width="1"/>
-                <text x="148" y="145" fill="#06b6d4" font-family="monospace" font-size="8">MTHR_BD: ROG_CROSSHAIR_X870E</text>
-              </g>
-
-              <!-- Layer 4: CPU Die Assembly Node -->
-              <g id="layer-cpu" class="transition-all duration-700 ease-out scale-75 opacity-0 origin-center" style="transform-origin: 250px 195px;">
-                <rect x="230" y="175" width="40" height="40" rx="2" fill="url(#gradient-glow)" stroke="#ffffff" stroke-width="1"/>
-                <text x="233" y="198" fill="#ffffff" font-family="monospace" font-size="8" font-weight="bold">9950X3D</text>
-                <!-- Signal traces radiating from CPU -->
-                <path d="M 230 195 L 210 195 M 270 195 L 290 195 M 250 175 L 250 155 M 250 215 L 250 235" stroke="#8b5cf6" stroke-width="1" stroke-dasharray="2 2" class="trace-anim"/>
-              </g>
-
-              <!-- Layer 5: Kraken Elite AIO Cooling Loop -->
-              <g id="layer-cooling" class="transition-all duration-700 ease-out -translate-y-24 opacity-0">
-                <!-- Radiator on top mount -->
-                <rect x="120" y="90" width="260" height="25" rx="3" stroke="#3b82f6" stroke-width="1.5" fill="none"/>
-                <!-- Animated cooling fans -->
-                <circle cx="165" cy="102.5" r="9" stroke="#3b82f6" stroke-width="1"/>
-                <circle cx="250" cy="102.5" r="9" stroke="#3b82f6" stroke-width="1"/>
-                <circle cx="335" cy="102.5" r="9" stroke="#3b82f6" stroke-width="1"/>
-                <!-- Water Block over CPU -->
-                <circle cx="250" cy="195" r="15" stroke="#ef4444" stroke-width="1.5" fill="currentColor" class="fill-slate-900/90 dark:fill-zinc-900/90 light:fill-white/90"/>
-                <circle cx="250" cy="195" r="11" stroke="#3b82f6" stroke-width="1" stroke-dasharray="4 2"/>
-                <!-- Tubes linking Block to Radiator -->
-                <path d="M 240 195 C 200 195, 170 150, 170 115 M 260 195 C 300 195, 330 150, 330 115" stroke="#3b82f6" stroke-width="1.5" fill="none"/>
-                <text x="125" y="105" fill="#3b82f6" font-family="monospace" font-size="7">AIO_RAD: NZXT_420</text>
-              </g>
-
-              <!-- Layer 6: GPU Core Array (RTX 5080) -->
-              <g id="layer-gpu" class="transition-all duration-700 ease-out translate-x-12 opacity-0">
-                <!-- Massive Shroud spanning across PCB -->
-                <rect x="130" y="255" width="220" height="50" rx="4" fill="currentColor" class="fill-slate-900/95 dark:fill-zinc-900/95 light:fill-white/95" stroke="#10b981" stroke-width="1.5"/>
-                <!-- Triple fans vector -->
-                <circle cx="170" cy="280" r="14" stroke="#10b981" stroke-width="1" fill="none"/>
-                <path d="M 170 266 L 170 294 M 156 280 L 184 280" stroke="#10b981" stroke-width="0.5"/>
-                <circle cx="240" cy="280" r="14" stroke="#10b981" stroke-width="1" fill="none"/>
-                <path d="M 240 266 L 240 294 M 226 280 L 254 280" stroke="#10b981" stroke-width="0.5"/>
-                <circle cx="310" cy="280" r="14" stroke="#10b981" stroke-width="1" fill="none"/>
-                <path d="M 310 266 L 310 294 M 296 280 L 324 280" stroke="#10b981" stroke-width="0.5"/>
-                <text x="135" y="267" fill="#10b981" font-family="monospace" font-size="7" font-weight="bold">GPU_NODE: TUF_RTX_5080_OC</text>
-              </g>
-            </svg>
-          </div>
-
-          <!-- Bottom Control interface inside CAD Blueprint -->
-          <div class="border-t border-slate-800 dark:border-zinc-800 light:border-slate-200 pt-2 flex justify-between items-center text-[9px] font-mono text-slate-500">
-            <div class="flex items-center gap-2">
-              <span class="inline-block w-1.5 h-1.5 bg-cyan-500 rounded-full animate-ping"></span>
-              <span>STATE: <strong id="assembly-progress-label" class="text-cyan-400">STRUCTURAL CHASSIS MOUNTED</strong></span>
-            </div>
-            <div>STENCIL DEPTH OPTIMIZED</div>
-          </div>
-        </div>
-        
-        <!-- Interactive CAD Staged Controls -->
-        <div class="mt-4 flex flex-wrap gap-2 justify-center max-w-lg">
-          <button onclick="setAssemblyStep(1)" class="assembly-step-btn px-2.5 py-1 bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 text-xs font-mono rounded hover:bg-cyan-500/30 transition-all">STAGE 1: CHASSIS</button>
-          <button onclick="setAssemblyStep(2)" class="assembly-step-btn px-2.5 py-1 bg-zinc-900 text-slate-400 border border-zinc-800 text-xs font-mono rounded hover:bg-cyan-500/20 hover:text-cyan-400 transition-all">STAGE 2: BOARD & POWER</button>
-          <button onclick="setAssemblyStep(3)" class="assembly-step-btn px-2.5 py-1 bg-zinc-900 text-slate-400 border border-zinc-800 text-xs font-mono rounded hover:bg-cyan-500/20 hover:text-cyan-400 transition-all">STAGE 3: CORE CPU & RAM</button>
-          <button onclick="setAssemblyStep(4)" class="assembly-step-btn px-2.5 py-1 bg-zinc-900 text-slate-400 border border-zinc-800 text-xs font-mono rounded hover:bg-cyan-500/20 hover:text-cyan-400 transition-all">STAGE 4: HEAVY GPU ACCEL</button>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- DYNAMIC CHRONOLOGY OF COMPONENTS (ENGINEERING DOSSIERS) -->
-  <main class="max-w-7xl mx-auto px-4 py-12 space-y-24">
-
-    <!-- COMPONENT DOSSIER 01: AMD RYZEN 9 9950X3D (CPU) -->
-    <section id="cpu-section" class="scroll-mt-24 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-t border-zinc-800/80 pt-16">
-      <!-- Section Info Marker -->
-      <div class="lg:col-span-3 space-y-4">
-        <div class="text-[11px] font-mono text-cyan-400 font-bold tracking-widest uppercase">SYS.DEV_01.CPU</div>
-        <h2 class="text-3xl font-extrabold tracking-tight">AMD Ryzen 9 9950X3D</h2>
-        <div class="text-xs font-mono text-slate-500 dark:text-slate-500 light:text-slate-400">16 CORES / 32 THREADS / 3D V-CACHE TECHNOLOGY</div>
-        
-        <!-- Purchase dossier -->
-        <div class="bg-zinc-900/50 dark:bg-zinc-900/50 light:bg-slate-100 border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 p-4 rounded-lg space-y-3">
-          <div class="flex justify-between items-center text-xs font-mono">
-            <span>EST. MARKET VALUE:</span>
-            <span class="text-cyan-400 font-bold">$799.00</span>
-          </div>
-          <!-- Amazon affiliate search purchase link -->
-          <a href="https://www.amazon.com/s?k=AMD+Ryzen+9+9950X3D" target="_blank" rel="noopener noreferrer" class="w-full py-2 bg-gradient-to-r from-cyan-500 to-violet-600 hover:from-cyan-400 hover:to-violet-500 text-white text-xs font-mono font-bold tracking-wider text-center block rounded shadow transition-all flex items-center justify-center gap-2">
-            <i data-lucide="shopping-cart" class="w-4 h-4"></i> SECURE ON AMAZON
-          </a>
-        </div>
-      </div>
-
-      <!-- Schematic View & Visual Interactive Simulator -->
-      <div class="lg:col-span-5 border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 rounded-lg p-6 bg-zinc-950/80 dark:bg-zinc-950/80 light:bg-slate-100/50 relative overflow-hidden">
-        <div class="absolute top-2 right-2 flex items-center gap-1.5 px-2 py-0.5 bg-emerald-500/10 text-emerald-400 font-mono text-[9px] rounded-full border border-emerald-500/20">
-          <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-ping"></span> LOGICAL RUN
-        </div>
-        <div class="font-mono text-xs text-slate-500 mb-4">DIAG_01: DIE OVERLAY & HEATMAP SENSOR</div>
-
-        <!-- CPU Heatsink/Die Simulator Grid -->
-        <div class="grid grid-cols-4 gap-2 mb-6">
-          <div class="p-3 border border-zinc-800 dark:border-zinc-800 light:border-slate-200 rounded flex flex-col items-center bg-zinc-900/40 dark:bg-zinc-900/40 light:bg-white/40">
-            <span class="text-[9px] font-mono text-slate-500">CCD-1</span>
-            <span class="text-xs font-mono font-bold text-cyan-400" id="cpu-temp-ccd1">37°C</span>
-          </div>
-          <div class="p-3 border border-emerald-500/30 rounded flex flex-col items-center bg-emerald-500/5">
-            <span class="text-[9px] font-mono text-emerald-400">3D-V-CACHE</span>
-            <span class="text-xs font-mono font-bold text-emerald-400">ENABLED</span>
-          </div>
-          <div class="p-3 border border-zinc-800 dark:border-zinc-800 light:border-slate-200 rounded flex flex-col items-center bg-zinc-900/40 dark:bg-zinc-900/40 light:bg-white/40">
-            <span class="text-[9px] font-mono text-slate-500">CCD-2</span>
-            <span class="text-xs font-mono font-bold text-cyan-400" id="cpu-temp-ccd2">36°C</span>
-          </div>
-          <div class="p-3 border border-zinc-800 dark:border-zinc-800 light:border-slate-200 rounded flex flex-col items-center bg-zinc-900/40 dark:bg-zinc-900/40 light:bg-white/40">
-            <span class="text-[9px] font-mono text-slate-500">IO DIE</span>
-            <span class="text-xs font-mono font-bold text-cyan-400" id="cpu-temp-iod">39°C</span>
-          </div>
-        </div>
-
-        <div class="space-y-3 font-mono text-xs">
-          <div>
-            <div class="flex justify-between mb-1">
-              <span class="text-slate-500">CLOCK CYCLE FREQUENCY (CURRENT WORKLOAD):</span>
-              <span class="text-cyan-400 font-bold" id="cpu-freq-label">5.70 GHz</span>
-            </div>
-            <div class="w-full bg-slate-800 dark:bg-zinc-900 light:bg-slate-200 h-2 rounded overflow-hidden">
-              <div id="cpu-freq-bar" class="bg-cyan-400 h-full w-[95%] transition-all duration-300"></div>
-            </div>
-          </div>
-          <div class="flex justify-between items-center pt-2 text-[11px] text-slate-400">
-            <span>VOLTAGE: <strong class="text-slate-300">1.18 V</strong></span>
-            <span>TDP LIMIT: <strong class="text-slate-300">162W</strong></span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Specs & Technical Checklist -->
-      <div class="lg:col-span-4 space-y-6">
-        <div>
-          <h3 class="font-mono text-sm text-cyan-400 font-bold border-b border-zinc-800 pb-2 mb-3">HARDWARE ARCHITECTURE</h3>
-          <table class="w-full text-xs font-mono space-y-2 text-slate-400 dark:text-slate-400 light:text-slate-600">
-            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Lithography</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">TSMC 4nm FinFET</td></tr>
-            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Core/Thread Count</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">16C / 32T</td></tr>
-            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">3D V-Cache (L3)</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">128MB Stacked</td></tr>
-            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Max Boost Clock</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">Up to 5.7 GHz</td></tr>
-          </table>
-        </div>
-
-        <div>
-          <h3 class="font-mono text-sm text-cyan-400 font-bold border-b border-zinc-800 pb-2 mb-3">CREATOR PERFORMANCE HIGHLIGHT</h3>
-          <p class="text-xs text-slate-400 dark:text-slate-400 light:text-slate-600 leading-relaxed font-mono">
-            Unleashes exceptional responsiveness in complex 3D assembly pipelines. The 3D V-cache provides instantaneous frame-pacing in heavy spatial calculations, cutting compilation and shader bake cycles by half compared to standard silicon designs.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- COMPONENT DOSSIER 02: ASUS ROG CROSSHAIR X870E HERO (MOTHERBOARD) -->
-    <section id="motherboard-section" class="scroll-mt-24 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-t border-zinc-800/80 pt-16">
-      <div class="lg:col-span-3 space-y-4">
-        <div class="text-[11px] font-mono text-cyan-400 font-bold tracking-widest uppercase">SYS.DEV_02.MTHR</div>
-        <h2 class="text-3xl font-extrabold tracking-tight">ASUS ROG Crosshair X870E Hero</h2>
-        <div class="text-xs font-mono text-slate-500 dark:text-slate-500 light:text-slate-400">AM5 SOCKET / PCI-E GEN 5 / USB4 CONNECTIVITY</div>
-        
-        <div class="bg-zinc-900/50 dark:bg-zinc-900/50 light:bg-slate-100 border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 p-4 rounded-lg space-y-3">
-          <div class="flex justify-between items-center text-xs font-mono">
-            <span>EST. MARKET VALUE:</span>
-            <span class="text-cyan-400 font-bold">$699.00</span>
-          </div>
-          <a href="https://www.amazon.com/s?k=ASUS+ROG+Crosshair+X870E+Hero" target="_blank" rel="noopener noreferrer" class="w-full py-2 bg-gradient-to-r from-cyan-500 to-violet-600 hover:from-cyan-400 hover:to-violet-500 text-white text-xs font-mono font-bold tracking-wider text-center block rounded shadow transition-all flex items-center justify-center gap-2">
-            <i data-lucide="shopping-cart" class="w-4 h-4"></i> SECURE ON AMAZON
-          </a>
-        </div>
-      </div>
-
-      <!-- Motherboard Visual Interactive Feature Callout -->
-      <div class="lg:col-span-5 border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 rounded-lg p-6 bg-zinc-950/80 dark:bg-zinc-950/80 light:bg-slate-100/50 relative overflow-hidden">
-        <div class="font-mono text-xs text-slate-500 mb-4">DIAG_02: MULTI-ZONE POWER STAGE TRACING</div>
-        
-        <!-- Interactive PCB Schematics -->
-        <div class="relative w-full aspect-[4/3] border border-zinc-800 dark:border-zinc-800 light:border-slate-200 rounded-md bg-zinc-900/40 dark:bg-zinc-900/40 light:bg-white/40 overflow-hidden p-2 flex flex-col justify-between">
-          <svg class="w-full h-full max-h-[180px]" viewBox="0 0 300 200">
-            <!-- Motherboard tracks -->
-            <path d="M 20 20 L 80 20 L 100 40 L 100 80 L 120 100 L 280 100" stroke="#8b5cf6" stroke-width="0.75" fill="none" class="trace-anim text-violet-500"/>
-            <path d="M 20 180 L 140 180 L 160 160 L 280 160" stroke="#06b6d4" stroke-width="0.75" fill="none" class="trace-anim text-cyan-500"/>
-            <!-- Major hot regions -->
-            <rect x="30" y="30" width="60" height="60" rx="3" fill="#06b6d4" fill-opacity="0.1" stroke="#06b6d4" stroke-width="1"/>
-            <text x="35" y="42" fill="#06b6d4" font-family="monospace" font-size="6">VRM ZONE</text>
-            
-            <rect x="130" y="40" width="80" height="40" rx="3" fill="#8b5cf6" fill-opacity="0.1" stroke="#8b5cf6" stroke-width="1"/>
-            <text x="135" y="52" fill="#8b5cf6" font-family="monospace" font-size="6">AM5 SOCKET</text>
-
-            <rect x="30" y="120" width="240" height="15" rx="2" fill="#10b981" fill-opacity="0.1" stroke="#10b981" stroke-width="1"/>
-            <text x="35" y="130" fill="#10b981" font-family="monospace" font-size="6">PCIE GEN 5 x16 LANE</text>
-          </svg>
-
-          <!-- Hotspot selectors -->
-          <div class="grid grid-cols-3 gap-2 text-[9px] font-mono border-t border-zinc-800 pt-2">
-            <button onclick="highlightMoboZone('vrm')" class="mobo-btn p-1 border border-cyan-500 bg-cyan-500/10 text-cyan-400 rounded text-center">18+2+2 VRM Power</button>
-            <button onclick="highlightMoboZone('wifi')" class="mobo-btn p-1 border border-zinc-800 text-slate-400 rounded text-center">Wi-Fi 7 Accel</button>
-            <button onclick="highlightMoboZone('usb')" class="mobo-btn p-1 border border-zinc-800 text-slate-400 rounded text-center">Dual USB4</button>
-          </div>
-        </div>
-        <div class="mt-3 font-mono text-xs text-slate-400 dark:text-slate-400 light:text-slate-600" id="mobo-zone-desc">
-          <strong>18+2+2 VRM Phases:</strong> Ensures unwavering power delivery and high-frequency efficiency under extreme continuous workstation rendering.
-        </div>
-      </div>
-
-      <!-- Technical Specifications table & Compatibility -->
-      <div class="lg:col-span-4 space-y-6">
-        <div>
-          <h3 class="font-mono text-sm text-cyan-400 font-bold border-b border-zinc-800 pb-2 mb-3">ENGINEERING INTEGRITY</h3>
-          <table class="w-full text-xs font-mono space-y-2 text-slate-400 dark:text-slate-400 light:text-slate-600">
-            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Form Factor</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">ATX Standard</td></tr>
-            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">I/O Network</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">5Gb Ethernet + Wi-Fi 7</td></tr>
-            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Audio Codec</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">ROG SupremeFX ALC4082</td></tr>
-            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">PCI-E Standard</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">Full Gen 5 Capable</td></tr>
-          </table>
-        </div>
-
-        <div>
-          <h3 class="font-mono text-sm text-cyan-400 font-bold border-b border-zinc-800 pb-2 mb-3">COMPATIBILITY & SAFETY SHIELD</h3>
-          <p class="text-xs text-slate-400 dark:text-slate-400 light:text-slate-600 leading-relaxed font-mono">
-            Features standard PCIe SafeSlot technology designed to hold massive modern GPUs securely. Dynamic OC Switcher logic coordinates motherboard voltage offsets seamlessly with the Ryzen Processor to maximize single-thread performance while exporting massive multicore assets.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- COMPONENT DOSSIER 03: ASUS TUF GAMING RTX 5080 OC 16GB (GPU) -->
-    <section id="gpu-section" class="scroll-mt-24 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-t border-zinc-800/80 pt-16">
-      <div class="lg:col-span-3 space-y-4">
-        <div class="text-[11px] font-mono text-cyan-400 font-bold tracking-widest uppercase">SYS.DEV_03.GPU</div>
-        <h2 class="text-3xl font-extrabold tracking-tight">ASUS TUF Gaming RTX 5080 OC</h2>
-        <div class="text-xs font-mono text-slate-500 dark:text-slate-500 light:text-slate-400">16GB GDDR7 / DLSS 4 / NEXT-GEN RAY TRACING ENGINE</div>
-        
-        <div class="bg-zinc-900/50 dark:bg-zinc-900/50 light:bg-slate-100 border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 p-4 rounded-lg space-y-3">
-          <div class="flex justify-between items-center text-xs font-mono">
-            <span>EST. MARKET VALUE:</span>
-            <span class="text-cyan-400 font-bold">$1,199.00</span>
-          </div>
-          <a href="https://www.amazon.com/s?k=ASUS+TUF+Gaming+RTX+5080+OC" target="_blank" rel="noopener noreferrer" class="w-full py-2 bg-gradient-to-r from-cyan-500 to-violet-600 hover:from-cyan-400 hover:to-violet-500 text-white text-xs font-mono font-bold tracking-wider text-center block rounded shadow transition-all flex items-center justify-center gap-2">
-            <i data-lucide="shopping-cart" class="w-4 h-4"></i> SECURE ON AMAZON
-          </a>
-        </div>
-      </div>
-
-      <!-- GPU Showcase Spotlight Interactive Sequence -->
-      <div class="lg:col-span-5 border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 rounded-lg p-6 bg-zinc-950/80 dark:bg-zinc-950/80 light:bg-slate-100/50 relative overflow-hidden">
-        <div class="font-mono text-xs text-slate-500 mb-4">DIAG_03: THERMAL DYNAMICS & ROTOR FLOW</div>
-
-        <!-- Custom animated GPU schematic vector -->
-        <div class="relative w-full aspect-[4/3] border border-zinc-800 dark:border-zinc-800 light:border-slate-200 rounded-md bg-zinc-900/40 dark:bg-zinc-900/40 light:bg-white/40 overflow-hidden p-4 flex flex-col justify-between">
-          <div class="flex justify-between text-[10px] font-mono">
-            <span class="text-emerald-400">CORE STATS: ACTIVE</span>
-            <span class="text-slate-400" id="gpu-fan-rpm-label">FAN SPEED: 1800 RPM</span>
-          </div>
-          
-          <div class="flex justify-around my-4">
-            <!-- Left Rotor Vector -->
-            <svg class="w-16 h-16 text-emerald-400" viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="1.5" stroke-dasharray="5 5" fill="none"/>
-              <g class="fan-spin-fast">
-                <circle cx="50" cy="50" r="8" fill="currentColor"/>
-                <path d="M 50 15 L 50 42 M 50 58 L 50 85 M 15 50 L 42 50 M 58 50 L 85 50" stroke="currentColor" stroke-width="6"/>
-                <path d="M 25 25 L 44 44 M 56 56 L 75 75 M 25 75 L 44 56 M 56 44 L 75 25" stroke="currentColor" stroke-width="6"/>
-              </g>
-            </svg>
-            <!-- Middle Rotor Vector -->
-            <svg class="w-16 h-16 text-emerald-400" viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="1.5" stroke-dasharray="5 5" fill="none"/>
-              <g class="fan-spin-fast">
-                <circle cx="50" cy="50" r="8" fill="currentColor"/>
-                <path d="M 50 15 L 50 42 M 50 58 L 50 85 M 15 50 L 42 50 M 58 50 L 85 50" stroke="currentColor" stroke-width="6"/>
-                <path d="M 25 25 L 44 44 M 56 56 L 75 75 M 25 75 L 44 56 M 56 44 L 75 25" stroke="currentColor" stroke-width="6"/>
-              </g>
-            </svg>
-            <!-- Right Rotor Vector -->
-            <svg class="w-16 h-16 text-emerald-400" viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="1.5" stroke-dasharray="5 5" fill="none"/>
-              <g class="fan-spin-fast">
-                <circle cx="50" cy="50" r="8" fill="currentColor"/>
-                <path d="M 50 15 L 50 42 M 50 58 L 50 85 M 15 50 L 42 50 M 58 50 L 85 50" stroke="currentColor" stroke-width="6"/>
-                <path d="M 25 25 L 44 44 M 56 56 L 75 75 M 25 75 L 44 56 M 56 44 L 75 25" stroke="currentColor" stroke-width="6"/>
-              </g>
-            </svg>
-          </div>
-
-          <!-- Interaction slider to adjust GPU thermal simulation -->
-          <div class="space-y-1">
-            <div class="flex justify-between text-[10px] font-mono text-slate-500">
-              <span>SIMULATED WORKLOAD STRESSOR</span>
-              <span class="text-emerald-400" id="gpu-load-percent">75%</span>
-            </div>
-            <input type="range" min="0" max="100" value="75" oninput="adjustGpuStress(this.value)" class="w-full h-1 bg-slate-800 dark:bg-zinc-800 light:bg-slate-200 accent-emerald-500 rounded-lg appearance-none cursor-pointer">
-          </div>
-        </div>
-      </div>
-
-      <!-- Specs & Engineering Details -->
-      <div class="lg:col-span-4 space-y-6">
-        <div>
-          <h3 class="font-mono text-sm text-cyan-400 font-bold border-b border-zinc-800 pb-2 mb-3">GRAPHICS ARCHITECTURE</h3>
-          <table class="w-full text-xs font-mono space-y-2 text-slate-400 dark:text-slate-400 light:text-slate-600">
-            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Video Memory</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">16GB GDDR7</td></tr>
-            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Memory Bus Width</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">256-bit</td></tr>
-            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">NVIDIA Tensor Cores</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">Next-Gen Ada / Blackwell Hybrid</td></tr>
-            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Physical Interface</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">PCIe 5.0 x16 Native</td></tr>
-          </table>
-        </div>
-
-        <div>
-          <h3 class="font-mono text-sm text-cyan-400 font-bold border-b border-zinc-800 pb-2 mb-3">PRODUCTION ADVANTAGES</h3>
-          <p class="text-xs text-slate-400 dark:text-slate-400 light:text-slate-600 leading-relaxed font-mono">
-            Optimized with massive localized dual-ball fan bearings. Perfect for training micro-LLMs locally, compiling real-time global illumination calculations in Unreal Engine 5, or running multi-layered high-resolution video grading pipelines.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- COMPONENT DOSSIER 04: CORSAIR VENGEANCE DDR5 96GB (RAM) -->
-    <section id="ram-section" class="scroll-mt-24 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-t border-zinc-800/80 pt-16">
-      <div class="lg:col-span-3 space-y-4">
-        <div class="text-[11px] font-mono text-cyan-400 font-bold tracking-widest uppercase">SYS.DEV_04.MEM</div>
-        <h2 class="text-3xl font-extrabold tracking-tight">Corsair Vengeance DDR5 96GB</h2>
-        <div class="text-xs font-mono text-slate-500 dark:text-slate-500 light:text-slate-400">2x48GB MODULES / 6000MHz / CL30 ULTRA-LOW LATENCY</div>
-        
-        <div class="bg-zinc-900/50 dark:bg-zinc-900/50 light:bg-slate-100 border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 p-4 rounded-lg space-y-3">
-          <div class="flex justify-between items-center text-xs font-mono">
-            <span>EST. MARKET VALUE:</span>
-            <span class="text-cyan-400 font-bold">$389.00</span>
-          </div>
-          <a href="https://www.amazon.com/s?k=Corsair+Vengeance+DDR5+96GB+2x48GB+6000MHz" target="_blank" rel="noopener noreferrer" class="w-full py-2 bg-gradient-to-r from-cyan-500 to-violet-600 hover:from-cyan-400 hover:to-violet-500 text-white text-xs font-mono font-bold tracking-wider text-center block rounded shadow transition-all flex items-center justify-center gap-2">
-            <i data-lucide="shopping-cart" class="w-4 h-4"></i> SECURE ON AMAZON
-          </a>
-        </div>
-      </div>
-
-      <!-- RAM Performance Visualization -->
-      <div class="lg:col-span-5 border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 rounded-lg p-6 bg-zinc-950/80 dark:bg-zinc-950/80 light:bg-slate-100/50 relative overflow-hidden">
-        <div class="font-mono text-xs text-slate-500 mb-4">DIAG_04: THROUGHPUT BANDWIDTH & FREQUENCY INDEX</div>
-
-        <!-- Comparative Frequency Chart -->
-        <div class="space-y-4 font-mono text-xs">
-          <!-- Standard DDR4 memory -->
-          <div>
-            <div class="flex justify-between text-[10px] text-slate-500 mb-1">
-              <span>LEGACY DDR4 (3200 MT/s)</span>
-              <span>25.6 GB/s</span>
-            </div>
-            <div class="w-full bg-slate-800 dark:bg-zinc-900 light:bg-slate-200 h-2 rounded">
-              <div class="bg-slate-600 h-full w-[40%]"></div>
-            </div>
-          </div>
-          
-          <!-- Mid range DDR5 memory -->
-          <div>
-            <div class="flex justify-between text-[10px] text-slate-500 mb-1">
-              <span>BASE LINE DDR5 (4800 MT/s)</span>
-              <span>38.4 GB/s</span>
-            </div>
-            <div class="w-full bg-slate-800 dark:bg-zinc-900 light:bg-slate-200 h-2 rounded">
-              <div class="bg-slate-400 h-full w-[60%]"></div>
-            </div>
-          </div>
-
-          <!-- Corsair Vengeance DDR5 6000 -->
-          <div>
-            <div class="flex justify-between text-[10px] text-cyan-400 font-bold mb-1">
-              <span>CORSAIR VENGEANCE DDR5 (6000 MT/s)</span>
-              <span>48.0 GB/s</span>
-            </div>
-            <div class="w-full bg-slate-800 dark:bg-zinc-900 light:bg-slate-200 h-3 rounded overflow-hidden">
-              <div class="bg-gradient-to-r from-cyan-400 to-violet-500 h-full w-[96%]"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="mt-6 border-t border-zinc-800 dark:border-zinc-800 light:border-slate-200 pt-4 flex justify-between items-center text-[10px] font-mono text-slate-400">
-          <div>INTEL XMP & AMD EXPO PROFILE: READY</div>
-          <div class="text-cyan-400">X-SERIES TUNED</div>
-        </div>
-      </div>
-
-      <!-- Specs & Technical Checklist -->
-      <div class="lg:col-span-4 space-y-6">
-        <div>
-          <h3 class="font-mono text-sm text-cyan-400 font-bold border-b border-zinc-800 pb-2 mb-3">MEMORY TOPOLOGY</h3>
-          <table class="w-full text-xs font-mono space-y-2 text-slate-400 dark:text-slate-400 light:text-slate-600">
-            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Structure Size</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">96GB (2 x 48GB Dual Channel)</td></tr>
-            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Latency Config</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">CL30-36-36-76</td></tr>
-            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Operating Voltage</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">1.40V (Overclock profile)</td></tr>
-            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Heatsink Layout</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">Solid Anodized Aluminum</td></tr>
-          </table>
-        </div>
-
-        <div>
-          <h3 class="font-mono text-sm text-cyan-400 font-bold border-b border-zinc-800 pb-2 mb-3">HIGH CAPACITY BENEFITS</h3>
-          <p class="text-xs text-slate-400 dark:text-slate-400 light:text-slate-600 leading-relaxed font-mono">
-            Optimized for large spatial memory workflows. The 96GB structure capacity bypasses typical bottlenecks when working on complex scenes in high-end engines, allowing multiple dense structures to remain loaded without swapping data to local SSD partitions.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- COMPONENT DOSSIER 05: SAMSUNG 9100 PRO 8TB GEN5 SSD -->
-    <section id="ssd-section" class="scroll-mt-24 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-t border-zinc-800/80 pt-16">
-      <div class="lg:col-span-3 space-y-4">
-        <div class="text-[11px] font-mono text-cyan-400 font-bold tracking-widest uppercase">SYS.DEV_05.STRG</div>
-        <h2 class="text-3xl font-extrabold tracking-tight">Samsung 9100 Pro PCIe Gen5</h2>
-        <div class="text-xs font-mono text-slate-500 dark:text-slate-500 light:text-slate-400">8TB CAPACITY / PCIe GEN 5 / EXTREME SPEED CACHING</div>
-        
-        <div class="bg-zinc-900/50 dark:bg-zinc-900/50 light:bg-slate-100 border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 p-4 rounded-lg space-y-3">
-          <div class="flex justify-between items-center text-xs font-mono">
-            <span>EST. MARKET VALUE:</span>
-            <span class="text-cyan-400 font-bold">$1,099.00</span>
-          </div>
-          <a href="https://www.amazon.com/s?k=Samsung+9100+Pro+8TB+PCIe+Gen5+SSD" target="_blank" rel="noopener noreferrer" class="w-full py-2 bg-gradient-to-r from-cyan-500 to-violet-600 hover:from-cyan-400 hover:to-violet-500 text-white text-xs font-mono font-bold tracking-wider text-center block rounded shadow transition-all flex items-center justify-center gap-2">
-            <i data-lucide="shopping-cart" class="w-4 h-4"></i> SECURE ON AMAZON
-          </a>
-        </div>
-      </div>
-
-      <!-- SSD Transfer Animation Widget -->
-      <div class="lg:col-span-5 border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 rounded-lg p-6 bg-zinc-950/80 dark:bg-zinc-950/80 light:bg-slate-100/50 relative overflow-hidden">
-        <div class="font-mono text-xs text-slate-500 mb-4">DIAG_05: REAL-TIME SECURE THROUGHPUT TESTER</div>
-
-        <!-- Custom animated storage interface -->
-        <div class="relative w-full aspect-[4/3] border border-zinc-800 dark:border-zinc-800 light:border-slate-200 rounded-md bg-zinc-900/40 dark:bg-zinc-900/40 light:bg-white/40 overflow-hidden p-4 flex flex-col justify-between">
-          <div class="flex justify-between text-[10px] font-mono">
-            <span>CONTROLLER TEMP: <strong class="text-cyan-400">42°C</strong></span>
-            <span class="text-cyan-400 font-bold" id="ssd-read-rate-label">READ SPEED: 14,200 MB/s</span>
-          </div>
-
-          <!-- Storage cell block layout -->
-          <div class="grid grid-cols-10 gap-1.5 my-4">
-            <div class="h-4 bg-cyan-500/20 rounded-sm animate-pulse"></div>
-            <div class="h-4 bg-cyan-500/40 rounded-sm"></div>
-            <div class="h-4 bg-cyan-500/60 rounded-sm animate-pulse"></div>
-            <div class="h-4 bg-cyan-500/30 rounded-sm"></div>
-            <div class="h-4 bg-cyan-500/80 rounded-sm"></div>
-            <div class="h-4 bg-zinc-800 rounded-sm"></div>
-            <div class="h-4 bg-zinc-800 rounded-sm"></div>
-            <div class="h-4 bg-zinc-800 rounded-sm"></div>
-            <div class="h-4 bg-zinc-800 rounded-sm"></div>
-            <div class="h-4 bg-zinc-800 rounded-sm"></div>
-          </div>
-
-          <div class="space-y-1">
-            <div class="flex justify-between text-[9px] font-mono text-slate-500">
-              <span>PCIe GEN 5 x4 LANE UTILIZATION</span>
-              <span>100% BANDWIDTH</span>
-            </div>
-            <!-- Animated data speed tracks -->
-            <svg class="w-full h-4" viewBox="0 0 100 10">
-              <line x1="0" y1="5" x2="100" y2="5" stroke="#06b6d4" stroke-width="2" class="data-flow text-cyan-400"/>
-            </svg>
-          </div>
-        </div>
-      </div>
-
-      <!-- Specs & Technical Checklist -->
-      <div class="lg:col-span-4 space-y-6">
-        <div>
-          <h3 class="font-mono text-sm text-cyan-400 font-bold border-b border-zinc-800 pb-2 mb-3">NAND CONFIGURATION</h3>
-          <table class="w-full text-xs font-mono space-y-2 text-slate-400 dark:text-slate-400 light:text-slate-600">
-            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Interface Speed</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">Up to 14,500 MB/s Read</td></tr>
-            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Writing Rate</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">Up to 12,000 MB/s Write</td></tr>
-            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Flash Microcell</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">V-NAND v8 3D-stacked</td></tr>
-            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Physical Size</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">M.2 2280 Layout</td></tr>
-          </table>
-        </div>
-
-        <div>
-          <h3 class="font-mono text-sm text-cyan-400 font-bold border-b border-zinc-800 pb-2 mb-3">CREATION CACHING</h3>
-          <p class="text-xs text-slate-400 dark:text-slate-400 light:text-slate-600 leading-relaxed font-mono">
-            Eliminates traditional workspace loading lags. Capable of playing back uncompressed 8K RAW video timelines seamlessly without dropped frames, and ensures fast boot times when loading virtualized sandbox systems.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- COMPONENT DOSSIER 06: SAMSUNG ODYSSEY OLED G9 49" (MONITOR) -->
-    <section id="monitor-section" class="scroll-mt-24 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start border-t border-zinc-800/80 pt-16">
-      <div class="lg:col-span-3 space-y-4">
-        <div class="text-[11px] font-mono text-cyan-400 font-bold tracking-widest uppercase">SYS.DEV_06.DISP</div>
-        <h2 class="text-3xl font-extrabold tracking-tight">Samsung Odyssey OLED G9</h2>
-        <div class="text-xs font-mono text-slate-500 dark:text-slate-500 light:text-slate-400">49-INCH ULTRA-WIDE Curved Monitor / 240Hz / 1800R CURVATURE</div>
-        
-        <div class="bg-zinc-900/50 dark:bg-zinc-900/50 light:bg-slate-100 border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 p-4 rounded-lg space-y-3">
-          <div class="flex justify-between items-center text-xs font-mono">
-            <span>EST. MARKET VALUE:</span>
-            <span class="text-cyan-400 font-bold">$1,299.00</span>
-          </div>
-          <a href="https://www.amazon.com/s?k=Samsung+Odyssey+OLED+G9+49-inch+monitor" target="_blank" rel="noopener noreferrer" class="w-full py-2 bg-gradient-to-r from-cyan-500 to-violet-600 hover:from-cyan-400 hover:to-violet-500 text-white text-xs font-mono font-bold tracking-wider text-center block rounded shadow transition-all flex items-center justify-center gap-2">
-            <i data-lucide="shopping-cart" class="w-4 h-4"></i> SECURE ON AMAZON
-          </a>
-        </div>
-      </div>
-
-      <!-- Monitor Visualization Canvas -->
-      <div class="lg:col-span-5 border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 rounded-lg p-6 bg-zinc-950/80 dark:bg-zinc-950/80 light:bg-slate-100/50 relative overflow-hidden">
-        <div class="font-mono text-xs text-slate-500 mb-4">DIAG_06: 1800R FIELD OF VIEW GEOMETRY</div>
-
-        <div class="relative w-full aspect-[16/9] border border-zinc-800 dark:border-zinc-800 light:border-slate-200 rounded-md bg-zinc-900/40 dark:bg-zinc-900/40 light:bg-white/40 overflow-hidden flex flex-col justify-between p-4">
-          <!-- Top specs -->
-          <div class="flex justify-between text-[10px] font-mono text-cyan-400">
-            <span>5120 x 1440 DUAL QHD</span>
-            <span>240Hz REFRESH RATE</span>
-          </div>
-
-          <!-- Beautiful Vector showing Monitor Curvature -->
-          <div class="flex-grow flex items-center justify-center">
-            <svg class="w-full max-w-[280px]" viewBox="0 0 200 100">
-              <!-- Grid background -->
-              <path d="M 0 50 Q 100 80 200 50" stroke="#1e293b" stroke-width="6" fill="none"/>
-              <!-- Screen curve -->
-              <path d="M 10 40 Q 100 70 190 40" stroke="#06b6d4" stroke-width="4" fill="none" class="trace-anim text-cyan-400"/>
-              <!-- Stand representation -->
-              <path d="M 100 60 L 100 90 M 80 90 L 120 90" stroke="#64748b" stroke-width="3" fill="none"/>
-              <!-- Display field of view angles -->
-              <line x1="100" y1="90" x2="10" y2="40" stroke="#3b82f6" stroke-width="0.5" stroke-dasharray="2 2"/>
-              <line x1="100" y1="90" x2="190" y2="40" stroke="#3b82f6" stroke-width="0.5" stroke-dasharray="2 2"/>
-              <text x="100" y="82" fill="#3b82f6" font-family="monospace" font-size="6" text-anchor="middle">SWEET SPOT</text>
-            </svg>
-          </div>
-
-          <!-- Sweet spot target -->
-          <div class="text-[9px] font-mono text-slate-500 text-center">
-            0.03ms RESPONSE TIME // OLED SELF-LIT PIXELS
-          </div>
-        </div>
-      </div>
-
-      <!-- Specs & Technical Details -->
-      <div class="lg:col-span-4 space-y-6">
-        <div>
-          <h3 class="font-mono text-sm text-cyan-400 font-bold border-b border-zinc-800 pb-2 mb-3">PANEL SPECIFICATION</h3>
-          <table class="w-full text-xs font-mono space-y-2 text-slate-400 dark:text-slate-400 light:text-slate-600">
-            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Aspect Ratio</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">32:9 Ultra-Wide</td></tr>
-            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Color Spectrum</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">99% DCI-P3 Space</td></tr>
-            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Max Luminosity</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">Peak 1000 nits (HDR)</td></tr>
-            <tr class="border-b border-zinc-900 py-1"><td class="py-1.5 text-slate-500">Dynamic Range</td><td class="text-right text-slate-200 dark:text-slate-200 light:text-slate-800">VESA DisplayHDR True Black 400</td></tr>
-          </table>
-        </div>
-
-        <div>
-          <h3 class="font-mono text-sm text-cyan-400 font-bold border-b border-zinc-800 pb-2 mb-3">PANORAMIC WORKSPACE</h3>
-          <p class="text-xs text-slate-400 dark:text-slate-400 light:text-slate-600 leading-relaxed font-mono">
-            Offers a wide horizontal canvas equivalent to two adjacent 16:9 displays. Enables seamless multi-tasking without central bezels, allowing your timeline, asset vault, and workspace to reside cleanly in a single, fluid view.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- COMPONENT DOSSIER 07: EXISTING / CORE INFRASTRUCTURE (PSU, COOLING & CASE) -->
-    <section id="infrastructure-section" class="scroll-mt-24 border-t border-zinc-800/80 pt-16">
-      <div class="mb-12">
-        <div class="text-[11px] font-mono text-cyan-400 font-bold tracking-widest uppercase">SYS.DEV_INFRA.CORE</div>
-        <h2 class="text-3xl font-extrabold tracking-tight">Core Infrastructure Dossier</h2>
-        <p class="text-sm text-slate-400 dark:text-slate-400 light:text-slate-600 font-mono mt-2">Integrating pre-existing elements into the high-performance system configuration.</p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        
-        <!-- CARD 1: ASUS ROG Thor 1200W PSU -->
-        <div class="border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 rounded-lg p-6 bg-zinc-950/80 dark:bg-zinc-950/80 light:bg-slate-100/50 flex flex-col justify-between space-y-6">
-          <div class="space-y-2">
-            <div class="text-[10px] font-mono text-amber-500">POWER DIVISION // EXISTING</div>
-            <h3 class="text-xl font-bold">ASUS ROG Thor 1200W II</h3>
-            <p class="text-xs text-slate-400 dark:text-slate-400 light:text-slate-600 font-mono">80 PLUS Platinum certified, complete with localized OLED voltage diagnostics tracking real-time load shifts.</p>
-          </div>
-
-          <!-- Dynamic Wattage simulation display -->
-          <div class="bg-zinc-900/60 p-4 rounded border border-zinc-800 font-mono space-y-2">
-            <div class="flex justify-between items-center text-[10px] text-slate-500">
-              <span>LIVE CURRENT OUTPUT</span>
-              <span class="text-amber-400 animate-pulse">OLED SIM</span>
-            </div>
-            <div class="text-3xl font-bold text-amber-400 flex items-baseline">
-              <span id="psu-watt-val">1084</span><span class="text-xs text-slate-500 ml-1">W</span>
-            </div>
-            <div class="w-full bg-slate-800 h-1.5 rounded overflow-hidden">
-              <div id="psu-load-bar" class="bg-amber-400 h-full w-[90%]"></div>
-            </div>
-          </div>
-
-          <a href="https://www.amazon.com/s?k=ASUS+ROG+Thor+1200W+PSU" target="_blank" rel="noopener noreferrer" class="py-2 border border-amber-500/30 hover:border-amber-500 text-amber-500 hover:bg-amber-500/10 text-xs font-mono font-bold tracking-wider text-center block rounded transition-all">
-            VIEW ON AMAZON
-          </a>
-        </div>
-
-        <!-- CARD 2: NZXT Kraken Elite 420 AIO -->
-        <div class="border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 rounded-lg p-6 bg-zinc-950/80 dark:bg-zinc-950/80 light:bg-slate-100/50 flex flex-col justify-between space-y-6">
-          <div class="space-y-2">
-            <div class="text-[10px] font-mono text-cyan-400">THERMAL DIVISION // EXISTING</div>
-            <h3 class="text-xl font-bold">NZXT Kraken Elite 420</h3>
-            <p class="text-xs text-slate-400 dark:text-slate-400 light:text-slate-600 font-mono">High-capacity 420mm liquid cooling radiator equipped with 3x140mm fans and an customizable LCD block tracking critical temperatures.</p>
-          </div>
-
-          <!-- Custom fan speed RPM visual simulator -->
-          <div class="bg-zinc-900/60 p-4 rounded border border-zinc-800 font-mono space-y-2">
-            <div class="flex justify-between items-center text-[10px] text-slate-500">
-              <span>COOLANT TEMPERATURE</span>
-              <span class="text-cyan-400">LCD SYNC</span>
-            </div>
-            <div class="text-3xl font-bold text-cyan-400 flex items-baseline">
-              <span>32.8</span><span class="text-xs text-slate-500 ml-1">°C</span>
-            </div>
-            <div class="text-[10px] text-slate-500 flex justify-between">
-              <span>PUMP STATE: <strong class="text-emerald-400">2800 RPM</strong></span>
-              <span>FLOWRATE: <strong class="text-slate-300">OPTIMAL</strong></span>
-            </div>
-          </div>
-
-          <a href="https://www.amazon.com/s?k=NZXT+Kraken+Elite+420+AIO" target="_blank" rel="noopener noreferrer" class="py-2 border border-cyan-500/30 hover:border-cyan-500 text-cyan-500 hover:bg-cyan-500/10 text-xs font-mono font-bold tracking-wider text-center block rounded transition-all">
-            VIEW ON AMAZON
-          </a>
-        </div>
-
-        <!-- CARD 3: ASUS ROG Helios Chassis -->
-        <div class="border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 rounded-lg p-6 bg-zinc-950/80 dark:bg-zinc-950/80 light:bg-slate-100/50 flex flex-col justify-between space-y-6">
-          <div class="space-y-2">
-            <div class="text-[10px] font-mono text-violet-400">STRUCTURAL DIVISION // EXISTING</div>
-            <h3 class="text-xl font-bold">ASUS ROG Strix Helios</h3>
-            <p class="text-xs text-slate-400 dark:text-slate-400 light:text-slate-600 font-mono">Premium mid-tower chassis crafted with brushed-aluminum styling, three tempered-glass side panels, and integrated fabric handles.</p>
-          </div>
-
-          <!-- Airflow diagram telemetry outline -->
-          <div class="bg-zinc-900/60 p-4 rounded border border-zinc-800 font-mono space-y-2">
-            <div class="flex justify-between items-center text-[10px] text-slate-500">
-              <span>CHASSIS PRESSURE STATE</span>
-              <span class="text-emerald-400">STABLE</span>
-            </div>
-            <div class="text-sm text-slate-300 flex flex-col gap-1">
-              <div class="flex justify-between text-xs"><span>Front Intake:</span> <span class="text-cyan-400">ACTIVE (3x140mm)</span></div>
-              <div class="flex justify-between text-xs"><span>Top Exhaust:</span> <span class="text-violet-400">ACTIVE (3x140mm)</span></div>
-              <div class="flex justify-between text-xs"><span>Rear Exhaust:</span> <span class="text-violet-400">ACTIVE (1x140mm)</span></div>
-            </div>
-          </div>
-
-          <a href="https://www.amazon.com/s?k=ASUS+ROG+Helios+chassis" target="_blank" rel="noopener noreferrer" class="py-2 border border-violet-500/30 hover:border-violet-500 text-violet-500 hover:bg-violet-500/10 text-xs font-mono font-bold tracking-wider text-center block rounded transition-all">
-            VIEW ON AMAZON
-          </a>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- LIVE COMPUTATIONAL TELEMETRY & WORKSPACE BENCHMARKS -->
-    <section id="telemetry" class="scroll-mt-24 border-t border-zinc-800/80 pt-16 space-y-8">
-      <div class="text-center max-w-2xl mx-auto space-y-2">
-        <div class="text-[11px] font-mono text-cyan-400 font-bold tracking-widest uppercase">LABORATORY ANALYSIS</div>
-        <h2 class="text-3xl font-extrabold tracking-tight">Dynamic Telemetry Engine</h2>
-        <p class="text-sm text-slate-400 dark:text-slate-400 light:text-slate-600 font-mono">
-          Select a computational simulation to route workloads across vector lines, tracking real-time telemetry shifts and temperature fluctuations.
-        </p>
-      </div>
-
-      <!-- Simulator Selector Buttons -->
-      <div class="flex flex-wrap justify-center gap-3">
-        <button onclick="runBenchmark('idle')" class="bench-btn px-4 py-2 font-mono text-xs border border-zinc-800 bg-zinc-900/50 hover:bg-cyan-500/10 hover:text-cyan-400 text-slate-400 rounded transition-all">SYS_IDLE_CYCLE</button>
-        <button onclick="runBenchmark('blender')" class="bench-btn px-4 py-2 font-mono text-xs border border-zinc-800 bg-zinc-900/50 hover:bg-cyan-500/10 hover:text-cyan-400 text-slate-400 rounded transition-all">BLENDER_3D_CYCLES</button>
-        <button onclick="runBenchmark('ue5')" class="bench-btn px-4 py-2 font-mono text-xs border border-zinc-800 bg-zinc-900/50 hover:bg-cyan-500/10 hover:text-cyan-400 text-slate-400 rounded transition-all">UNREAL_ENGINE_5_NANITE_BAKE</button>
-        <button onclick="runBenchmark('ai')" class="bench-btn px-4 py-2 font-mono text-xs border border-zinc-800 bg-zinc-900/50 hover:bg-cyan-500/10 hover:text-cyan-400 text-slate-400 rounded transition-all">STABLE_DIFFUSION_LOCAL_TRAIN</button>
-      </div>
-
-      <!-- Real-time Active Telemetry Grid Display -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        
-        <!-- TELEMETRY NODE 1: CPU Temperature -->
-        <div class="border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 rounded-lg p-5 bg-zinc-950/80 dark:bg-zinc-950/80 light:bg-slate-100/50 font-mono space-y-3">
-          <div class="text-[10px] text-slate-500">THERMAL_ZONE // CPU</div>
-          <div class="flex justify-between items-baseline">
-            <span class="text-3xl font-bold text-cyan-400" id="tele-cpu-temp">38.4</span><span class="text-sm text-slate-500">°C</span>
-          </div>
-          <div class="w-full bg-slate-800 h-1.5 rounded overflow-hidden">
-            <div id="tele-cpu-temp-bar" class="bg-cyan-400 h-full w-[40%] transition-all duration-500"></div>
-          </div>
-          <div class="text-[9px] text-slate-500 flex justify-between">
-            <span>9950X3D DIE INDEX</span>
-            <span id="tele-cpu-state">STABLE // LIQUID COOLING ACCEL</span>
-          </div>
-        </div>
-
-        <!-- TELEMETRY NODE 2: GPU Active Core Clock -->
-        <div class="border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 rounded-lg p-5 bg-zinc-950/80 dark:bg-zinc-950/80 light:bg-slate-100/50 font-mono space-y-3">
-          <div class="text-[10px] text-slate-500">CLOCK_SPEED // TUF_RTX_5080</div>
-          <div class="flex justify-between items-baseline">
-            <span class="text-3xl font-bold text-emerald-400" id="tele-gpu-clock">2200</span><span class="text-sm text-slate-500">MHz</span>
-          </div>
-          <div class="w-full bg-slate-800 h-1.5 rounded overflow-hidden">
-            <div id="tele-gpu-clock-bar" class="bg-emerald-400 h-full w-[55%] transition-all duration-500"></div>
-          </div>
-          <div class="text-[9px] text-slate-500 flex justify-between">
-            <span>NVIDIA BLACKWELL CHIP</span>
-            <span id="tele-gpu-state">CLOCK STATE STABLE</span>
-          </div>
-        </div>
-
-        <!-- TELEMETRY NODE 3: Memory Swapping Buffer -->
-        <div class="border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 rounded-lg p-5 bg-zinc-950/80 dark:bg-zinc-950/80 light:bg-slate-100/50 font-mono space-y-3">
-          <div class="text-[10px] text-slate-500">MEMORY_CAPACITY // 96GB</div>
-          <div class="flex justify-between items-baseline">
-            <span class="text-3xl font-bold text-violet-400" id="tele-ram-used">18.4</span><span class="text-sm text-slate-500">GB</span>
-          </div>
-          <div class="w-full bg-slate-800 h-1.5 rounded overflow-hidden">
-            <div id="tele-ram-bar" class="bg-violet-400 h-full w-[20%] transition-all duration-500"></div>
-          </div>
-          <div class="text-[9px] text-slate-500 flex justify-between">
-            <span>VENGEANCE 6000MT/s</span>
-            <span id="tele-ram-percent">19% UTILIZED</span>
-          </div>
-        </div>
-
-        <!-- TELEMETRY NODE 4: System Total Power Flow -->
-        <div class="border border-slate-800/80 dark:border-zinc-800/80 light:border-slate-200 rounded-lg p-5 bg-zinc-950/80 dark:bg-zinc-950/80 light:bg-slate-100/50 font-mono space-y-3">
-          <div class="text-[10px] text-slate-500">POWER_BUDGET // 1200W</div>
-          <div class="flex justify-between items-baseline">
-            <span class="text-3xl font-bold text-amber-400" id="tele-pwr-draw">245</span><span class="text-sm text-slate-500">W</span>
-          </div>
-          <div class="w-full bg-slate-800 h-1.5 rounded overflow-hidden">
-            <div id="tele-pwr-bar" class="bg-amber-400 h-full w-[25%] transition-all duration-500"></div>
-          </div>
-          <div class="text-[9px] text-slate-500 flex justify-between">
-            <span>THOR II PLATINUM EFFICIENCY</span>
-            <span id="tele-pwr-eff">92% EFFICIENCY LOAD CURVE</span>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-  </main>
-
-  <!-- MASTER SYSTEM BUILD MANIFEST TABLE -->
-  <section class="max-w-7xl mx-auto px-4 py-12 border-t border-zinc-800/80">
-    <div class="mb-8 font-mono">
-      <h2 class="text-2xl font-bold">System Manifest Document</h2>
-      <p class="text-xs text-slate-500 mt-1">RAW RECAP SHEET // TECHNICAL VERIFICATION</p>
-    </div>
-
-    <div class="overflow-x-auto">
-      <table class="w-full text-left font-mono text-xs border-collapse">
-        <thead>
-          <tr class="border-b border-zinc-800 text-slate-500 uppercase tracking-wider">
-            <th class="py-3 px-4">Component Node</th>
-            <th class="py-3 px-4">Core Model Descriptor</th>
-            <th class="py-3 px-4">State</th>
-            <th class="py-3 px-4 text-right">Est. Unit Price</th>
-            <th class="py-3 px-4 text-center">Amazon Link</th>
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-zinc-900/60 text-slate-400 dark:text-slate-400 light:text-slate-700">
-          <tr>
-            <td class="py-3.5 px-4 text-cyan-400 font-bold">SYS.DEV_01.CPU</td>
-            <td class="py-3.5 px-4 text-slate-200 dark:text-slate-200 light:text-slate-900">AMD Ryzen 9 9950X3D</td>
-            <td class="py-3.5 px-4 text-emerald-400">IN TRANSIT</td>
-            <td class="py-3.5 px-4 text-right text-slate-300 dark:text-slate-300 light:text-slate-800">$799.00</td>
-            <td class="py-3.5 px-4 text-center"><a href="https://www.amazon.com/s?k=AMD+Ryzen+9+9950X3D" target="_blank" class="text-cyan-400 hover:underline">VISIT <i data-lucide="external-link" class="inline w-3 h-3"></i></a></td>
-          </tr>
-          <tr>
-            <td class="py-3.5 px-4 text-cyan-400 font-bold">SYS.DEV_02.MTHR</td>
-            <td class="py-3.5 px-4 text-slate-200 dark:text-slate-200 light:text-slate-900">ASUS ROG Crosshair X870E Hero</td>
-            <td class="py-3.5 px-4 text-emerald-400">IN TRANSIT</td>
-            <td class="py-3.5 px-4 text-right text-slate-300 dark:text-slate-300 light:text-slate-800">$699.00</td>
-            <td class="py-3.5 px-4 text-center"><a href="https://www.amazon.com/s?k=ASUS+ROG+Crosshair+X870E+Hero" target="_blank" class="text-cyan-400 hover:underline">VISIT <i data-lucide="external-link" class="inline w-3 h-3"></i></a></td>
-          </tr>
-          <tr>
-            <td class="py-3.5 px-4 text-cyan-400 font-bold">SYS.DEV_03.GPU</td>
-            <td class="py-3.5 px-4 text-slate-200 dark:text-slate-200 light:text-slate-900">ASUS TUF Gaming RTX 5080 OC 16GB</td>
-            <td class="py-3.5 px-4 text-emerald-400">IN TRANSIT</td>
-            <td class="py-3.5 px-4 text-right text-slate-300 dark:text-slate-300 light:text-slate-800">$1,199.00</td>
-            <td class="py-3.5 px-4 text-center"><a href="https://www.amazon.com/s?k=ASUS+TUF+Gaming+RTX+5080+OC" target="_blank" class="text-cyan-400 hover:underline">VISIT <i data-lucide="external-link" class="inline w-3 h-3"></i></a></td>
-          </tr>
-          <tr>
-            <td class="py-3.5 px-4 text-cyan-400 font-bold">SYS.DEV_04.MEM</td>
-            <td class="py-3.5 px-4 text-slate-200 dark:text-slate-200 light:text-slate-900">Corsair Vengeance DDR5 96GB (2x48GB)</td>
-            <td class="py-3.5 px-4 text-emerald-400">IN TRANSIT</td>
-            <td class="py-3.5 px-4 text-right text-slate-300 dark:text-slate-300 light:text-slate-800">$389.00</td>
-            <td class="py-3.5 px-4 text-center"><a href="https://www.amazon.com/s?k=Corsair+Vengeance+DDR5+96GB+2x48GB+6000MHz" target="_blank" class="text-cyan-400 hover:underline">VISIT <i data-lucide="external-link" class="inline w-3 h-3"></i></a></td>
-          </tr>
-          <tr>
-            <td class="py-3.5 px-4 text-cyan-400 font-bold">SYS.DEV_05.STRG</td>
-            <td class="py-3.5 px-4 text-slate-200 dark:text-slate-200 light:text-slate-900">Samsung 9100 Pro 8TB Gen5 SSD</td>
-            <td class="py-3.5 px-4 text-emerald-400">IN TRANSIT</td>
-            <td class="py-3.5 px-4 text-right text-slate-300 dark:text-slate-300 light:text-slate-800">$1,099.00</td>
-            <td class="py-3.5 px-4 text-center"><a href="https://www.amazon.com/s?k=Samsung+9100+Pro+8TB+PCIe+Gen5+SSD" target="_blank" class="text-cyan-400 hover:underline">VISIT <i data-lucide="external-link" class="inline w-3 h-3"></i></a></td>
-          </tr>
-          <tr>
-            <td class="py-3.5 px-4 text-cyan-400 font-bold">SYS.DEV_06.DISP</td>
-            <td class="py-3.5 px-4 text-slate-200 dark:text-slate-200 light:text-slate-900">Samsung Odyssey OLED G9 49-inch</td>
-            <td class="py-3.5 px-4 text-emerald-400">IN TRANSIT</td>
-            <td class="py-3.5 px-4 text-right text-slate-300 dark:text-slate-300 light:text-slate-800">$1,299.00</td>
-            <td class="py-3.5 px-4 text-center"><a href="https://www.amazon.com/s?k=Samsung+Odyssey+OLED+G9+49-inch+monitor" target="_blank" class="text-cyan-400 hover:underline">VISIT <i data-lucide="external-link" class="inline w-3 h-3"></i></a></td>
-          </tr>
-          <tr>
-            <td class="py-3.5 px-4 text-slate-500 font-bold">SYS.DEV_INFRA.01</td>
-            <td class="py-3.5 px-4 text-slate-200 dark:text-slate-200 light:text-slate-900">ASUS ROG Thor 1200W PSU</td>
-            <td class="py-3.5 px-4 text-slate-500">EXISTING</td>
-            <td class="py-3.5 px-4 text-right text-slate-300 dark:text-slate-300 light:text-slate-800">$359.00</td>
-            <td class="py-3.5 px-4 text-center"><a href="https://www.amazon.com/s?k=ASUS+ROG+Thor+1200W+PSU" target="_blank" class="text-cyan-400 hover:underline">VISIT <i data-lucide="external-link" class="inline w-3 h-3"></i></a></td>
-          </tr>
-          <tr>
-            <td class="py-3.5 px-4 text-slate-500 font-bold">SYS.DEV_INFRA.02</td>
-            <td class="py-3.5 px-4 text-slate-200 dark:text-slate-200 light:text-slate-900">NZXT Kraken Elite 420 AIO</td>
-            <td class="py-3.5 px-4 text-slate-500">EXISTING</td>
-            <td class="py-3.5 px-4 text-right text-slate-300 dark:text-slate-300 light:text-slate-800">$299.00</td>
-            <td class="py-3.5 px-4 text-center"><a href="https://www.amazon.com/s?k=NZXT+Kraken+Elite+420+AIO" target="_blank" class="text-cyan-400 hover:underline">VISIT <i data-lucide="external-link" class="inline w-3 h-3"></i></a></td>
-          </tr>
-          <tr>
-            <td class="py-3.5 px-4 text-slate-500 font-bold">SYS.DEV_INFRA.03</td>
-            <td class="py-3.5 px-4 text-slate-200 dark:text-slate-200 light:text-slate-900">ASUS ROG Helios Chassis</td>
-            <td class="py-3.5 px-4 text-slate-500">EXISTING</td>
-            <td class="py-3.5 px-4 text-right text-slate-300 dark:text-slate-300 light:text-slate-800">$349.00</td>
-            <td class="py-3.5 px-4 text-center"><a href="https://www.amazon.com/s?k=ASUS+ROG+Helios+chassis" target="_blank" class="text-cyan-400 hover:underline">VISIT <i data-lucide="external-link" class="inline w-3 h-3"></i></a></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- MASTER SYSTEM FOOTER / INTELLECTUAL DOSSIER SIGN OFF -->
-  <footer class="border-t border-zinc-800 bg-zinc-950 dark:bg-zinc-950 light:bg-slate-100 py-12 px-4">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-      <div class="space-y-1 font-mono text-center md:text-left">
-        <div class="text-sm font-bold tracking-wider text-slate-300 dark:text-slate-300 light:text-slate-800">X-SERIES COMPUTE SPECIFICATIONS</div>
-        <div class="text-xs text-slate-500">CONFIDENTIAL // INTERNAL ENGINEERING MANIFEST v4.81</div>
-      </div>
-      <div class="text-[10px] font-mono text-slate-500 text-center md:text-right">
-        All hardware properties are simulated calculations based on manufacturer technical documentation drafts. <br>
-        Developed for high-fidelity interactive visualization. All links query actual market vendors directly.
-      </div>
-    </div>
-  </footer>
-
-  <!-- MODERN VANILLA JAVASCRIPT LOGIC -->
-  <script>
-    // Initialize Lucide vector symbol icons
-    lucide.createIcons();
-
-    // SYSTEM METRICS & PERFORMANCE VALUE INTERPOLATION CODES
-    function animateCounters() {
-      const duration = 2000; // 2 seconds
-      const steps = 60;
-      const stepDuration = duration / steps;
-      
-      let currentStep = 0;
-      
-      const wsTarget = 98;
-      const aiTarget = 144;
-      const ueTarget = 96;
-      
-      const interval = setInterval(() => {
-        currentStep++;
-        const progress = currentStep / steps;
-        
-        // Easing multiplier
-        const ease = 1 - Math.pow(1 - progress, 3);
-        
-        document.getElementById('stat-ws').innerText = Math.round(wsTarget * ease);
-        document.getElementById('stat-ai').innerText = Math.round(aiTarget * ease);
-        document.getElementById('stat-ue').innerText = Math.round(ueTarget * ease);
-        
-        if (currentStep >= steps) {
-          clearInterval(interval);
-        }
-      }, stepDuration);
-    }
-
-    // Trigger metrics counter interpolation on initial mount
-    document.addEventListener("DOMContentLoaded", () => {
-      animateCounters();
-    });
-
-    // ASSEMBLY CONTROLLER SIMULATION LOGIC
-    function setAssemblyStep(step) {
-      const chassis = document.getElementById('layer-chassis');
-      const psu = document.getElementById('layer-psu');
-      const mobo = document.getElementById('layer-motherboard');
-      const cpu = document.getElementById('layer-cpu');
-      const cooling = document.getElementById('layer-cooling');
-      const gpu = document.getElementById('layer-gpu');
-      const progressLabel = document.getElementById('assembly-progress-label');
-      
-      // Reset classes & elements
-      const buttons = document.querySelectorAll('.assembly-step-btn');
-      buttons.forEach(btn => {
-        btn.classList.remove('bg-cyan-500/20', 'text-cyan-400', 'border-cyan-500/30');
-        btn.classList.add('bg-zinc-900', 'text-slate-400', 'border-zinc-800');
-      });
-      
-      // Update targeted active button state styling
-      buttons[step - 1].classList.remove('bg-zinc-900', 'text-slate-400', 'border-zinc-800');
-      buttons[step - 1].add('bg-cyan-500/20', 'text-cyan-400', 'border-cyan-500/30');
-
-      if (step === 1) {
-        chassis.setAttribute('opacity', '0.6');
-        psu.setAttribute('opacity', '0.2');
-        psu.setAttribute('transform', 'translateY(40px)');
-        mobo.setAttribute('opacity', '0.1');
-        cpu.setAttribute('opacity', '0');
-        cooling.setAttribute('opacity', '0');
-        gpu.setAttribute('opacity', '0');
-        progressLabel.innerText = "CHASSIS CORE STRUCTURAL LAYER ALIGNED";
-      } else if (step === 2) {
-        chassis.setAttribute('opacity', '0.4');
-        psu.setAttribute('opacity', '0.9');
-        psu.setAttribute('transform', 'translateY(0)');
-        mobo.setAttribute('opacity', '0.8');
-        mobo.setAttribute('transform', 'translateY(0)');
-        cpu.setAttribute('opacity', '0');
-        cooling.setAttribute('opacity', '0');
-        gpu.setAttribute('opacity', '0');
-        progressLabel.innerText = "ROG MOTHERBOARD & THOR ATX CURRENT PIPES CONNECTED";
-      } else if (step === 3) {
-        chassis.setAttribute('opacity', '0.2');
-        psu.setAttribute('opacity', '0.8');
-        mobo.setAttribute('opacity', '0.9');
-        cpu.setAttribute('opacity', '1');
-        cpu.setAttribute('transform', 'scale(1)');
-        cooling.setAttribute('opacity', '1');
-        cooling.setAttribute('transform', 'translateY(0)');
-        gpu.setAttribute('opacity', '0');
-        progressLabel.innerText = "AMD SILICON MOUNTED & LIQUID PIPES ROUTED";
-      } else if (step === 4) {
-        chassis.setAttribute('opacity', '0.15');
-        psu.setAttribute('opacity', '0.8');
-        mobo.setAttribute('opacity', '0.8');
-        cpu.setAttribute('opacity', '0.9');
-        cooling.setAttribute('opacity', '0.9');
-        gpu.setAttribute('opacity', '1');
-        gpu.setAttribute('transform', 'translateX(0)');
-        progressLabel.innerText = "NVIDIA RTX VECTOR MATRIX PIPELINE ASSEMBLED";
-      }
-    }
-
-    // SCROLL TRIGGERS SYSTEM ASSEMBLER FLOW
-    window.addEventListener('scroll', () => {
-      const scrollTop = window.scrollY;
-      const height = document.body.scrollHeight - window.innerHeight;
-      const scrollPercent = scrollTop / height;
-      
-      // Map scroll state progress to assembly phases organically
-      if (scrollPercent < 0.15) {
-        setAssemblyStep(1);
-      } else if (scrollPercent >= 0.15 && scrollPercent < 0.35) {
-        setAssemblyStep(2);
-      } else if (scrollPercent >= 0.35 && scrollPercent < 0.55) {
-        setAssemblyStep(3);
-      } else if (scrollPercent >= 0.55) {
-        setAssemblyStep(4);
-      }
-    });
-
-    // SYSTEM THEME MANAGEMENT CODES (PRESERVES THEMES PRECISELY)
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    const htmlElement = document.documentElement;
-
-    themeToggleBtn.addEventListener('click', () => {
-      if (htmlElement.classList.contains('dark')) {
-        htmlElement.classList.remove('dark');
-        htmlElement.classList.add('light');
-        localStorage.setItem('theme', 'light');
-      } else {
-        htmlElement.classList.remove('light');
-        htmlElement.classList.add('dark');
-        localStorage.setItem('theme', 'dark');
-      }
-    });
-
-    // SYSTEM VRM INTENSITY AND MOTHERBOARD SCHEMATIC ROUTING
-    function highlightMoboZone(zone) {
-      const descEl = document.getElementById('mobo-zone-desc');
-      const buttons = document.querySelectorAll('.mobo-btn');
-      
-      buttons.forEach(btn => {
-        btn.classList.remove('border-cyan-500', 'bg-cyan-500/10', 'text-cyan-400');
-        btn.classList.add('border-zinc-800', 'text-slate-400');
-      });
-
-      if (zone === 'vrm') {
-        descEl.innerHTML = "<strong>18+2+2 VRM Phases:</strong> Ensures unwavering power delivery and high-frequency efficiency under extreme continuous workstation rendering.";
-        event.currentTarget.classList.add('border-cyan-500', 'bg-cyan-500/10', 'text-cyan-400');
-      } else if (zone === 'wifi') {
-        descEl.innerHTML = "<strong>Wi-Fi 7 Accel:</strong> Features high bandwidth multi-link channels for rapid data transmission with local workstation render clusters.";
-        event.currentTarget.classList.add('border-cyan-500', 'bg-cyan-500/10', 'text-cyan-400');
-      } else if (zone === 'usb') {
-        descEl.innerHTML = "<strong>Dual USB4 Ports:</strong> Support up to 40Gbps symmetrical speed per line, delivering high-speed interface routing for mass storage.";
-        event.currentTarget.classList.add('border-cyan-500', 'bg-cyan-500/10', 'text-cyan-400');
-      }
-    }
-
-    // WORKLOAD TELEMETRY SIMULATOR RUNNERS
-    function runBenchmark(mode) {
-      const cpuTemp = document.getElementById('tele-cpu-temp');
-      const cpuTempBar = document.getElementById('tele-cpu-temp-bar');
-      const cpuState = document.getElementById('tele-cpu-state');
-      
-      const gpuClock = document.getElementById('tele-gpu-clock');
-      const gpuClockBar = document.getElementById('tele-gpu-clock-bar');
-      const gpuState = document.getElementById('tele-gpu-state');
-      
-      const ramUsed = document.getElementById('tele-ram-used');
-      const ramBar = document.getElementById('tele-ram-bar');
-      const ramPercent = document.getElementById('tele-ram-percent');
-      
-      const pwrDraw = document.getElementById('tele-pwr-draw');
-      const pwrBar = document.getElementById('tele-pwr-bar');
-      const pwrEff = document.getElementById('tele-pwr-eff');
-      
-      const hudPower = document.getElementById('hud-power');
-      const hudThermal = document.getElementById('hud-thermal');
-
-      const psuWattVal = document.getElementById('psu-watt-val');
-      const psuLoadBar = document.getElementById('psu-load-bar');
-
-      if (mode === 'idle') {
-        cpuTemp.innerText = "34.2";
-        cpuTempBar.style.width = "25%";
-        cpuState.innerText = "SYS_IDLE // COLD CORE LOGIC";
-        
-        gpuClock.innerText = "500";
-        gpuClockBar.style.width = "10%";
-        gpuState.innerText = "RTX IDLE STATE";
-        
-        ramUsed.innerText = "8.2";
-        ramBar.style.width = "8%";
-        ramPercent.innerText = "8.5% BUFFER LOADED";
-        
-        pwrDraw.innerText = "120";
-        pwrBar.style.width = "10%";
-        pwrEff.innerText = "94.5% EFFICIENCY RATIO";
-
-        hudPower.innerText = "120 W";
-        hudThermal.innerText = "34.2 °C";
-        psuWattVal.innerText = "120";
-        psuLoadBar.style.width = "10%";
-      }
-      else if (mode === 'blender') {
-        cpuTemp.innerText = "78.4";
-        cpuTempBar.style.width = "82%";
-        cpuState.innerText = "100% THR_LOAD // CYCLES ACCEL ON";
-        
-        gpuClock.innerText = "2420";
-        gpuClockBar.style.width = "85%";
-        gpuState.innerText = "CUDA ENGINE RENDERING GRID";
-        
-        ramUsed.innerText = "64.8";
-        ramBar.style.width = "68%";
-        ramPercent.innerText = "68% ASSET BUFFER STAGE";
-        
-        pwrDraw.innerText = "840";
-        pwrBar.style.width = "70%";
-        pwrEff.innerText = "91% PLATINUM HIGH-LOAD DRAW";
-
-        hudPower.innerText = "840 W";
-        hudThermal.innerText = "78.4 °C";
-        psuWattVal.innerText = "840";
-        psuLoadBar.style.width = "70%";
-      }
-      else if (mode === 'ue5') {
-        cpuTemp.innerText = "68.1";
-        cpuTempBar.style.width = "68%";
-        cpuState.innerText = "SHADER CORE TRACE COMPILATION active";
-        
-        gpuClock.innerText = "2550";
-        gpuClockBar.style.width = "95%";
-        gpuState.innerText = "DIRECTX 12 ULTIMATE // RT ACTIVE";
-        
-        ramUsed.innerText = "84.2";
-        ramBar.style.width = "88%";
-        ramPercent.innerText = "88% CACHE STACKED FOR HIGH-FIDELITY";
-        
-        pwrDraw.innerText = "920";
-        pwrBar.style.width = "78%";
-        pwrEff.innerText = "90.2% DYNAMIC SPIKE RESERVE";
-
-        hudPower.innerText = "920 W";
-        hudThermal.innerText = "68.1 °C";
-        psuWattVal.innerText = "920";
-        psuLoadBar.style.width = "78%";
-      }
-      else if (mode === 'ai') {
-        cpuTemp.innerText = "52.4";
-        cpuTempBar.style.width = "48%";
-        cpuState.innerText = "PYTORCH STAGE DATA LOAD PROCESS";
-        
-        gpuClock.innerText = "2610";
-        gpuClockBar.style.width = "100%";
-        gpuState.innerText = "FP8 TENSOR CORES RUNNING COMPUTE";
-        
-        ramUsed.innerText = "42.5";
-        ramBar.style.width = "44%";
-        ramPercent.innerText = "44% IN-MEMORY VECTOR STORE";
-        
-        pwrDraw.innerText = "1084";
-        pwrBar.style.width = "90%";
-        pwrEff.innerText = "89.4% MAX COMPUTE SATURATION";
-
-        hudPower.innerText = "1084 W";
-        hudThermal.innerText = "52.4 °C";
-        psuWattVal.innerText = "1084";
-        psuLoadBar.style.width = "90%";
-      }
-    }
-
-    // ADJUST GPU COMPUTE LOAD FROM RANGE SLIDER
-    function adjustGpuStress(value) {
-      document.getElementById('gpu-load-percent').innerText = value + "%";
-      const fanSpeedLabel = document.getElementById('gpu-fan-rpm-label');
-      const rpm = Math.round(500 + (value / 100) * 1900);
-      fanSpeedLabel.innerText = "FAN SPEED: " + rpm + " RPM";
-    }
-
-    // TIMED HEAT SENSOR RANDOM VARIATION FOR DOCUMENTATION LIFE
-    setInterval(() => {
-      const ccd1 = Math.round(35 + Math.random() * 4);
-      const ccd2 = Math.round(34 + Math.random() * 4);
-      const iod = Math.round(38 + Math.random() * 3);
-      
-      const ccd1El = document.getElementById('cpu-temp-ccd1');
-      const ccd2El = document.getElementById('cpu-temp-ccd2');
-      const iodEl = document.getElementById('cpu-temp-iod');
-      
-      if(ccd1El) ccd1El.innerText = ccd1 + "°C";
-      if(ccd2El) ccd2El.innerText = ccd2 + "°C";
-      if(iodEl) iodEl.innerText = iod + "°C";
-    }, 4000);
-
-  </script>
-</body>
-</html>
-
-```
