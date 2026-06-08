@@ -2838,6 +2838,23 @@ footer {
   font-weight: 700;
   display: block;
 }
+
+@keyframes fanSpin360 {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+[data-theme="light"] #live-hud {
+  background: rgba(240,244,248,0.97);
+  border-bottom-color: rgba(0,100,180,0.15);
+}
+
+@media (max-width: 640px) {
+  #live-hud .hud-bench-btn { display: none; }
+  #live-hud { flex-direction: column; gap: 4px; padding: 6px 16px; font-size: 9px; }
+  #blueprint-cad > div > div { grid-template-columns: 1fr !important; }
+  #telemetry > div[style*="grid-template-columns:repeat(4"] { grid-template-columns: repeat(2,1fr) !important; }
+}
 </style>
 </head>
 <body>
@@ -2857,35 +2874,42 @@ footer {
 
 <!-- ===== QUICK NAV DOTS ===== -->
 <nav id="quick-nav" aria-label="Section quick navigation">
-  <div class="quick-nav-dot" data-target="hero"       data-label="Top"></div>
-  <div class="quick-nav-dot" data-target="cpu"        data-label="CPU"></div>
-  <div class="quick-nav-dot" data-target="mobo"       data-label="Mobo"></div>
-  <div class="quick-nav-dot" data-target="gpu"        data-label="GPU"></div>
-  <div class="quick-nav-dot" data-target="ram"        data-label="RAM"></div>
-  <div class="quick-nav-dot" data-target="ssd"        data-label="SSD"></div>
-  <div class="quick-nav-dot" data-target="monitor"    data-label="Display"></div>
-  <div class="quick-nav-dot" data-target="case"       data-label="Case"></div>
-  <div class="quick-nav-dot" data-target="psu"        data-label="PSU"></div>
-  <div class="quick-nav-dot" data-target="cooler"     data-label="Cooler"></div>
-  <div class="quick-nav-dot" data-target="benchmarks" data-label="Bench"></div>
-  <div class="quick-nav-dot" data-target="power"      data-label="Power"></div>
-  <div class="quick-nav-dot" data-target="summary"    data-label="Summary"></div>
+  <div class="quick-nav-dot" data-target="hero"          data-label="Top"></div>
+  <div class="quick-nav-dot" data-target="blueprint-cad" data-label="Blueprint"></div>
+  <div class="quick-nav-dot" data-target="cpu"           data-label="CPU"></div>
+  <div class="quick-nav-dot" data-target="mobo"          data-label="Mobo"></div>
+  <div class="quick-nav-dot" data-target="gpu"           data-label="GPU"></div>
+  <div class="quick-nav-dot" data-target="ram"           data-label="RAM"></div>
+  <div class="quick-nav-dot" data-target="ssd"           data-label="SSD"></div>
+  <div class="quick-nav-dot" data-target="monitor"       data-label="Display"></div>
+  <div class="quick-nav-dot" data-target="case"          data-label="Case"></div>
+  <div class="quick-nav-dot" data-target="psu"           data-label="PSU"></div>
+  <div class="quick-nav-dot" data-target="cooler"        data-label="Cooler"></div>
+  <div class="quick-nav-dot" data-target="benchmarks"    data-label="Bench"></div>
+  <div class="quick-nav-dot" data-target="power"         data-label="Power"></div>
+  <div class="quick-nav-dot" data-target="telemetry"     data-label="Telemetry"></div>
+  <div class="quick-nav-dot" data-target="manifest"      data-label="Manifest"></div>
+  <div class="quick-nav-dot" data-target="summary"       data-label="Summary"></div>
 </nav>
 
 <!-- ===== MOBILE MENU ===== -->
 <div id="mobile-menu">
-  <a href="#cpu"        onclick="closeMobileMenu()">01 // CPU</a>
-  <a href="#mobo"       onclick="closeMobileMenu()">02 // Motherboard</a>
-  <a href="#gpu"        onclick="closeMobileMenu()">03 // GPU</a>
-  <a href="#ram"        onclick="closeMobileMenu()">04 // RAM</a>
-  <a href="#ssd"        onclick="closeMobileMenu()">05 // SSD</a>
-  <a href="#monitor"    onclick="closeMobileMenu()">06 // Display</a>
-  <a href="#case"       onclick="closeMobileMenu()">07 // Case</a>
-  <a href="#psu"        onclick="closeMobileMenu()">08 // PSU</a>
-  <a href="#cooler"     onclick="closeMobileMenu()">09 // Cooler</a>
-  <a href="#benchmarks" onclick="closeMobileMenu()">Benchmarks</a>
-  <a href="#power"      onclick="closeMobileMenu()">Power Budget</a>
-  <a href="#summary"    onclick="closeMobileMenu()">Build Summary</a>
+  <a href="#blueprint-cad" onclick="closeMobileMenu()">00 // Blueprint CAD</a>
+  <a href="#cpu"           onclick="closeMobileMenu()">01 // CPU</a>
+  <a href="#mobo"          onclick="closeMobileMenu()">02 // Motherboard</a>
+  <a href="#gpu"           onclick="closeMobileMenu()">03 // GPU</a>
+  <a href="#ram"           onclick="closeMobileMenu()">04 // RAM</a>
+  <a href="#ssd"           onclick="closeMobileMenu()">05 // SSD</a>
+  <a href="#monitor"       onclick="closeMobileMenu()">06 // Display</a>
+  <a href="#case"          onclick="closeMobileMenu()">07 // Case</a>
+  <a href="#psu"           onclick="closeMobileMenu()">08 // PSU</a>
+  <a href="#cooler"        onclick="closeMobileMenu()">09 // Cooler</a>
+  <a href="#benchmarks"    onclick="closeMobileMenu()">Benchmarks</a>
+  <a href="#power"         onclick="closeMobileMenu()">Power Budget</a>
+  <a href="#telemetry"     onclick="closeMobileMenu()">Live Telemetry</a>
+  <a href="#manifest"      onclick="closeMobileMenu()">System Manifest</a>
+  <a href="#assembly"      onclick="closeMobileMenu()">Assembly Guide</a>
+  <a href="#summary"       onclick="closeMobileMenu()">Build Summary</a>
 </div>
 
 <!-- ===== PARTICLES ===== -->
@@ -3317,6 +3341,42 @@ footer {
           <div class="spec-item"><span class="spec-key">Socket</span><span class="spec-val">AMD AM5</span></div>
         </div>
 
+        <!-- CPU Die Live Temperature Grid -->
+        <div style="background:var(--glass2);border:1px solid var(--border2);border-radius:8px;padding:12px 14px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.12em;color:var(--text3);text-transform:uppercase;margin-bottom:10px;">Live Die Sensor Map</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;">
+            <div style="padding:10px 8px;border:1px solid rgba(0,229,255,0.2);border-radius:6px;background:rgba(0,229,255,0.04);text-align:center;">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--text3);margin-bottom:4px;">CCD-0</div>
+              <div id="cpu-die-ccd0" style="font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:700;color:var(--col-cyan);">36°C</div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:7px;color:rgba(0,255,159,0.7);margin-top:2px;">3D V-CACHE</div>
+            </div>
+            <div style="padding:10px 8px;border:1px solid rgba(0,229,255,0.15);border-radius:6px;background:rgba(0,229,255,0.02);text-align:center;">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--text3);margin-bottom:4px;">CCD-1</div>
+              <div id="cpu-die-ccd1" style="font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:700;color:var(--col-cyan);">38°C</div>
+            </div>
+            <div style="padding:10px 8px;border:1px solid rgba(155,81,224,0.2);border-radius:6px;background:rgba(155,81,224,0.04);text-align:center;">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--text3);margin-bottom:4px;">IO Die</div>
+              <div id="cpu-die-iod" style="font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:700;color:var(--col-purple);">40°C</div>
+            </div>
+            <div style="padding:10px 8px;border:1px solid rgba(245,166,35,0.2);border-radius:6px;background:rgba(245,166,35,0.04);text-align:center;">
+              <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--text3);margin-bottom:4px;">Socket</div>
+              <div id="cpu-die-sock" style="font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:700;color:var(--col-gold);">34°C</div>
+            </div>
+          </div>
+          <div style="margin-top:10px;display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--text3);">BOOST FREQ</div>
+              <div id="cpu-die-freq" style="font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;color:var(--accent);">5.70 GHz</div>
+            </div>
+            <div style="flex:1;margin:0 12px;">
+              <div style="height:4px;background:var(--surface2);border-radius:2px;overflow:hidden;">
+                <div id="cpu-die-freq-bar" style="height:100%;width:95%;background:linear-gradient(90deg,var(--col-cyan),var(--col-purple));border-radius:2px;transition:width .5s ease;"></div>
+              </div>
+            </div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--text3);text-align:right;">TDP<br><span style="color:var(--text);font-size:11px;font-weight:700;">162W</span></div>
+          </div>
+        </div>
+
         <div class="usecase-row">
           <span class="usecase-pill pill-render">Blender Cycles</span>
           <span class="usecase-pill pill-ai">AI Inference</span>
@@ -3375,73 +3435,4 @@ footer {
             <div class="comp-price-note">Current market pricing</div>
           </div>
           <a href="https://www.amazon.com/ASUS-ROG-X870E-Motherboard-Overclocking/dp/B0DDZSP2BG" target="_blank" rel="noopener" class="btn-amazon">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.23 10.56V10c-1.94 0-3.99.37-3.99 2.67 0 1.15.6 1.93 1.62 1.93.75 0 1.41-.46 1.83-1.22.52-.93.54-1.8.54-2.82zM20.96 17.4c-.1.09-.27.1-.39.03C20 16.97 19.09 16.28 17.88 15c-1.18 1.21-2.02 1.97-3.14 2.38-.87.31-1.83.48-2.87.48-2.4 0-4.28-1.57-4.28-3.94 0-2.72 1.9-4.09 4.64-4.58 1.38-.26 3.26-.5 3.26-2.08 0-1.67-1.17-2.12-2.39-2.12-1.28 0-2.5.52-2.5 2.12 0 .2-.22.43-.44.43h-2.27c-.24 0-.44-.18-.44-.42 0-3.19 2.8-4.63 5.91-4.63 1.54 0 3.41.42 4.52 1.39C19.26 5.69 19.58 7.02 19.58 8.38v4.08c0 1.11.47 1.58.94 2.1.15.17.18.38-.03.53l-1.53 1.31zm2.04-1.95C22.5 14.9 22 14.3 22 13.47V8.38c0-2-.52-3.57-1.59-4.62C19.3 2.74 17.42 2 14.69 2c-2.64 0-5.48.9-7.19 2.98-.36.44-.39.99-.08 1.38l1.52 1.86c.37.45.97.49 1.38.06C11.27 7.14 12.68 6.4 14.3 6.4c1.46 0 2.62.69 2.62 2.3v.66c-1.19.5-2.79.79-3.96 1-2.98.54-6.19 1.94-6.19 5.44 0 3.18 2.5 5.19 5.45 5.19 1.62 0 3.01-.41 4.15-1.13 1.24 1.12 1.67 1.41 2.58 2.03.47.31 1.02.21 1.37-.19l1.7-1.49c.37-.31.44-.86.08-1.17l-.1-.08z"/></svg>
-            Buy on Amazon
-          </a>
-        </div>
-
-        <div class="specs-grid">
-          <div class="spec-item"><span class="spec-key">Chipset</span><span class="spec-val">AMD X870E</span></div>
-          <div class="spec-item"><span class="spec-key">Form Factor</span><span class="spec-val">ATX</span></div>
-          <div class="spec-item"><span class="spec-key">Power Stages</span><span class="spec-val">18+2+2 (110A)</span></div>
-          <div class="spec-item"><span class="spec-key">M.2 Slots</span><span class="spec-val">5× (3× PCIe 5.0)</span></div>
-          <div class="spec-item"><span class="spec-key">Memory</span><span class="spec-val">DDR5, AEMP/EXPO</span></div>
-          <div class="spec-item"><span class="spec-key">Connectivity</span><span class="spec-val">Wi-Fi 7, USB4®</span></div>
-        </div>
-
-        <!-- Mobo Feature Callouts -->
-        <div class="mobo-features">
-          <div class="mobo-feat"><div class="mobo-feat-dot"></div><span class="mobo-feat-label">AI OC — Optimizes clocks via NPU</span></div>
-          <div class="mobo-feat"><div class="mobo-feat-dot"></div><span class="mobo-feat-label">PCIe 5.0 x16 SafeSlot</span></div>
-          <div class="mobo-feat"><div class="mobo-feat-dot"></div><span class="mobo-feat-label">3× PCIe 5.0 M.2 NVMe</span></div>
-          <div class="mobo-feat"><div class="mobo-feat-dot"></div><span class="mobo-feat-label">Wi-Fi 7 + BT 5.4 onboard</span></div>
-          <div class="mobo-feat"><div class="mobo-feat-dot"></div><span class="mobo-feat-label">USB4® 40Gbps rear I/O</span></div>
-          <div class="mobo-feat"><div class="mobo-feat-dot"></div><span class="mobo-feat-label">Polymo II ARGB lighting</span></div>
-          <div class="mobo-feat"><div class="mobo-feat-dot"></div><span class="mobo-feat-label">BIOS FlashBack™ — no CPU needed</span></div>
-          <div class="mobo-feat"><div class="mobo-feat-dot"></div><span class="mobo-feat-label">2.5GbE + 10GbE LAN dual-port</span></div>
-        </div>
-
-        <div class="usecase-row">
-          <span class="usecase-pill pill-render">AI Overclocking</span>
-          <span class="usecase-pill pill-3d">PCIe 5.0</span>
-          <span class="usecase-pill pill-video">Wi-Fi 7</span>
-          <span class="usecase-pill pill-ai">Core Flex OC</span>
-        </div>
-
-        <div class="compat-note">
-          <span class="compat-icon">✓</span>
-          <p>AM5 socket — direct CPU fit with Ryzen 9 9950X3D. Supports 420mm AIO radiators (NZXT Kraken Elite 420 compatible). ATX form factor fits ASUS ROG Strix Helios GX601.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- connector -->
-<div class="section-connector" aria-hidden="true">
-  <svg viewBox="0 0 1400 60" preserveAspectRatio="none"><line class="connector-line" x1="700" y1="0" x2="700" y2="60"/><circle cx="700" cy="30" r="4" fill="var(--col-purple)" opacity="0.3"/></svg>
-</div>
-
-<!-- ====================================================
-     COMPONENT 03 — GPU
-===================================================== -->
-<section class="component-section" id="gpu">
-  <div class="section-wrapper">
-    <div class="section-header reveal">
-      <div>
-        <span class="section-num">03 // GRAPHICS</span>
-        <h2 class="section-title">Visual Processing Unit</h2>
-      </div>
-      <div class="section-line"></div>
-    </div>
-
-    <div class="component-grid">
-      <div class="comp-image-panel reveal-left">
-        <div class="comp-image-glow"></div>
-        <span class="comp-type-badge badge-gpu">GPU</span>
-        <span class="badge-new">Blackwell</span>
-        <img
-          class="comp-product-img"
-          src="https://m.media-amazon.com/images/I/81+zYt7gjBL._AC_SL1500_.jpg"
-          alt="ASUS TUF Gaming RTX 5080 OC 16GB"
-          
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.23 10.56V10c-1.94 0-3.99.37-3.99 2.67 0 1.15.6 1.93 1.62 1.93.75 0 1.41-.46 1.83-1.22.52-.93.54-1.8.54-2.82zM20.96 17.4c-.1.09-.27.1-.39.03C20 16.97 19.09 16.28 17.88 1
